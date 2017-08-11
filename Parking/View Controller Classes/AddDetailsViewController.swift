@@ -32,11 +32,11 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     @IBOutlet var btnSave:UIButton!
     
     @IBOutlet var lblPrice:UILabel!
-//    @IBOutlet var lblNumberOfSpace:UILabel!
+    //    @IBOutlet var lblNumberOfSpace:UILabel!
     
     @IBOutlet var myPicker: UIPickerView!
     
-//    let pickerDataNumberOfSpace = ["1", "2", "3", "4"]
+    //    let pickerDataNumberOfSpace = ["1", "2", "3", "4"]
     let pickerDataHPrice = ["1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12","13", "14", "15", "16","17", "18", "19", "20"]
     
     var selectedNumberOfSpace:String! = "1"
@@ -76,7 +76,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         
-//        lblNumberOfSpace.text = String.init(format: "Number of spaces to rent %@", selectedNumberOfSpace);
+        //        lblNumberOfSpace.text = String.init(format: "Number of spaces to rent %@", selectedNumberOfSpace);
         lblPrice.text = String.init(format: "Price per hour per space $%@", selectedPrice);
         
         
@@ -201,7 +201,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             
             
             
-//            lblNumberOfSpace.text = String.init(format: "Number of spaces to rent %@", dictTemp.value(forKey: "NumberOfSpace") as! String);
+            //            lblNumberOfSpace.text = String.init(format: "Number of spaces to rent %@", dictTemp.value(forKey: "NumberOfSpace") as! String);
             lblPrice.text = String.init(format: "Price per hour per space $%@", dictTemp.value(forKey: "PricePerSpace") as! String);
         }
         
@@ -404,7 +404,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             let lat = value?["lat"] as? Double
             let long = value?["long"] as? Double
             //let user = User.init(username: username)
-//            print(value)
+            //            print(value)
             
             
             
@@ -587,8 +587,8 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                     }
                 }
             }
-//            self.endDatePickerView.minimumDate = self.startDatePickerView.date
-//                        self.startTime = dateFormatter.string(from: self.startDatePickerView.date)
+            //            self.endDatePickerView.minimumDate = self.startDatePickerView.date
+            //                        self.startTime = dateFormatter.string(from: self.startDatePickerView.date)
             
             
         })
@@ -601,17 +601,17 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         startDatePickerView = UIDatePicker()
         
         startDatePickerView.datePickerMode = UIDatePickerMode.time
-//        let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
-//        let date = self.getStringFromDate(strDate: self.dateSelected)
-//        let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
-//        if let strStartTime = (dictTemp.object(forKey: "EndTime")) as? String
-//        {
-//            let str = strStartTime
-//            if let minimum = getTime(strDate: str)
-//            {
-//                startDatePickerView.maximumDate = minimum
-//            }
-//        }
+        //        let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        //        let date = self.getStringFromDate(strDate: self.dateSelected)
+        //        let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
+        //        if let strStartTime = (dictTemp.object(forKey: "EndTime")) as? String
+        //        {
+        //            let str = strStartTime
+        //            if let minimum = getTime(strDate: str)
+        //            {
+        //                startDatePickerView.maximumDate = minimum
+        //            }
+        //        }
         
         //sender.inputView = datePickerView
         // datePickerView.addTarget(self, action: #selector(ViewController.datePickerValueChanged), forControlEvents: UIControlEvents.ValueChanged)
@@ -683,7 +683,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                                     if self.checkOverlapTime(startDate, endTime: endDate, startTime2: tempDateTimeStart, endTime2: tempDateTimeEnd)
                                     {
                                         dictTemp.setValue("00:00", forKey: "EndTime")
-//                                        self.tblList.reloadData()
+                                        //                                        self.tblList.reloadData()
                                         btn.setTitle("00:00", for: .normal)
                                         self.showSpace(title: "Toast", description: "Rent out time overlapped.", spaceOptions: [.spacePosition(position: .bot)
                                             ])
@@ -696,7 +696,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 }
             }
             
-//                        self.endTime = dateFormatter.string(from: self.endDatePickerView.date)
+            //                        self.endTime = dateFormatter.string(from: self.endDatePickerView.date)
             
             
         })
@@ -709,20 +709,20 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         endDatePickerView = UIDatePicker()
         
         endDatePickerView.datePickerMode = UIDatePickerMode.time
-//        let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
-////        let date = self.getStringFromDate(strDate: self.dateSelected)
-//        let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
-//        if let strStartTime = (dictTemp.object(forKey: "StartTime")) as? String
-//        {
-//             let str = strStartTime
-//            if let minimum = getTime(strDate: str)
-//            {
-//                
-//                endDatePickerView.minimumDate = minimum
-//            }
-//        }
-//        
-//        endDatePickerView.minimumDate = startDatePickerView.date
+        //        let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        ////        let date = self.getStringFromDate(strDate: self.dateSelected)
+        //        let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
+        //        if let strStartTime = (dictTemp.object(forKey: "StartTime")) as? String
+        //        {
+        //             let str = strStartTime
+        //            if let minimum = getTime(strDate: str)
+        //            {
+        //
+        //                endDatePickerView.minimumDate = minimum
+        //            }
+        //        }
+        //
+        //        endDatePickerView.minimumDate = startDatePickerView.date
         
         //sender.inputView = datePickerView
         
@@ -739,70 +739,70 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     
     
     
-//    @IBAction func SelectHours(sender: AnyObject)
-//    {
-//        
-//        self.view.endEditing(true)
-//        
-//        
-//        
-//        let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
-//        let defaultAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.cancel, handler: {(action:UIAlertAction) in
-//            
-//            
-//            /*if(self.selectedDropDown<self.pickerData.count)
-//             {
-//             print("selected value after done \(self.pickerData[self.selectedDropDown])")
-//             self.txtDropDown.text=self.pickerData[self.selectedDropDown]
-//             }*/
-//            
-//        })
-//        alertController.addAction(defaultAction)
-//        
-//        
-//        
-//        
-//        
-//        myPicker=UIPickerView()
-//        myPicker.frame=CGRect(x:0, y:0, width:alertController.view.frame.size.width-20, height:250)
-//        
-//        self.myPicker.delegate=self
-//        self.myPicker.tag = 10
-//        
-//        alertController.view.addSubview(self.myPicker)
-//        present(alertController, animated: true, completion: nil)
-//        
-//        
-//        
-//        
-//        /*  [alertController addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-//         // Called when user taps outside
-//         
-//         
-//         if (sortIndex<arrDoctor.count)
-//         {
-//         Doctor *objDoctor=arrDoctor[sortIndex];
-//         txtMedicalDoctor.text= [NSString stringWithFormat:@"%@ %@", objDoctor.firstName, objDoctor.lastName];
-//         txtTelephone.text=objDoctor.phone;
-//         }
-//         
-//         
-//         
-//         }]];
-//         
-//         /* UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-//         action:@selector(closeAlert)];
-//         [alertController.view.superview addGestureRecognizer:tapGestureRecognizer];*/
-//         
-//         
-//         
-//         UIPopoverPresentationController *popoverController = alertController.popoverPresentationController;
-//         popoverController.sourceView = sender;
-//         popoverController.sourceRect = [sender bounds];
-//         
-//         
-//         [self presentViewController:alertController  animated:YES completion:nil];*/
-//    }
+    //    @IBAction func SelectHours(sender: AnyObject)
+    //    {
+    //
+    //        self.view.endEditing(true)
+    //
+    //
+    //
+    //        let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
+    //        let defaultAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.cancel, handler: {(action:UIAlertAction) in
+    //
+    //
+    //            /*if(self.selectedDropDown<self.pickerData.count)
+    //             {
+    //             print("selected value after done \(self.pickerData[self.selectedDropDown])")
+    //             self.txtDropDown.text=self.pickerData[self.selectedDropDown]
+    //             }*/
+    //
+    //        })
+    //        alertController.addAction(defaultAction)
+    //
+    //
+    //
+    //
+    //
+    //        myPicker=UIPickerView()
+    //        myPicker.frame=CGRect(x:0, y:0, width:alertController.view.frame.size.width-20, height:250)
+    //
+    //        self.myPicker.delegate=self
+    //        self.myPicker.tag = 10
+    //
+    //        alertController.view.addSubview(self.myPicker)
+    //        present(alertController, animated: true, completion: nil)
+    //
+    //
+    //
+    //
+    //        /*  [alertController addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    //         // Called when user taps outside
+    //
+    //
+    //         if (sortIndex<arrDoctor.count)
+    //         {
+    //         Doctor *objDoctor=arrDoctor[sortIndex];
+    //         txtMedicalDoctor.text= [NSString stringWithFormat:@"%@ %@", objDoctor.firstName, objDoctor.lastName];
+    //         txtTelephone.text=objDoctor.phone;
+    //         }
+    //
+    //
+    //
+    //         }]];
+    //
+    //         /* UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+    //         action:@selector(closeAlert)];
+    //         [alertController.view.superview addGestureRecognizer:tapGestureRecognizer];*/
+    //
+    //
+    //
+    //         UIPopoverPresentationController *popoverController = alertController.popoverPresentationController;
+    //         popoverController.sourceView = sender;
+    //         popoverController.sourceRect = [sender bounds];
+    //
+    //
+    //         [self presentViewController:alertController  animated:YES completion:nil];*/
+    //    }
     
     
     
@@ -998,8 +998,20 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         
-        
-        
+        if let _ = dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as? NSMutableDictionary
+        {
+            if let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
+            {
+                if arrInterval.count > 0
+                {
+                    let indexPath = IndexPath(row: arrInterval.count - 1, section: (dictMainData.allKeys as NSArray).index(of: getStringFromDate(strDate: dateSelected)))
+                    tblList.beginUpdates()
+                    tblList.scrollToRow(at: indexPath, at: UITableViewScrollPosition.none, animated: true)
+                    tblList.endUpdates()
+                    
+                }
+            }
+        }
         
         UIView.transition(with: mydayview, duration: 0.3, options: UIViewAnimationOptions(rawValue: 0), animations: {
             mydayview.circleView.transform = CGAffineTransform.identity
@@ -1021,24 +1033,32 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     
     
     // MARK: - table view Delegates
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return dictMainData.allKeys.count
+    }
+    
+    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        return dictMainData.value(forKey: (dictMainData.allKeys as NSArray).object(at: section) as! String)  as? String
+    //    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return (dictMainData.allKeys as NSArray).object(at: section) as? String
+        
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if ((dictMainData.allKeys as NSArray).contains(getStringFromDate(strDate: dateSelected)))
+        if (dictMainData.allKeys as NSArray).count > 0
         {
-            if  ((dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).allKeys as NSArray).contains("timeIntervals")
+            
+            if let arrInterval = (dictMainData.value(forKey: (dictMainData.allKeys as NSArray).object(at: section) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
             {
-                let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
                 
                 return arrInterval.count;
+            }else{
+                return 0
             }
-            else
-            {
-                return 0;
-            }
-        }
-        else
-        {
-            return 0;
+        }else{
+            return 0
         }
     }
     
@@ -1049,7 +1069,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         
-        let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        let arrInterval = (dictMainData.value(forKey: (dictMainData.allKeys as NSArray).object(at: indexPath.section) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
         
         
@@ -1062,28 +1082,35 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         
-        cell.btnStartTime.tag = indexPath.row
+        cell.btnStartTime.tag = indexPath.section * 100 + indexPath.row
         cell.btnStartTime.addTarget(self,action:#selector(SelectStartTime(sender:)),
                                     for:.touchUpInside)
         
-        cell.btnEndTime.tag = indexPath.row
+        cell.btnEndTime.tag = indexPath.section * 100 + indexPath.row
         cell.btnEndTime.addTarget(self,action:#selector(SelectEndTime(sender:)),
                                   for:.touchUpInside)
         
         
-        cell.txtNote.tag = indexPath.row
+        cell.txtNote.tag = indexPath.section * 100 + indexPath.row
         cell.txtNote.addTarget(self, action:#selector(textFieldTextChange(sender:)), for: .editingChanged)
         
         
-        cell.lblStartDate.text = getStringFromDate(strDate: dateSelected)
-        cell.lblEndDate.text = getStringFromDate(strDate: dateSelected)
+        cell.lblStartDate.text = (dictMainData.allKeys as NSArray).object(at: indexPath.section) as? String
+        cell.lblEndDate.text = (dictMainData.allKeys as NSArray).object(at: indexPath.section) as? String
         
         
         return cell;
     }
     
     
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let _ = (dictMainData.value(forKey: (dictMainData.allKeys as NSArray).object(at: section) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
+        {
+            
+            return 20
+        }
+        return 0
+    }
     
     
     
@@ -1098,20 +1125,20 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return pickerDataHPrice.count
+        return pickerDataHPrice.count
     }
     //MARK: Delegates
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-            return pickerDataHPrice[row]
+        return pickerDataHPrice[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //selectedDropDown=row
         
         let dictTemp =   dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary
-            
-            dictTemp.setObject(pickerDataHPrice[row], forKey: "PricePerSpace" as NSCopying)
+        
+        dictTemp.setObject(pickerDataHPrice[row], forKey: "PricePerSpace" as NSCopying)
         
         updateLableValue()
     }
