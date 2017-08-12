@@ -179,6 +179,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
     }
     
+    func setReportSubmitText(strType:String)
+    {
+        let defaults=UserDefaults.standard
+        defaults.setValue(strType, forKey: "reportText")
+        defaults.synchronize()
+    }
+    
+    func getReportSubmitText() -> String
+    {
+        
+        if UserDefaults.standard.value(forKey: "reportText") == nil
+        {
+            return ""
+        }
+        else
+        {
+            return UserDefaults.standard.value(forKey: "reportText") as! String!
+        }
+    }
+    func removeReportSubmitText()
+    {
+        if UserDefaults.standard.value(forKey: "reportText") != nil
+        {
+            UserDefaults.standard.removeObject(forKey: "reportText")
+        }
+    }
+    
     
 
     func moveToLogin()
@@ -190,6 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         let objController = storyBoard.instantiateViewController(withIdentifier: "login") as! LoginViewController
          let navController = UINavigationController.init(rootViewController: objController)
         window?.rootViewController = navController
+        removeReportSubmitText()
         
     }
     

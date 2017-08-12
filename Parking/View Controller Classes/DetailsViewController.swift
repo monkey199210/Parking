@@ -30,6 +30,7 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     
     
     var arrBookingList:NSMutableArray!
+    var rentOutUsersDic:NSMutableDictionary!
     
     
     
@@ -57,6 +58,8 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
         // Do any additional setup after loading the view.
         
         getBookingListFromServer()
+        
+
     }
 
     
@@ -394,6 +397,8 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
             cell.btnCancel.tag = indexPath.row
             cell.btnCancel.addTarget(self, action: #selector(CancelAvaliblality(sender:)), for: .touchUpInside)
+            cell.bookedname.isHidden = true
+            cell.phoneNumber.isHidden = true
         }
             
        else  if ((arrInterval.object(at: indexPath.row) as! NSMutableDictionary).value(forKey: "BookingStatus") as! String == "Cancel")
@@ -403,11 +408,36 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
             cell.btnCancel.tag = indexPath.row
             cell.btnCancel.addTarget(self, action: #selector(makeAvaliblality(sender:)), for: .touchUpInside)
+            cell.bookedname.isHidden = true
+            cell.phoneNumber.isHidden = true
         }
-        else
+        else  if ((arrInterval.object(at: indexPath.row) as! NSMutableDictionary).value(forKey: "BookingStatus") as! String == "Booked")
         {
+            cell.bookedname.isHidden = true
+            cell.phoneNumber.isHidden = true
             cell.btnCancel.setTitle("Booked", for: .normal)
             cell.btnCancel.isEnabled = false
+            if let uid = (arrInterval.object(at: indexPath.row) as! NSMutableDictionary).value(forKey: "BookingUserId") as? String
+            {
+                if rentOutUsersDic != nil
+                {
+                if let dict = self.rentOutUsersDic.object(forKey: uid) as? NSDictionary
+                {
+                    if let  name = dict.object(forKey: "Name") as? String
+                    {
+                        cell.bookedname.text = name
+                        cell.bookedname.isHidden = false
+                    }
+                    if let  phone = dict.object(forKey: "Phone") as? String
+                    {
+                        cell.phoneNumber.setTitle(phone, for: .normal)
+                        cell.phoneNumber.isHidden = false
+                    }
+                    
+                }
+                }
+                
+            }
         }
         
         
@@ -473,25 +503,29 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
                 dataDict.setValue((child as! FIRDataSnapshot).value ?? "", forKey: "Value")
                 
                 
-                
-              
-                
                 self.arrBookingList.add(dataDict)
                
-                
-                
-                
-                
             }
             
             
             
             print(self.arrBookingList)
             
+            let parentRef = FIRDatabase.database().reference().child("Users")
+            parentRef.observe(.value, with: { snapshot in
+                parentRef.removeAllObservers()
+                if snapshot.value != nil
+                {
+                    if !(snapshot.value  is NSNull)
+                    {
+                        self.rentOutUsersDic = (snapshot.value as! NSDictionary).mutableCopy() as! NSMutableDictionary
+                    }
+                }
+                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+            })
             
             
             
-            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
             
         })
     }
@@ -532,10 +566,10 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
                          {
                          if !(snapshot.value  is NSNull)
                          {
-                            let value = snapshot.value as? NSDictionary
+//                            let value = snapshot.value as? NSDictionary
                             
-                            self.lblConatctName.text = String.init(format: "Name : %@", value?["Name"] as? String ?? "")
-                            self.btnContactNumber.setTitle(String.init(format: "Phone : %@", value?["Phone"] as? String ?? ""), for: .normal)
+//                            self.lblConatctName.text = String.init(format: "Name : %@", value?["Name"] as? String ?? "")
+//                            self.btnContactNumber.setTitle(String.init(format: "Phone : %@", value?["Phone"] as? String ?? ""), for: .normal)
                          }
                          }
                         

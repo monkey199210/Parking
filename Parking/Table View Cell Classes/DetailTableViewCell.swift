@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class DetailTableViewCell: UITableViewCell {
 
@@ -16,6 +17,8 @@ class DetailTableViewCell: UITableViewCell {
     
     @IBOutlet var btnCancel:UIButton!
     
+    @IBOutlet weak var phoneNumber: UIButton!
+    @IBOutlet weak var bookedname: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,5 +34,23 @@ class DetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func setBookedInfo(_ UserID: String)
+    {
+        
+        
+        
+    }
 
+    @IBAction func callAction(_ sender: Any) {
+        let btnCall = sender as! UIButton
+        
+        if let url = URL(string: "tel://\(String(describing: btnCall.titleLabel?.text))"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
 }
