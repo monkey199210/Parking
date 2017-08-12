@@ -334,10 +334,10 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         let txtField:UITextField = sender as! UITextField
         
         
-        let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        let arrInterval = (dictMainData.value(forKey: (dictMainData.allKeys as NSArray).object(at: txtField.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
         
-        let dataDict = arrInterval.object(at: txtField.tag) as! NSMutableDictionary
+        let dataDict = arrInterval.object(at: txtField.tag%100) as! NSMutableDictionary
         
         dataDict.setValue(txtField.text, forKey: "note")
         print(dataDict)
@@ -549,9 +549,9 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             btn.setTitle(dateFormatter.string(from: self.startDatePickerView.date), for: .normal)
             
             
-            let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+            let arrInterval = (self.dictMainData.value(forKey: (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
             
-            let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
+            let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
             dictTemp.setValue(dateFormatter.string(from: self.startDatePickerView.date), forKey: "StartTime")
             if let _ = (dictTemp.object(forKey: "EndTime")) as? String
             {
@@ -657,9 +657,9 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             btn.setTitle(dateFormatter.string(from: self.endDatePickerView.date), for: .normal)
             
             
-            let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+            let arrInterval = (self.dictMainData.value(forKey: (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
             
-            let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
+            let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
             dictTemp.setValue(dateFormatter.string(from: self.endDatePickerView.date), forKey: "EndTime")
             if let strStartTime = (dictTemp.object(forKey: "StartTime")) as? String
             {
