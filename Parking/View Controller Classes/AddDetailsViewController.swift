@@ -79,6 +79,8 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         //        lblNumberOfSpace.text = String.init(format: "Number of spaces to rent %@", selectedNumberOfSpace);
         lblPrice.text = String.init(format: "Price per hour per space $%@", selectedPrice);
         
+       
+        
         
     }
     
@@ -222,6 +224,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy hh:mm a"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         if let time = dateFormatter.date(from: strDate)
         {
             return time
@@ -233,6 +236,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         if let time = dateFormatter.date(from: strDate)
         {
             return time
@@ -528,6 +532,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         
         
         let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
@@ -599,19 +604,24 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         startDatePickerView = UIDatePicker()
+        startDatePickerView.timeZone = NSTimeZone(name: "UTC")! as TimeZone
+        
         
         startDatePickerView.datePickerMode = UIDatePickerMode.time
-        //        let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
-        //        let date = self.getStringFromDate(strDate: self.dateSelected)
-        //        let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
-        //        if let strStartTime = (dictTemp.object(forKey: "EndTime")) as? String
-        //        {
-        //            let str = strStartTime
-        //            if let minimum = getTime(strDate: str)
-        //            {
-        //                startDatePickerView.maximumDate = minimum
-        //            }
-        //        }
+                let arrInterval = (self.dictMainData.value(forKey: (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+                let date = (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String
+                let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
+                if let strStartTime = (dictTemp.object(forKey: "EndTime")) as? String
+                {
+                    let str = date + " " + strStartTime
+                    if let minimum = getDateFromTime(strDate: str)
+                    {
+                        startDatePickerView.maximumDate = minimum
+                    }
+                }else{
+                    startDatePickerView.maximumDate = getDateFromTime(strDate: date + " " + "11:59 PM")
+        }
+        startDatePickerView.minimumDate = getDateFromTime(strDate: date + " " + "12:00 AM")
         
         //sender.inputView = datePickerView
         // datePickerView.addTarget(self, action: #selector(ViewController.datePickerValueChanged), forControlEvents: UIControlEvents.ValueChanged)
@@ -633,6 +643,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         let btn = sender as! UIButton
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         
         
         let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
@@ -707,22 +718,25 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         endDatePickerView = UIDatePicker()
+        endDatePickerView.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         
         endDatePickerView.datePickerMode = UIDatePickerMode.time
-        //        let arrInterval = (self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
-        ////        let date = self.getStringFromDate(strDate: self.dateSelected)
-        //        let dictTemp = arrInterval.object(at: btn.tag) as! NSMutableDictionary
-        //        if let strStartTime = (dictTemp.object(forKey: "StartTime")) as? String
-        //        {
-        //             let str = strStartTime
-        //            if let minimum = getTime(strDate: str)
-        //            {
-        //
-        //                endDatePickerView.minimumDate = minimum
-        //            }
-        //        }
-        //
-        //        endDatePickerView.minimumDate = startDatePickerView.date
+                let arrInterval = (self.dictMainData.value(forKey: (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+                let date = (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String
+                let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
+                if let strStartTime = (dictTemp.object(forKey: "StartTime")) as? String
+                {
+                     let str = date + " " + strStartTime
+                    if let minimum = getDateFromTime(strDate: str)
+                    {
+        
+                        endDatePickerView.minimumDate = minimum
+                    }
+                }else{
+                    endDatePickerView.minimumDate = getDateFromTime(strDate: date + " " + "12:00 AM")
+        }
+        
+                endDatePickerView.maximumDate = getDateFromTime(strDate: date + " " + "11:59 PM")
         
         //sender.inputView = datePickerView
         

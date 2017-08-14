@@ -308,6 +308,7 @@ class LoginViewController: UIViewController {
                     {
                         Utility.alert("Your account is deactivated", andTitle: appConstants.AppName, andController: self)
                     }
+                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                     // ...
                 }) { (error) in
                     print(error.localizedDescription)
