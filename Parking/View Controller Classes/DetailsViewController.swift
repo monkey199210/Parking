@@ -31,7 +31,7 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     
     var arrBookingList:NSMutableArray!
     var rentOutUsersDic:NSMutableDictionary!
-    
+    var myFlag:NSString!
     
     
     override func viewDidLoad() {
@@ -41,6 +41,8 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
         self.btnContactNumber.setTitle( "", for: .normal)
         
         super.viewDidLoad()
+        
+        myFlag="no";
         
          arrBookingList=NSMutableArray()
         
@@ -102,9 +104,6 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     }
     
     
-    
-    
-    
     func getDataFromServer()
     {
         
@@ -144,14 +143,6 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
             
             
-            
-           print(self.dictMainData)
-            
-            
-            
-            
-            
-            
             /*for child in snapshot.children {
                 
                 print((child as! FIRDataSnapshot).key)
@@ -171,18 +162,18 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
             NSLog("before filter %@", self.dictMainData)
             
-            
+           
             
             MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
             
             self.calendarManager.reload()
-            self.tblList.reloadData()
+            
+            if (self.myFlag=="yes") {
+                self.tblList.reloadData()
+            }
             
         })
     }
-    
-    
-    
     
     
     // MARK: - IBActions
@@ -204,9 +195,19 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     
     @IBAction func CancelAvaliblality(sender: AnyObject)
     {
-         let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
-        arrInterval.removeObject(at: sender.tag)
+        
+       
+        
+        
+        
+        
+//        print("HERE")
+//        print (arrInterval)
+//        
+//        print ("HERE2")
+//        print(dictMainData)
+
         
        // let dict = arrInterval.object(at: sender.tag) as! NSMutableDictionary
        // dict.setValue("Cancel", forKey: "BookingStatus")
@@ -215,18 +216,50 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
        MBProgressHUD.showAdded(to: self.view, animated: true)
         let databaseRef = FIRDatabase.database().reference()
         
-        databaseRef.child("RentOutSpace").child((FIRAuth.auth()?.currentUser?.uid)!).child(getStringFromDate(strDate: dateSelected)).child("timeIntervals").setValue(arrInterval)
-        
-        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
         
         
-        tblList.reloadData()
+        let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
-        print(dictMainData)
+        let dictTemp = arrInterval.object(at: sender.tag) as! NSMutableDictionary
+        let strBookingStatus=(dictTemp.object(forKey: "BookingStatus")) as! String
+        
+        if(strBookingStatus=="Booked"){
+            
+            Utility.alert("This rent time was already booked by someone", andTitle: "", andController: self)
+            return;
+            
+        }
+        
+        
+        if(arrInterval.count==1){
+            arrInterval.removeObject(at: sender.tag)
+            dictMainData.removeObject(forKey: getStringFromDate(strDate: dateSelected))
+            
+          
+            
+            databaseRef.child("RentOutSpace").child((FIRAuth.auth()?.currentUser?.uid)!).child(getStringFromDate(strDate: dateSelected)).removeValue()
+            
+        
+        } else {
+            arrInterval.removeObject(at: sender.tag)
+   
+            databaseRef.child("RentOutSpace").child((FIRAuth.auth()?.currentUser?.uid)!).child(getStringFromDate(strDate: dateSelected)).child("timeIntervals").setValue(arrInterval)
+            
+        }
+
+        
+        
         
         getDataFromServer()
+        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+//
+//        
+//        tblList.reloadData()
+        
+//        print(dictMainData)
+        
+        
     }
-    
     
     
     @IBAction func makeAvaliblality(sender: AnyObject)
@@ -242,11 +275,6 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     }
 
 
-    
-    
-    
-    
-    
     
     
     // MARK: - calendar delegates
@@ -378,6 +406,7 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailTableViewCell") as! DetailTableViewCell;
         
         
@@ -415,22 +444,26 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
         {
             cell.bookedname.isHidden = true
             cell.phoneNumber.isHidden = true
-            cell.btnCancel.setTitle("Booked", for: .normal)
+            cell.btnCancel.setTitle("Contact", for: .normal)
             cell.btnCancel.isEnabled = false
             if let uid = (arrInterval.object(at: indexPath.row) as! NSMutableDictionary).value(forKey: "BookingUserId") as? String
             {
+                
+//                FIRDatabase.database().reference().child("Users")
+                
                 if rentOutUsersDic != nil
                 {
                 if let dict = self.rentOutUsersDic.object(forKey: uid) as? NSDictionary
                 {
                     if let  name = dict.object(forKey: "Name") as? String
                     {
-                        cell.bookedname.text = name
+                        
+                        cell.bookedname.text = "Contact Name: "+name
                         cell.bookedname.isHidden = false
                     }
                     if let  phone = dict.object(forKey: "Phone") as? String
                     {
-                        cell.phoneNumber.setTitle(phone, for: .normal)
+                        cell.phoneNumber.setTitle("Phone: "+phone, for: .normal)
                         cell.phoneNumber.isHidden = false
                     }
                     
@@ -438,6 +471,12 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
                 }
                 
             }
+
+//            cell.bookedname.isHidden=false
+//            cell.phoneNumber.isHidden=false
+//            cell.bookedname.text="Contact Name: AAA"
+//            cell.phoneNumber.setTitle("Phone BBB", for: .normal)
+        
         }
         
         
@@ -451,16 +490,8 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
         
         
         
-    
-        
-        
-        
-        
-        
         return cell;
     }
-    
-    
     
     
     
@@ -488,10 +519,7 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
             parentRef.removeAllObservers()
             
-            
-            
-            
-            
+           
             for child in snapshot.children {
                 
                 print((child as! FIRDataSnapshot).key)
@@ -521,6 +549,10 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
                         self.rentOutUsersDic = (snapshot.value as! NSDictionary).mutableCopy() as! NSMutableDictionary
                     }
                 }
+                
+                self.tblList.reloadData()
+                self.myFlag="yes"
+                
                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
             })
             
@@ -528,8 +560,9 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
             
         })
+        
+        
     }
-    
     
     
     
@@ -549,8 +582,7 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             {
                  if (((dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "bookingDate") as? String)?.contains(strDate))!
                  {
-                   print("hello")
-                    
+                                      
                     
                     MBProgressHUD.showAdded(to: self.view, animated: true)
                     

@@ -33,9 +33,7 @@ class ReportSpaceViewController: UIViewController {
     {
         self.view.backgroundColor = Utility.color(withHexString: appConstants.viewBackgroundColor)
         
-        
-        
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+       self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
     }
     
     
@@ -57,6 +55,10 @@ class ReportSpaceViewController: UIViewController {
         Delegate.setReportSubmitText(strType: txtNumPlate.text!)
         
         txtNumPlate.text = ""
-        Utility.alert("Successfully sent message", andTitle: "", andController: self)
+        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popToRootViewController(animated: true)
+
+        
+//        Utility.alert("Successfully sent message", andTitle: "", andController: self)
     }
 }

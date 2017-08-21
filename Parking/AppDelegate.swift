@@ -21,11 +21,15 @@ import Alamofire
 class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate, FIRMessagingDelegate {
 
     var window: UIWindow?
+    var elapsedTime=0
+    var appFlag=2
+    var mySeconds=0
+    
+    var myValue=0
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         
         
         
@@ -59,9 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                // let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
                 
                 
-                
-               
-                  let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
+                let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
                 let navController = UINavigationController.init(rootViewController: objController)
                 self.window?.rootViewController = navController
                 
@@ -111,10 +113,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         FIRMessaging.messaging().disconnect()
         print("Disconnected from FCM.")
+        
+//        let date = Date()
+//        let calendar = Calendar.current
+//        let hour = calendar.component(.hour, from: date)
+//        let minutes = calendar.component(.minute, from: date)
+//        let seconds=calendar.component(.second, from: date)
+    
+//        elapsedTime=(hour*3600)+(minutes*60)+seconds
+        elapsedTime = Int(Date().timeIntervalSince1970)
+
+        appFlag=1
+
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        
+//        let date = Date()
+//        let calendar = Calendar.current
+//        let hour = calendar.component(.hour, from: date)
+//        let minutes = calendar.component(.minute, from: date)
+//        let seconds=calendar.component(.second, from: date)
+//        elapsedTime=((hour*3600)+(minutes*60)+seconds)-elapsedTime
+        
+        
+        elapsedTime=Int(Date().timeIntervalSince1970)-elapsedTime
+        
+        self.mySeconds=self.mySeconds+elapsedTime
+        appFlag=0
+        
+        
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -123,6 +155,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        
+        print ("App is closing now")
     }
 
     
@@ -157,6 +192,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     
+    
+    func getBookingTime()->Int
+    {
+        if UserDefaults.standard.value(forKey: "BookingTime") == nil
+        {
+            return 0
+        }
+        else
+        {
+            return UserDefaults.standard.value(forKey: "BookingTime") as! Int!
+        }
+
+    }
+    
+    
+    func setBookingTime(strDate:Int)
+    {
+        let defaults=UserDefaults.standard
+        defaults.setValue(strDate, forKey: "BookingTime")
+        defaults.synchronize()
+    }
+    
+    
+    
+    func getBookingFlag()->String
+    {
+        if UserDefaults.standard.value(forKey: "BookingFlag") == nil
+        {
+            return ""
+        }
+        else
+        {
+            return UserDefaults.standard.value(forKey: "BookingFlag") as! String!
+        }
+        
+    }
+    
+    
+    func setBookingFlag(strDate:String)
+    {
+        let defaults=UserDefaults.standard
+        defaults.setValue(strDate, forKey: "BookingFlag")
+        defaults.synchronize()
+    }
+
     
     
     func setLoginType(strType:String)

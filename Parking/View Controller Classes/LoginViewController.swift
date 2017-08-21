@@ -22,6 +22,8 @@ class LoginViewController: UIViewController {
     
     var strLoginType:String!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +47,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         txtEmail.text = ""
         txtPassword.text = ""
+       
     }
     
 
@@ -281,29 +284,33 @@ class LoginViewController: UIViewController {
                             self.Delegate.setLoginType(strType: "RentOutSpace")
                             
                             
-                           if  value?["availCount"] as? String == "0"
-                           {
-                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                          //  let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
-                            let objController = storyBoard.instantiateViewController(withIdentifier: "addDetails") as! AddDetailsViewController
-                             objController.strFromSignupLogin = "Yes"
-                            self.navigationController?.pushViewController(objController, animated: true)
-                            }
-                            else
-                           {
+//                           if  value?["availCount"] as? String == "0"
+//                           {
+//                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//                          //  let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
+//                            let objController = storyBoard.instantiateViewController(withIdentifier: "addDetails") as! AddDetailsViewController
+//                             objController.strFromSignupLogin = "Yes"
+//                            self.navigationController?.pushViewController(objController, animated: true)
+//                            }
+//                            else
+//                           {
+                            
                             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                             //  let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
                             let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
                             self.navigationController?.pushViewController(objController, animated: true)
-                            }
+                            
+//                            }
+                            
                         }
                     }
                     else
-                    {
+                        {
                        //  navigate depends on login type
                          Utility.alert("Invalid Login", andTitle: appConstants.AppName, andController: self)
+                        }
                     }
-                    }
+                        
                     else
                     {
                         Utility.alert("Your account is deactivated", andTitle: appConstants.AppName, andController: self)

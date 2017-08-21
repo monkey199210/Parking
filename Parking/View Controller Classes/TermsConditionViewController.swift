@@ -21,7 +21,10 @@ class TermsConditionViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        print(conditionType)
+//        print(conditionType)
+        
+        
+        
         
         if( conditionType == "RentSpace")
         {

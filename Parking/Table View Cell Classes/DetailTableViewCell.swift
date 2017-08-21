@@ -19,6 +19,10 @@ class DetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var phoneNumber: UIButton!
     @IBOutlet weak var bookedname: UILabel!
+    
+   
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -55,11 +55,12 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     @IBOutlet var lblContactNameD1:UILabel!
     @IBOutlet var btnSelectHourD1:UIButton!
     @IBOutlet var btnContactNumberD1:UIButton!
-    // @IBOutlet var lblNoteC1A:UILabel!
     
     
     var amount:Int = 0
     var seconds = 14400
+    
+    
     //var seconds = 60
     var timer:Timer?
     
@@ -68,13 +69,17 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     var myPicker:UIPickerView!
     
+    var myFlag:NSString!
     
+    var BookingHours:Int=0
     
     override func viewDidLoad()
     {
         
         arrData=NSMutableArray()
         arrBookingList=NSMutableArray()
+        
+        
         
         super.viewDidLoad()
         setupUI()
@@ -106,8 +111,14 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     override func viewWillAppear(_ animated: Bool) {
+        myFlag=""
+        Delegate.mySeconds=0
+
+        
+
         
         getBookingListFromServer()
+        
     }
     
     
@@ -119,7 +130,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         self.navigationItem.hidesBackButton = true
         
         
-        
+        self.view.layoutIfNeeded()
         self.navigationController?.navigationBar.barTintColor = Utility.color(withHexString: appConstants.navColor)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -171,7 +182,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             
             parentRef.removeAllObservers()
             
-            
+        
             print(self.arrData)
             
             
@@ -288,8 +299,6 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                     
                     
                     
-                    
-                    
                 }
             }
             
@@ -330,8 +339,9 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             
             
             
-            var BookingHours = 0
+            self.BookingHours = 0
             var bookDate = NSDate()
+            
             for child in snapshot.children {
                 
                 print((child as! FIRDataSnapshot).key)
@@ -358,9 +368,12 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                         
                         bookDate = dateFormatter.date(from: ((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "bookingDate") as! String)! as NSDate
                         
-                        BookingHours = BookingHours + Int((((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "bookingHours") as? String)!)!*60*60
+                        
+
+                         self.BookingHours = self.BookingHours + Int((((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "bookingHours") as? String)!)!*3600
                         
                         
+                       
                             self.currentParkingOwnerUID = (((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "UID") as? String)!
                             
                             
@@ -397,8 +410,8 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                             
                             let timeDifference = calendar.dateComponents([.hour], from: startTime!, to: endTime!)
                             print(timeDifference.hour ?? "")
-                            
-                            //                    let timePeriod = calendar.dateComponents([.hour], from: startBookTime!, to: endTime!)
+                        
+                                                       //                    let timePeriod = calendar.dateComponents([.hour], from: startBookTime!, to: endTime!)
                             //                    if timePeriod.hour != nil
                             //                    {
                             //                    self.lblHourD1.text = timePeriod.hour?.description
@@ -415,17 +428,21 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                             
                             self.pickerDataHours.removeAllObjects()
                             
-                            
-                            print(timeDifference.hour! )
-                            if Int(timeDifference.hour!) > 0
+                        
+                            if Int(self.lblHourD1.text!)! > 0
                             {
                                 
-                                for i in 1...Int(timeDifference.hour!)
+                                for i in 1...Int(self.lblHourD1.text!)!
                                 {
                                     self.pickerDataHours.add(String(i))
                                     
                                     
                                 }
+                                
+                                
+                                print (timeDifference.hour!)
+                                
+                                
                             }
                             
                             if(self.pickerDataHours.count > 0)
@@ -441,6 +458,9 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                                 self.lblHourC1A.text = "0"
                             }
                             ////////////////////////////
+                        
+                        
+                        
                             
                         }
 
@@ -450,21 +470,35 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                 
                 
             }
-            if  Date() < bookDate.addingTimeInterval(TimeInterval(BookingHours)) as Date
+            
+       
+            
+            
+            if  Date() < bookDate.addingTimeInterval(TimeInterval(self.BookingHours)) as Date
             {
                 
-                //                    self.seconds = Int(bookDate.addingTimeInterval(TimeInterval(BookingHours)).timeIntervalSince(Date()))
+               
                 
-                    self.seconds = Int(bookDate.addingTimeInterval(TimeInterval(BookingHours)).timeIntervalSince(Date()))
-                if (BookingHours-(15*60)) > 0
+                    self.seconds = Int(bookDate.addingTimeInterval(TimeInterval(self.BookingHours)).timeIntervalSince(Date()))
+                
+                    self.Delegate.mySeconds=Int(Date().timeIntervalSince1970)-self.Delegate.getBookingTime()
+                
+//                    self.seconds=BookingHours-self.Delegate.mySeconds
+
+                
+                
+//                    print (self.seconds)
+                
+                
+                if (self.BookingHours-(15*60)) > 0
                 {
-                    self.Delegate.ScheduleLocalNotification(strMessage: "Your parking time on Driveway is up in 15 minutes, go to the Driveway app to add more time.", time: bookDate.addingTimeInterval(TimeInterval((BookingHours-(15*60)))) as Date)
+                    self.Delegate.ScheduleLocalNotification(strMessage: "Your parking time on Driveway is up in 15 minutes, go to the Driveway app to add more time.", time: bookDate.addingTimeInterval(TimeInterval((self.BookingHours-(15*60)))) as Date)
                 }
                 
                 
-                if (BookingHours-(5*60)) > 0
+                if (self.BookingHours-(5*60)) > 0
                 {
-                    self.Delegate.ScheduleLocalNotification(strMessage: "Your parking time on Driveway is up in 5 minutes, if you have not returned to your space or purchased more time, your car may be towed.", time:bookDate.addingTimeInterval(TimeInterval((BookingHours-(5*60)))) as Date)
+                    self.Delegate.ScheduleLocalNotification(strMessage: "Your parking time on Driveway is up in 5 minutes, if you have not returned to your space or purchased more time, your car may be towed.", time:bookDate.addingTimeInterval(TimeInterval((self.BookingHours-(5*60)))) as Date)
                 }
                  self.runTimer()
             }
@@ -481,12 +515,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         })
     }
     
-    
-    
-    
-    
-    
-    
+      
     //MARK: - location delegates
     
     private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -595,17 +624,9 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             let timeDifference = calendar.dateComponents([.hour], from: startTime!, to: endTime!)
             print(timeDifference.hour ?? "")
             
-            pickerDataHours.removeAllObjects()
-            let value = Int(timeDifference.hour!) - Int(lblHourC1A.text!)!
-            if value > 0
-            {
-                for i in 1...value
-                {
-                    pickerDataHours.add(String(i))
-                    
-                    
-                }
-            }
+//            pickerDataHours.removeAllObjects()
+//            let value = Int(timeDifference.hour!) - Int(lblHourC1A.text!)!
+
         }
         else
         {
@@ -680,6 +701,15 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     @IBAction func alreadyLeftAction(sender: AnyObject)
     {
+        
+        Delegate.mySeconds=0
+//        Delegate.setBookingTime(myValue: 0)
+        
+        Delegate.setBookingTime(strDate: Int(Date().timeIntervalSince1970))
+        Delegate.setBookingFlag(strDate: "")
+     
+        myFlag=""
+        
         viewPopC1A.isHidden = true
         viewPopD1.isHidden = true
         Delegate.removeReportSubmitText()
@@ -793,14 +823,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         {
             value = Int(timeDifference.hour!) - Int(lblHourD1.text!)!
         }
-        pickerDataHours.removeAllObjects()
-        for i in 1...value
-        {
-            pickerDataHours.add(String(i))
-            
-            
-        }
-        
+
         var currentBookingHour = 0
         
         if (currentBookingData.allKeys as NSArray).contains("bookingHours")
@@ -814,42 +837,45 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             
             amount = Int((lblPriceC1A.text?.replacingOccurrences(of: "$", with: ""))!)! *  Int(lblHourD1.text!)!
             
-            if checkApplePayAvaliable() {
-                checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
-                let request = PKPaymentRequest()
-                request.merchantIdentifier = ApplePaySwagMerchantID
-                request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-                request.merchantCapabilities = PKMerchantCapability.capability3DS
-                request.countryCode = "US";
-                request.currencyCode = "USD";
-                request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
-                
-                let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
-                applePayController.delegate = self
-                // self.present(applePayController, animated: true, completion: nil)
-                
-                if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
-                    self.present(applePayController, animated: true, completion: nil)
-                } else {
-                    let alertController = UIAlertController(
-                        title: "The settlement method is not registered",
-                        message: "Would you like to register payment method now",
-                        preferredStyle: .alert
-                    )
-                    alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
-                        if #available(iOS 8.3, *) {
-                            PKPassLibrary().openPaymentSetup()
-                        }
-                    }))
-                    alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
-                    self.navigationController?.present(alertController, animated: true, completion: nil)
-                }
-                
-            }
-            else
-            {
-                
-            }
+//            if checkApplePayAvaliable() {
+//                checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
+//                let request = PKPaymentRequest()
+//                request.merchantIdentifier = ApplePaySwagMerchantID
+//                request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
+//                request.merchantCapabilities = PKMerchantCapability.capability3DS
+//                request.countryCode = "US";
+//                request.currencyCode = "USD";
+//                request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
+//                
+//                let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
+//                applePayController.delegate = self
+//                // self.present(applePayController, animated: true, completion: nil)
+//                
+//                if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
+//                    self.present(applePayController, animated: true, completion: nil)
+//                } else {
+//                    let alertController = UIAlertController(
+//                        title: "The settlement method is not registered",
+//                        message: "Would you like to register payment method now",
+//                        preferredStyle: .alert
+//                    )
+//                    alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
+//                        if #available(iOS 8.3, *) {
+//                            PKPassLibrary().openPaymentSetup()
+//                        }
+//                    }))
+//                    alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
+//                    self.navigationController?.present(alertController, animated: true, completion: nil)
+//                }
+//                
+//            }
+//            else
+//            {
+//                
+//            }
+
+            
+            self.gotoMine()
             
             
             print(currentBookingData)
@@ -870,167 +896,215 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping ((PKPaymentAuthorizationStatus) -> Void)) {
         completion(PKPaymentAuthorizationStatus.success)
         
-        let userID = FIRAuth.auth()?.currentUser?.uid
-        currentBookingData.setValue(lblHourC1A.text, forKey: "bookingHours")
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MMM-yyyy HH:mm"
+//        var pp:Int!
+//        pp=pickerDataHours.count
+//        pickerDataHours.removeAllObjects()
+//        
+//        
+//        
+//        
+//        
+//        if self.myFlag==""
+//        {
+//            self.myFlag="no"
+//            //            self.mySeconds=0
+//            //            self.Delegate.setBookingTime(myValue:self.mySeconds)
+//            
+//        } else {
+//            
+//            
+//            print(pp)
+//            
+//            self.seconds=self.seconds+(Int(lblHourD1.text!)!*3600)
+//            pp=pp-Int(lblHourD1.text!)!
+//            
+//            print(pickerDataHours.count)
+//            
+//            
+//            lblHourD1.text=String(pp)
+//            
+//            
+//        }
+//        
+//        
+//        if Int(lblHourD1.text!)! > 0
+//        {
+//            for i in 1...Int(lblHourD1.text!)!
+//            {
+//                pickerDataHours.add(String(i))
+//                
+//                
+//            }
+//        }
+//        
+//        
+//        
+//        
+//        
+//        let userID = FIRAuth.auth()?.currentUser?.uid
+//        currentBookingData.setValue(lblHourC1A.text, forKey: "bookingHours")
+//        
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd-MMM-yyyy HH:mm"
+//        
+//        
+//        
+//        currentBookingData.setValue(dateFormatter.string(from: NSDate() as Date), forKey: "bookingDate")
+//        currentBookingData.setValue(userID, forKey: "Book_UID")
+//        
+//        
+//        
+//        MBProgressHUD.showAdded(to: self.view, animated: true)
+//        let databaseRef = FIRDatabase.database().reference()
+//        let  locationRef = databaseRef.child("Booking").childByAutoId()
+//        locationRef.setValue(currentBookingData)
+//        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+//        
+//        
+//        let bookDate = NSDate() as Date
+//        
+//        
+//        //        let BookingHours =  Int(lblHourC1A.text!)!*60*60
+//        
+//        let BookingHours =  Int(lblHourD1.text!)!*60*60
+//        
+//        if  Date() < bookDate.addingTimeInterval(TimeInterval(BookingHours))
+//        {
+//            
+//            //            self.seconds = Int(bookDate.addingTimeInterval(TimeInterval(BookingHours)).timeIntervalSince(Date()))
+//        }
+//        
+//        
+//        
+//        if self.dictMainData != nil
+//        {
+//            let dictUserInfo = self.dictMainData.value(forKey: currentBookingData.value(forKey: "UID") as! String) as! NSMutableDictionary
+//            
+//            let today = NSDate()
+//            
+//            if (dictUserInfo.allKeys as NSArray).contains(self.getStringFromDate(strDate:today ))
+//            {
+//                if( ((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).allKeys as NSArray).contains("timeIntervals"))
+//                {
+//                    let arrTimeIntervals = (dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "timeIntervals") as! NSArray
+//                    
+//                    
+//                    
+//                    
+//                    
+//                    for tempDict in arrTimeIntervals
+//                    {
+//                        if ((tempDict as! NSDictionary).value(forKey: "StartTime") as! String == currentBookingData.value(forKey: "StartTime") as! String) && ((tempDict as! NSDictionary).value(forKey: "EndTime") as! String == currentBookingData.value(forKey: "EndTime") as! String)
+//                        {
+//                            (tempDict as! NSDictionary).setValue("Booked", forKey: "BookingStatus")
+//                            
+//                            
+//                            (tempDict as! NSDictionary).setValue(Delegate.getUID(), forKey: "BookingUserId")
+//                            MBProgressHUD.showAdded(to: self.view, animated: true)
+//                            let databaseRef = FIRDatabase.database().reference()
+//                            
+//                            databaseRef.child("RentOutSpace").child(currentBookingData.value(forKey: "UID") as! String).child(getStringFromDate(strDate: today)).child("timeIntervals").setValue(arrTimeIntervals)
+//                            
+//                            
+//                            
+//                            Delegate.API_SendNotfication(userID: currentBookingData.value(forKey: "UID") as! String, message: "Congratulations! The space you put up for rent has been rented on Driveway!")
+//                            
+//                            
+//                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+//                            
+//                            
+//                            
+//                            
+//                            
+//                            break
+//                            
+//                        }
+//                    }
+//                    
+//                    
+//                    
+//                    
+//                    
+//                }
+//            }
+//            
+//        }
+//        
+//        
+//        
+//        
+//        
+//        if self.dictMainData != nil
+//        {
+//            
+//            print( self.dictMainData)
+//            
+//            let allUserKey = self.dictMainData.allKeys as NSArray
+//            
+//            for i:Int in 0..<allUserKey.count
+//            {
+//                
+//                
+//                let dictUserInfo = self.dictMainData.value(forKey: allUserKey.object(at: i) as! String) as! NSMutableDictionary
+//                
+//                
+//                let today = NSDate()
+//                
+//                if (dictUserInfo.allKeys as NSArray).contains(self.getStringFromDate(strDate:today ))
+//                {
+//                    if( ((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).allKeys as NSArray).contains("timeIntervals"))
+//                    {
+//                        let arrTimeIntervals = (dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "timeIntervals") as! NSArray
+//                        
+//                        
+//                        // self.arrData.add(arrTempData.object(at: i) as! NSDictionary)
+//                        
+//                        print(Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double))
+//                        
+//                        let marker = GMSMarker()
+//                        marker.position = CLLocationCoordinate2D(latitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double), longitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "long")as! Double))
+//                        
+//                        
+//                        marker.title = ""
+//                        marker.snippet = ""
+//                        marker.map = self.mapView
+//                        
+//                        let dictPinData = arrTimeIntervals.object(at: 0) as! NSMutableDictionary
+//                        dictPinData.setObject(allUserKey.object(at: i) as! String, forKey: "UID" as NSCopying)
+//                        dictPinData.setObject(marker.position.latitude, forKey: "lat" as NSCopying)
+//                        dictPinData.setObject(marker.position.longitude, forKey: "long" as NSCopying)
+//                        dictPinData.setObject((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "NumberOfSpace")as! String, forKey: "NumberOfSpace" as NSCopying)
+//                        dictPinData.setObject((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "PricePerSpace")as! String, forKey: "PricePerSpace" as NSCopying)
+//                        
+//                        marker.userData = dictPinData
+//                    }
+//                }
+//                
+//                
+//                
+//                
+//                
+//                
+//            }
+//        }
+//        
+//        
+//        self.mapView.clear()
+//        
+//        // getMapDataFromServer()
+//        locationManager.startUpdatingLocation()
+//        if CLLocationManager.locationServicesEnabled() {
+//            locationManager.startUpdatingLocation() // start location manager
+//            
+//        }
+//        
+//        
+//        
+//        
+//        getBookingListFromServer()
+//
         
-        
-        
-        currentBookingData.setValue(dateFormatter.string(from: NSDate() as Date), forKey: "bookingDate")
-        currentBookingData.setValue(userID, forKey: "Book_UID")
-        
-        
-        
-        MBProgressHUD.showAdded(to: self.view, animated: true)
-        let databaseRef = FIRDatabase.database().reference()
-        let  locationRef = databaseRef.child("Booking").childByAutoId()
-        locationRef.setValue(currentBookingData)
-        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
-        
-        
-        let bookDate = NSDate() as Date
-        
-        
-        let BookingHours =  Int(lblHourC1A.text!)!*60*60
-        
-        if  Date() < bookDate.addingTimeInterval(TimeInterval(BookingHours))
-        {
-            
-            self.seconds = Int(bookDate.addingTimeInterval(TimeInterval(BookingHours)).timeIntervalSince(Date()))
-        }
-        
-        
-        
-        if self.dictMainData != nil
-        {
-            let dictUserInfo = self.dictMainData.value(forKey: currentBookingData.value(forKey: "UID") as! String) as! NSMutableDictionary
-            
-            let today = NSDate()
-            
-            if (dictUserInfo.allKeys as NSArray).contains(self.getStringFromDate(strDate:today ))
-            {
-                if( ((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).allKeys as NSArray).contains("timeIntervals"))
-                {
-                    let arrTimeIntervals = (dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "timeIntervals") as! NSArray
-                    
-                    
-                    
-                    
-                    
-                    for tempDict in arrTimeIntervals
-                    {
-                        if ((tempDict as! NSDictionary).value(forKey: "StartTime") as! String == currentBookingData.value(forKey: "StartTime") as! String) && ((tempDict as! NSDictionary).value(forKey: "EndTime") as! String == currentBookingData.value(forKey: "EndTime") as! String)
-                        {
-                            (tempDict as! NSDictionary).setValue("Booked", forKey: "BookingStatus")
-                            
-                            
-                            (tempDict as! NSDictionary).setValue(Delegate.getUID(), forKey: "BookingUserId")
-                            MBProgressHUD.showAdded(to: self.view, animated: true)
-                            let databaseRef = FIRDatabase.database().reference()
-                            
-                            databaseRef.child("RentOutSpace").child(currentBookingData.value(forKey: "UID") as! String).child(getStringFromDate(strDate: today)).child("timeIntervals").setValue(arrTimeIntervals)
-                            
-                            
-                            
-                            Delegate.API_SendNotfication(userID: currentBookingData.value(forKey: "UID") as! String, message: "Congratulations! The space you put up for rent has been rented on Driveway!")
-                            
-                            
-                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
-                            
-                            
-                            
-                            
-                            
-                            break
-                            
-                        }
-                    }
-                    
-                    
-                    
-                    
-                    
-                }
-            }
-            
-        }
-        
-        
-        
-        
-        
-        if self.dictMainData != nil
-        {
-            
-            print( self.dictMainData)
-            
-            let allUserKey = self.dictMainData.allKeys as NSArray
-            
-            for i:Int in 0..<allUserKey.count
-            {
-                
-                
-                let dictUserInfo = self.dictMainData.value(forKey: allUserKey.object(at: i) as! String) as! NSMutableDictionary
-                
-                
-                let today = NSDate()
-                
-                if (dictUserInfo.allKeys as NSArray).contains(self.getStringFromDate(strDate:today ))
-                {
-                    if( ((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).allKeys as NSArray).contains("timeIntervals"))
-                    {
-                        let arrTimeIntervals = (dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "timeIntervals") as! NSArray
-                        
-                        
-                        // self.arrData.add(arrTempData.object(at: i) as! NSDictionary)
-                        
-                        print(Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double))
-                        
-                        let marker = GMSMarker()
-                        marker.position = CLLocationCoordinate2D(latitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double), longitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "long")as! Double))
-                        
-                        
-                        marker.title = ""
-                        marker.snippet = ""
-                        marker.map = self.mapView
-                        
-                        let dictPinData = arrTimeIntervals.object(at: 0) as! NSMutableDictionary
-                        dictPinData.setObject(allUserKey.object(at: i) as! String, forKey: "UID" as NSCopying)
-                        dictPinData.setObject(marker.position.latitude, forKey: "lat" as NSCopying)
-                        dictPinData.setObject(marker.position.longitude, forKey: "long" as NSCopying)
-                        dictPinData.setObject((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "NumberOfSpace")as! String, forKey: "NumberOfSpace" as NSCopying)
-                        dictPinData.setObject((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "PricePerSpace")as! String, forKey: "PricePerSpace" as NSCopying)
-                        
-                        marker.userData = dictPinData
-                    }
-                }
-                
-                
-                
-                
-                
-                
-            }
-        }
-        
-        
-        self.mapView.clear()
-        
-        // getMapDataFromServer()
-        locationManager.startUpdatingLocation()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation() // start location manager
-            
-        }
-        
-        
-        /*viewPopD1.isHidden =  false
-         viewPopC1A.isHidden = true
-         runTimer()*/
-        
-        getBookingListFromServer()
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
@@ -1089,80 +1163,50 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         }
     }
     
+    
+    
     @IBAction func makePayment(sender: AnyObject)
     {
         
-        
-        if checkApplePayAvaliable() {
-            checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
-            let request = PKPaymentRequest()
-            request.merchantIdentifier = ApplePaySwagMerchantID
-            request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-            request.merchantCapabilities = PKMerchantCapability.capability3DS
-            request.countryCode = "US";
-            request.currencyCode = "USD";
-            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
-            
-            let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
-            applePayController.delegate = self
-            // self.present(applePayController, animated: true, completion: nil)
-            
-            if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
-                self.present(applePayController, animated: true, completion: nil)
-            } else {
-                let alertController = UIAlertController(
-                    title: "The settlement method is not registered",
-                    message: "Would you like to register payment method now",
-                    preferredStyle: .alert
-                )
-                alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
-                    if #available(iOS 8.3, *) {
-                        PKPassLibrary().openPaymentSetup()
-                    }
-                }))
-                alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
-                self.navigationController?.present(alertController, animated: true, completion: nil)
-            }
-            
-        }
-        else
-        {
-            
-        }
-        
+//        if checkApplePayAvaliable() {
+//            checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
+//            let request = PKPaymentRequest()
+//            request.merchantIdentifier = ApplePaySwagMerchantID
+//            request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
+//            request.merchantCapabilities = PKMerchantCapability.capability3DS
+//            request.countryCode = "US";
+//            request.currencyCode = "USD";
+//            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
+//            
+//            let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
+//            applePayController.delegate = self
+//            // self.present(applePayController, animated: true, completion: nil)
+//            
+//            if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
+//                self.present(applePayController, animated: true, completion: nil)
+//            } else {
+//                let alertController = UIAlertController(
+//                    title: "The settlement method is not registered",
+//                    message: "Would you like to register payment method now",
+//                    preferredStyle: .alert
+//                )
+//                alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
+//                    if #available(iOS 8.3, *) {
+//                        PKPassLibrary().openPaymentSetup()
+//                    }
+//                }))
+//                alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
+//                self.navigationController?.present(alertController, animated: true, completion: nil)
+//            }
+//            
+//        }
+//        else
+//        {
+//            
+//        }
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        /* for i:Int in 0..<arrData.count
-         {
-         
-         if (arrData.object(at: i) as! NSDictionary).value(forKey: "Key") as? String == selectedKey
-         {
-         
-         print(arrData.object(at: i) as! NSDictionary)
-         
-         let databaseRef = FIRDatabase.database().reference()
-         
-         // let  locationRef = databaseRef.child("Users").childByAutoId()
-         //locationRef.setValue(post)
-         
-         databaseRef.child("RentOutSpace").child(selectedKey).child("availability").setValue("Booked")
-         
-         viewPopD1.isHidden =  false
-         viewPopC1A.isHidden = true
-         
-         runTimer()
-         break;
-         }
-         
-         }*/
+        gotoMine()
         
         
         
@@ -1256,7 +1300,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         if(pickerDataHours.count > 0)
         {
             lblHourC1A.text = pickerDataHours.lastObject as? String
-            lblHourD1.text = "0"
+            lblHourD1.text = pickerDataHours.lastObject as? String
         }
         else
         {
@@ -1361,7 +1405,31 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
     }
     
+    
+    
+    
     func updateTimer() {
+        
+
+        
+        
+        
+        
+        let zzz=Int(Date().timeIntervalSince1970)-Delegate.getBookingTime()
+        print (zzz)
+        
+        self.seconds=BookingHours-(Int(Date().timeIntervalSince1970)-Delegate.getBookingTime())
+        
+        
+        
+        
+//        if Delegate.appFlag==0
+//        {
+//            self.seconds=self.seconds-Delegate.elapsedTime
+//            Delegate.appFlag=1
+//            Delegate.elapsedTime=0
+//        }
+        
         if seconds < 1 {
             timer?.invalidate()
             timer = nil
@@ -1381,8 +1449,12 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             
         } else {
             seconds -= 1     //This will decrement(count down)the seconds.
+            Delegate.mySeconds+=1
             lblTimerD1.text =  timeString(time: TimeInterval(seconds))
         }
+        
+        
+        
     }
     
     func timeString(time:TimeInterval) -> String {
@@ -1419,7 +1491,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         if pickerView.tag == 20
         {
             lblHourD1.text = pickerDataHours[row] as? String
-            //            self.lblHourC1A.text = pickerDataHours[row] as? String
+            self.lblHourC1A.text = pickerDataHours[row] as? String
         }
         else
         {
@@ -1434,6 +1506,242 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     }
     
     
+    
+   
+    
+    func gotoMine()
+    {
+        
+        
+        
+//        let userID = FIRAuth.auth()?.currentUser?.uid
+//        currentBookingData.setValue(lblHourC1A.text, forKey: "bookingHours")
+//        
+
+        let databaseRef = FIRDatabase.database().reference()
+//        
+//        let ttt=databaseRef.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!)
+//        print(ttt)
+//        
+//        databaseRef.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).setValue(lblPriceD1.text, forKey: "price")
+//        databaseRef.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).setValue(lblHourD1, forKey: "hours")
+
+        
+        
+        var pp:Int!
+        pp=pickerDataHours.count
+        pickerDataHours.removeAllObjects()
+        
+        self.myFlag=Delegate.getBookingFlag() as NSString
+        
+        
+        
+        if self.myFlag==""
+        {
+            
+            Delegate.setBookingTime(strDate: Int(Date().timeIntervalSince1970))
+            self.myFlag="no"
+            //            self.mySeconds=0
+            //            self.Delegate.setBookingTime(myValue:self.mySeconds)
+            
+            Delegate.setBookingFlag(strDate: "no")
+            
+        } else {
+            
+            
+            print(pp)
+            
+            self.seconds=self.seconds+(Int(lblHourD1.text!)!*3600)
+            pp=pp-Int(lblHourD1.text!)!
+            
+            print(pickerDataHours.count)
+            
+            
+            lblHourD1.text=String(pp)
+            
+            
+        }
+        
+        
+        if Int(lblHourD1.text!)! > 0
+        {
+            for i in 1...Int(lblHourD1.text!)!
+            {
+                pickerDataHours.add(String(i))
+                
+                
+            }
+        }
+        
+        
+        
+        
+        
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        currentBookingData.setValue(lblHourC1A.text, forKey: "bookingHours")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MMM-yyyy HH:mm"
+        
+        
+        
+        currentBookingData.setValue(dateFormatter.string(from: NSDate() as Date), forKey: "bookingDate")
+        currentBookingData.setValue(userID, forKey: "Book_UID")
+        
+        
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        let  locationRef = databaseRef.child("Booking").childByAutoId()
+        locationRef.setValue(currentBookingData)
+        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+        
+        
+        let bookDate = NSDate() as Date
+        
+        
+        //        let BookingHours =  Int(lblHourC1A.text!)!*60*60
+        
+        let BookingHours =  Int(lblHourD1.text!)!*60*60
+        
+        if  Date() < bookDate.addingTimeInterval(TimeInterval(BookingHours))
+        {
+            
+            //            self.seconds = Int(bookDate.addingTimeInterval(TimeInterval(BookingHours)).timeIntervalSince(Date()))
+        }
+        
+        
+        
+        if self.dictMainData != nil
+        {
+            let dictUserInfo = self.dictMainData.value(forKey: currentBookingData.value(forKey: "UID") as! String) as! NSMutableDictionary
+            
+            let today = NSDate()
+            
+            if (dictUserInfo.allKeys as NSArray).contains(self.getStringFromDate(strDate:today ))
+            {
+                if( ((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).allKeys as NSArray).contains("timeIntervals"))
+                {
+                    let arrTimeIntervals = (dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "timeIntervals") as! NSArray
+                    
+                    
+                    
+                    
+                    
+                    for tempDict in arrTimeIntervals
+                    {
+                        if ((tempDict as! NSDictionary).value(forKey: "StartTime") as! String == currentBookingData.value(forKey: "StartTime") as! String) && ((tempDict as! NSDictionary).value(forKey: "EndTime") as! String == currentBookingData.value(forKey: "EndTime") as! String)
+                        {
+                            (tempDict as! NSDictionary).setValue("Booked", forKey: "BookingStatus")
+                            
+                            (tempDict as! NSDictionary).setValue(Int(Date().timeIntervalSince1970), forKey: "BookingStartTime")
+                            
+                            (tempDict as! NSDictionary).setValue(Delegate.getUID(), forKey: "BookingUserId")
+                            MBProgressHUD.showAdded(to: self.view, animated: true)
+                            let databaseRef = FIRDatabase.database().reference()
+                            
+                            databaseRef.child("RentOutSpace").child(currentBookingData.value(forKey: "UID") as! String).child(getStringFromDate(strDate: today)).child("timeIntervals").setValue(arrTimeIntervals)
+                            
+                            
+                            
+                            Delegate.API_SendNotfication(userID: currentBookingData.value(forKey: "UID") as! String, message: "Congratulations! The space you put up for rent has been rented on Driveway!")
+                            
+                            
+                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                            
+                            
+                            
+                            
+                            
+                            break
+                            
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    
+                }
+            }
+            
+        }
+        
+        
+        
+        
+        
+        if self.dictMainData != nil
+        {
+            
+            print( self.dictMainData)
+            
+            let allUserKey = self.dictMainData.allKeys as NSArray
+            
+            for i:Int in 0..<allUserKey.count
+            {
+                
+                
+                let dictUserInfo = self.dictMainData.value(forKey: allUserKey.object(at: i) as! String) as! NSMutableDictionary
+                
+                
+                let today = NSDate()
+                
+                if (dictUserInfo.allKeys as NSArray).contains(self.getStringFromDate(strDate:today ))
+                {
+                    if( ((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).allKeys as NSArray).contains("timeIntervals"))
+                    {
+                        let arrTimeIntervals = (dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "timeIntervals") as! NSArray
+                        
+                        
+                        // self.arrData.add(arrTempData.object(at: i) as! NSDictionary)
+                        
+                        print(Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double))
+                        
+                        let marker = GMSMarker()
+                        marker.position = CLLocationCoordinate2D(latitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double), longitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "long")as! Double))
+                        
+                        
+                        marker.title = ""
+                        marker.snippet = ""
+                        marker.map = self.mapView
+                        
+                        let dictPinData = arrTimeIntervals.object(at: 0) as! NSMutableDictionary
+                        dictPinData.setObject(allUserKey.object(at: i) as! String, forKey: "UID" as NSCopying)
+                        dictPinData.setObject(marker.position.latitude, forKey: "lat" as NSCopying)
+                        dictPinData.setObject(marker.position.longitude, forKey: "long" as NSCopying)
+                        dictPinData.setObject((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "NumberOfSpace")as! String, forKey: "NumberOfSpace" as NSCopying)
+                        dictPinData.setObject((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "PricePerSpace")as! String, forKey: "PricePerSpace" as NSCopying)
+                        
+                        marker.userData = dictPinData
+                    }
+                }
+                
+                
+                
+                
+                
+                
+            }
+        }
+        
+        
+        self.mapView.clear()
+        
+        // getMapDataFromServer()
+        locationManager.startUpdatingLocation()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation() // start location manager
+            
+        }
+        
+        
+        
+        
+        getBookingListFromServer()
+        
+
+    }
     
 }
 
