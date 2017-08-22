@@ -613,6 +613,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
 
 
+    
+    
+    
+    
+    
+    func getPrice()->String
+    {
+        if UserDefaults.standard.value(forKey: "Price") == nil
+        {
+            return ""
+        }
+        else
+        {
+            return UserDefaults.standard.value(forKey: "Price") as! String!
+        }
+        
+    }
+    
+    
+    func setPrice(pValue:String)
+    {
+        let defaults=UserDefaults.standard
+        defaults.setValue(pValue, forKey: "Price")
+        defaults.synchronize()
+    }
+
+    
+    func getHour()->String
+    {
+        if UserDefaults.standard.value(forKey: "Hour") == nil
+        {
+            return ""
+        }
+        else
+        {
+            return UserDefaults.standard.value(forKey: "Hour") as! String!
+        }
+        
+    }
+    
+    
+    func setHour(pHour:String)
+    {
+        let defaults=UserDefaults.standard
+        defaults.setValue(pHour, forKey: "Hour")
+        defaults.synchronize()
+    }
+
+    
+    
+    
 }
 
 

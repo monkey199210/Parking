@@ -453,7 +453,7 @@
 					E45E6C071F03976700DCD3A5 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = V6Z43EA4Z9;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 1;
@@ -731,15 +731,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Parking/Parking.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Kit  App (V6Z43EA4Z9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kit  App (V6Z43EA4Z9)";
+				DEVELOPMENT_TEAM = V6Z43EA4Z9;
 				INFOPLIST_FILE = Parking/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Parking.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "dc7936b6-1533-404a-ab5a-b52a6dc091d7";
+				PROVISIONING_PROFILE_SPECIFIER = bbbbb;
 				SWIFT_OBJC_BRIDGING_HEADER = Bridge.h;
 				SWIFT_VERSION = 3.0;
 			};
@@ -753,15 +753,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Parking/Parking.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Kit  App (V6Z43EA4Z9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kit  App (V6Z43EA4Z9)";
+				DEVELOPMENT_TEAM = V6Z43EA4Z9;
 				INFOPLIST_FILE = Parking/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Parking.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "dc7936b6-1533-404a-ab5a-b52a6dc091d7";
+				PROVISIONING_PROFILE_SPECIFIER = bbbbb;
 				SWIFT_OBJC_BRIDGING_HEADER = Bridge.h;
 				SWIFT_VERSION = 3.0;
 			};

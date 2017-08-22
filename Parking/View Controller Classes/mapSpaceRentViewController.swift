@@ -135,6 +135,9 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.view.backgroundColor = Utility.color(withHexString: appConstants.viewBackgroundColor)
+        
+        lblHourD1.text=Delegate.getHour()
+        lblPriceD1.text=Delegate.getPrice()
     }
     
     
@@ -837,45 +840,45 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             
             amount = Int((lblPriceC1A.text?.replacingOccurrences(of: "$", with: ""))!)! *  Int(lblHourD1.text!)!
             
-//            if checkApplePayAvaliable() {
-//                checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
-//                let request = PKPaymentRequest()
-//                request.merchantIdentifier = ApplePaySwagMerchantID
-//                request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-//                request.merchantCapabilities = PKMerchantCapability.capability3DS
-//                request.countryCode = "US";
-//                request.currencyCode = "USD";
-//                request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
-//                
-//                let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
-//                applePayController.delegate = self
-//                // self.present(applePayController, animated: true, completion: nil)
-//                
-//                if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
-//                    self.present(applePayController, animated: true, completion: nil)
-//                } else {
-//                    let alertController = UIAlertController(
-//                        title: "The settlement method is not registered",
-//                        message: "Would you like to register payment method now",
-//                        preferredStyle: .alert
-//                    )
-//                    alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
-//                        if #available(iOS 8.3, *) {
-//                            PKPassLibrary().openPaymentSetup()
-//                        }
-//                    }))
-//                    alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
-//                    self.navigationController?.present(alertController, animated: true, completion: nil)
-//                }
-//                
-//            }
-//            else
-//            {
-//                
-//            }
+            if checkApplePayAvaliable() {
+                checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
+                let request = PKPaymentRequest()
+                request.merchantIdentifier = ApplePaySwagMerchantID
+                request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
+                request.merchantCapabilities = PKMerchantCapability.capability3DS
+                request.countryCode = "US";
+                request.currencyCode = "USD";
+                request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
+                
+                let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
+                applePayController.delegate = self
+                // self.present(applePayController, animated: true, completion: nil)
+                
+                if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
+                    self.present(applePayController, animated: true, completion: nil)
+                } else {
+                    let alertController = UIAlertController(
+                        title: "The settlement method is not registered",
+                        message: "Would you like to register payment method now",
+                        preferredStyle: .alert
+                    )
+                    alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
+                        if #available(iOS 8.3, *) {
+                            PKPassLibrary().openPaymentSetup()
+                        }
+                    }))
+                    alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
+                    self.navigationController?.present(alertController, animated: true, completion: nil)
+                }
+                
+            }
+            else
+            {
+                
+            }
 
             
-            self.gotoMine()
+           
             
             
             print(currentBookingData)
@@ -1168,45 +1171,44 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     @IBAction func makePayment(sender: AnyObject)
     {
         
-//        if checkApplePayAvaliable() {
-//            checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
-//            let request = PKPaymentRequest()
-//            request.merchantIdentifier = ApplePaySwagMerchantID
-//            request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-//            request.merchantCapabilities = PKMerchantCapability.capability3DS
-//            request.countryCode = "US";
-//            request.currencyCode = "USD";
-//            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
-//            
-//            let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
-//            applePayController.delegate = self
-//            // self.present(applePayController, animated: true, completion: nil)
-//            
-//            if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
-//                self.present(applePayController, animated: true, completion: nil)
-//            } else {
-//                let alertController = UIAlertController(
-//                    title: "The settlement method is not registered",
-//                    message: "Would you like to register payment method now",
-//                    preferredStyle: .alert
-//                )
-//                alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
-//                    if #available(iOS 8.3, *) {
-//                        PKPassLibrary().openPaymentSetup()
-//                    }
-//                }))
-//                alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
-//                self.navigationController?.present(alertController, animated: true, completion: nil)
-//            }
-//            
-//        }
-//        else
-//        {
-//            
-//        }
+        if checkApplePayAvaliable() {
+            checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
+            let request = PKPaymentRequest()
+            request.merchantIdentifier = ApplePaySwagMerchantID
+            request.supportedNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
+            request.merchantCapabilities = PKMerchantCapability.capability3DS
+            request.countryCode = "US";
+            request.currencyCode = "USD";
+            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(amount)))]
+            
+            let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
+            applePayController.delegate = self
+            // self.present(applePayController, animated: true, completion: nil)
+            
+            if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
+                self.present(applePayController, animated: true, completion: nil)
+            } else {
+                let alertController = UIAlertController(
+                    title: "The settlement method is not registered",
+                    message: "Would you like to register payment method now",
+                    preferredStyle: .alert
+                )
+                alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
+                    if #available(iOS 8.3, *) {
+                        PKPassLibrary().openPaymentSetup()
+                    }
+                }))
+                alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
+                self.navigationController?.present(alertController, animated: true, completion: nil)
+            }
+            
+        }
+        else
+        {
+            
+        }
         
         
-        gotoMine()
         
         
         
@@ -1321,6 +1323,11 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         lblPriceC1A.text = String.init(format: "$%@", (tempDict?["PricePerSpace"] as? String)!)
         lblPriceD1.text = String.init(format: "$%@", (tempDict?["PricePerSpace"] as? String)!)
         amount = Int((lblPriceC1A.text?.replacingOccurrences(of: "$", with: ""))!)! * Int(lblHourC1A.text!)!
+        
+        
+        
+        
+        
         btnApplePay.setTitle(NSString.init(format: "Pay $%d now with Apple Pay", amount) as String, for: .normal)
         
         
@@ -1411,24 +1418,8 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     func updateTimer() {
         
 
-        
-        
-        
-        
-        let zzz=Int(Date().timeIntervalSince1970)-Delegate.getBookingTime()
-        print (zzz)
-        
         self.seconds=BookingHours-(Int(Date().timeIntervalSince1970)-Delegate.getBookingTime())
-        
-        
-        
-        
-//        if Delegate.appFlag==0
-//        {
-//            self.seconds=self.seconds-Delegate.elapsedTime
-//            Delegate.appFlag=1
-//            Delegate.elapsedTime=0
-//        }
+      
         
         if seconds < 1 {
             timer?.invalidate()
@@ -1438,6 +1429,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             lblTimerD1.text = "Your time has run out and you are about to be towed. Please buy more time or leave your parking space quickly."
             lblTimerD1.font = UIFont.systemFont(ofSize: 13)
             
+            Delegate.setBookingFlag(strDate: "")
             
             if Delegate.getReportSubmitText() != ""
             {
@@ -1514,23 +1506,18 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         
         
         
-//        let userID = FIRAuth.auth()?.currentUser?.uid
-//        currentBookingData.setValue(lblHourC1A.text, forKey: "bookingHours")
-//        
-
+        let userID = FIRAuth.auth()?.currentUser?.uid
+       
         let databaseRef = FIRDatabase.database().reference()
-//        
-//        let ttt=databaseRef.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!)
-//        print(ttt)
-//        
-//        databaseRef.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).setValue(lblPriceD1.text, forKey: "price")
-//        databaseRef.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).setValue(lblHourD1, forKey: "hours")
-
+        
+        
+        
         
         
         var pp:Int!
         pp=pickerDataHours.count
         pickerDataHours.removeAllObjects()
+        
         
         self.myFlag=Delegate.getBookingFlag() as NSString
         
@@ -1539,18 +1526,18 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         if self.myFlag==""
         {
             
+            
             Delegate.setBookingTime(strDate: Int(Date().timeIntervalSince1970))
             self.myFlag="no"
-            //            self.mySeconds=0
-            //            self.Delegate.setBookingTime(myValue:self.mySeconds)
-            
             Delegate.setBookingFlag(strDate: "no")
+
+            Delegate.setHour(pHour: lblHourD1.text!)
+            Delegate.setPrice(pValue: lblPriceD1.text!)
             
         } else {
             
-            
-            print(pp)
-            
+           
+
             self.seconds=self.seconds+(Int(lblHourD1.text!)!*3600)
             pp=pp-Int(lblHourD1.text!)!
             
@@ -1577,7 +1564,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         
         
         
-        let userID = FIRAuth.auth()?.currentUser?.uid
+//        let userID = FIRAuth.auth()?.currentUser?.uid
         currentBookingData.setValue(lblHourC1A.text, forKey: "bookingHours")
         
         let dateFormatter = DateFormatter()

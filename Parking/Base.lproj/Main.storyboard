@@ -414,7 +414,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooR-0N-RsO">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooR-0N-RsO">
                                                 <rect key="frame" x="133" y="95" width="54" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="kef-Fk-ukY"/>
@@ -1943,7 +1943,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gzq-8D-ccC" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="pqi-L1-gx4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pqi-L1-gx4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

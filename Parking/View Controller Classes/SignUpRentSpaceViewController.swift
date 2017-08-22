@@ -249,7 +249,7 @@ class SignUpRentSpaceViewController: UIViewController {
             }
             
             // [START basic_write]
-            let post : [String: AnyObject] = ["Name" : self.txtName.text as AnyObject, "EmailAddress" : self.txtEmail.text as AnyObject, "Phone" : self.txtPhone.text as AnyObject , "LicenseNumber" : self.txtLicenseNumber.text as AnyObject, "Password" : self.txtPassword.text as AnyObject, "UserType" : "RentSpace" as AnyObject, "Enable" : "Yes" as AnyObject]
+            let post : [String: AnyObject] = ["Name" : self.txtName.text as AnyObject, "EmailAddress" : self.txtEmail.text as AnyObject, "Phone" : self.txtPhone.text as AnyObject , "LicenseNumber" : self.txtLicenseNumber.text as AnyObject, "Password" : self.txtPassword.text as AnyObject, "UserType" : "RentSpace" as AnyObject, "Enable" : "Yes" as AnyObject,"BookingStartTime":"" as AnyObject, "Price":"" as AnyObject, "Hours":"" as AnyObject,"Logined":"" as AnyObject]
             
             var databaseRef = FIRDatabase.database().reference()
             

@@ -191,7 +191,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1667"
             endingLineNumber = "1667"
-            landmarkName = "numberOfComponentsInPickerView(pickerView:)"
+            landmarkName = "gotoMine()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -495,8 +495,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1654"
             endingLineNumber = "1654"
-            landmarkName = "mapSpaceRentViewController"
-            landmarkType = "3">
+            landmarkName = "gotoMine()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -511,7 +511,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1655"
             endingLineNumber = "1655"
-            landmarkName = "timeString(time:)"
+            landmarkName = "gotoMine()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -527,8 +527,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1662"
             endingLineNumber = "1662"
-            landmarkName = "mapSpaceRentViewController"
-            landmarkType = "3">
+            landmarkName = "gotoMine()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
