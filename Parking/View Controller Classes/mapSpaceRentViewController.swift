@@ -713,7 +713,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         }
     }
     
-    @IBAction func alreadyLeftAction(sender: AnyObject)
+    @IBAction func alreadyLeftAction(sender: AnyObject?)
     {
         lblTimerD1.font = UIFont.systemFont(ofSize: 37)
         Delegate.mySeconds=0
@@ -727,7 +727,10 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         viewPopC1A.isHidden = true
         viewPopD1.isHidden = true
         Delegate.removeReportSubmitText()
-        Delegate.API_SendNotfication(userID: currentParkingOwnerUID, message: "Congratulations! Someone has finished using your space on Driveway.")
+        if sender != nil
+        {
+            Delegate.API_SendNotfication(userID: currentParkingOwnerUID, message: "Congratulations! Someone has finished using your space on Driveway.")
+        }
         
         self.seconds = 0
         let databaseRef = FIRDatabase.database().reference()
@@ -810,6 +813,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         
         if Int(lblHourD1.text!)! == 0
         {
+            Utility.alert("There is no more time available in this space.", andTitle: appConstants.AppName, andController: self)
             return
         }
         //// get time difference
@@ -1267,6 +1271,10 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         {
             Delegate.API_SendNotfication(userID: currentParkingOwnerUID, message: Delegate.getReportSubmitText())
             Delegate.removeReportSubmitText()
+        }
+        if Int(lblHourD1.text!) == 0
+        {
+            alreadyLeftAction(sender: nil)
         }
 
     }
