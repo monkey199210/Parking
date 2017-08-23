@@ -1020,7 +1020,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             {
                 if arrInterval.count > 0
                 {
-                    let indexPath = IndexPath(row: arrInterval.count - 1, section: (dictMainData.allKeys as NSArray).index(of: getStringFromDate(strDate: dateSelected)))
+                    let indexPath = IndexPath(row: 0, section: (dictMainData.allKeys as NSArray).index(of: getStringFromDate(strDate: dateSelected)))
                     tblList.beginUpdates()
                     tblList.scrollToRow(at: indexPath, at: UITableViewScrollPosition.none, animated: true)
                     tblList.endUpdates()
