@@ -1141,12 +1141,19 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="jjv-J3-SG3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="386"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You've made $0 this month." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cv-Fn-fRp">
+                                            <rect key="frame" x="0.0" y="-10" width="375" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bnn-fn-nmy" customClass="JTCalendarMenuView">
-                                            <rect key="frame" x="0.0" y="-26" width="375" height="50"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <rect key="frame" x="0.0" y="30" width="375" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1d0-RZ-0dE">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -1156,7 +1163,7 @@
                                             </subviews>
                                         </view>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Np-ae-LhV" customClass="JTHorizontalCalendarView">
-                                            <rect key="frame" x="0.0" y="24" width="375" height="300"/>
+                                            <rect key="frame" x="0.0" y="81" width="375" height="300"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         </view>
                                     </subviews>
@@ -1164,7 +1171,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailTableViewCell" rowHeight="109" id="Xed-4t-KDD" customClass="DetailTableViewCell" customModule="Parking" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="378" width="375" height="109"/>
+                                        <rect key="frame" x="0.0" y="414" width="375" height="109"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xed-4t-KDD" id="k2M-Cc-3KJ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="108.5"/>
@@ -1301,6 +1308,7 @@
                         <outlet property="calendarContentView" destination="5Np-ae-LhV" id="PZz-ea-kE1"/>
                         <outlet property="calendarMenuView" destination="bnn-fn-nmy" id="u9L-t5-d2J"/>
                         <outlet property="lblConatctName" destination="SP6-vO-RXM" id="14e-qg-aRt"/>
+                        <outlet property="lblMadeMoney" destination="6cv-Fn-fRp" id="Unk-YX-oz7"/>
                         <outlet property="tblList" destination="szB-HJ-Qbm" id="3ss-Fz-op4"/>
                     </connections>
                 </viewController>
@@ -1943,7 +1951,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gzq-8D-ccC" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="pqi-L1-gx4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pqi-L1-gx4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

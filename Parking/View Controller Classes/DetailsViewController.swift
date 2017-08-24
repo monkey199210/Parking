@@ -23,6 +23,7 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     
     @IBOutlet var lblConatctName:UILabel!
     @IBOutlet var btnContactNumber:UIButton!
+    @IBOutlet weak var lblMadeMoney: UILabel!
     
      var dateSelected = NSDate()
     
@@ -99,6 +100,14 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy"
+        
+        return dateFormatter.string(from: strDate as Date)
+    }
+    
+    func getMonthFromDate(strDate: NSDate)-> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM-yyyy"
         
         return dateFormatter.string(from: strDate as Date)
     }
@@ -378,6 +387,16 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
         tblList.reloadData()
     }
     
+    func calendarDidLoadNextPage(_ calendar: JTCalendarManager!) {
+        print("\(calendar.date())")
+        getMadeMoneyByMonth(date: calendar.date()! as NSDate)
+    }
+    
+    func calendarDidLoadPreviousPage(_ calendar: JTCalendarManager!) {
+        print("\(calendar.date())")
+        getMadeMoneyByMonth(date: calendar.date()! as NSDate)
+    }
+    
     
     
     
@@ -471,25 +490,8 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
                 }
                 
             }
-
-//            cell.bookedname.isHidden=false
-//            cell.phoneNumber.isHidden=false
-//            cell.bookedname.text="Contact Name: AAA"
-//            cell.phoneNumber.setTitle("Phone BBB", for: .normal)
         
         }
-        
-        
-        
-        
-        
-      /*  cell.btnStartTime.setTitle((arrInterval.object(at: indexPath.row) as! NSMutableDictionary).value(forKey: "StartTime") as? String, for: .normal)
-        
-        
-        cell.btnEndTime.setTitle((arrInterval.object(at: indexPath.row) as! NSMutableDictionary).value(forKey: "EndTime") as? String, for: .normal)*/
-        
-        
-        
         return cell;
     }
     
@@ -507,15 +509,6 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             // NSLog("chil %@", snapshot.value! as! NSDictionary)
             
             self.arrBookingList.removeAllObjects()
-            
-            /* if snapshot.value != nil
-             {
-             if !(snapshot.value  is NSNull)
-             {
-             self.arrBookingList = (snapshot.value as! NSArray).mutableCopy() as! NSMutableArray
-             }
-             }*/
-            
             
             parentRef.removeAllObservers()
             
@@ -538,6 +531,8 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
             
             print(self.arrBookingList)
+            
+            self.getMadeMoneyByMonth(date: NSDate())
             
             let parentRef = FIRDatabase.database().reference().child("Users")
             parentRef.observe(.value, with: { snapshot in
@@ -565,6 +560,36 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
     }
     
     
+    func getMadeMoneyByMonth(date: NSDate)
+    {
+        if arrBookingList == nil
+        {
+            return
+        }
+        var totalMoney = 0
+        for dict in arrBookingList
+        {
+            let dictBooking = dict as! NSDictionary
+            
+            if (dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "UID") as? String == FIRAuth.auth()?.currentUser?.uid
+            {
+                if (((dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "bookingDate") as? String)?.contains(getMonthFromDate(strDate: date)))!
+                {
+                    if let price = (dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "PricePerSpace") as? String
+                    {
+                        if let hours = (dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "bookingHours") as? String
+                        {
+                            totalMoney = Int(price)! * Int(hours)! + totalMoney
+                        }
+                    }
+                }
+            }
+            
+        }
+        let madeMoney = Float(totalMoney) * 0.75
+        lblMadeMoney.text = "You've made $\(String(format:"%0.2f", madeMoney)) this month"
+        
+    }
     
     func findContactNumberInBookingList(strDate: String)
     {
