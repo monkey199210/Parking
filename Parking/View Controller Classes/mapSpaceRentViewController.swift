@@ -449,7 +449,13 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                 self.pickerDataHours.removeAllObjects()
                 if let difHours = timeDifference.hour
                 {
-                    self.lblHourD1.text =  "\(difHours - self.BookingHours/3600)"
+                    let currentInterval = Int(firstBookDate.timeIntervalSince1970) + self.BookingHours
+                    if Int(NSDate().timeIntervalSince1970) > currentInterval
+                    {
+                        self.lblHourD1.text =  "\(difHours)"
+                    }else{
+                        self.lblHourD1.text =  "\(difHours - self.BookingHours/3600)"
+                    }
                     if Int(self.lblHourD1.text!)! > 0
                     {
                         
@@ -1324,7 +1330,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     {
         
         
-        
+        lblTimerD1.font = UIFont.systemFont(ofSize: 37)
         let userID = FIRAuth.auth()?.currentUser?.uid
         
         let databaseRef = FIRDatabase.database().reference()
