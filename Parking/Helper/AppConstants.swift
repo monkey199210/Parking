@@ -10,7 +10,7 @@ import UIKit
 
 let appConstants = AppConstants()
 class AppConstants: NSObject {
-    let AppName = "Parking";
+    let AppName = "Driveway";
     let PLEASE_WAIT =         "Please Wait.";
     let navColor = "e83501"
     let viewBackgroundColor = "f5f4f5"

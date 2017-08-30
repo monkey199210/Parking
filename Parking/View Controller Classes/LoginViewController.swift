@@ -264,6 +264,11 @@ class LoginViewController: UIViewController {
                     {
                     if (userType == self.strLoginType)
                     {
+                        if userType == "RentOutSpace" && value?["ApplePay"] as? String ?? "" != "Yes"
+                        {
+                            self.showPurchase()
+                            return;
+                        }
                        //  navigate depends on login type
                         
                         
@@ -440,7 +445,18 @@ class LoginViewController: UIViewController {
         
     }
     
-    
+    func showPurchase()
+    {
+        let alert = UIAlertController(title: appConstants.AppName, message: "Your rent out space account have to purchase", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alert.addAction(defaultAction)
+        alert.addAction(UIAlertAction(title: "Purchase Now", style: .default) { action in
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "applePaySignup") as! ApplepaySingupViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
+        self.present(alert, animated: true)
+    }
    
 
     /* func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)

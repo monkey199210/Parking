@@ -22,6 +22,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     var strFromSignupLogin:String = ""
     
     var sortedKeys : [String] = []
+    var tableSortKeys: [String] = []
     
     //var arrTimeIntervalList:NSMutableArray!
     
@@ -75,10 +76,10 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         calendarManager.setDate(mydate)
         
         
-   
+        
         lblPrice.text = String.init(format: "Price per hour per space $%@", selectedPrice);
         
-       
+        
         
         
     }
@@ -209,6 +210,18 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 return a1[2] < b1[2]
             }
         })
+        
+        self.tableSortKeys = self.sortedKeys.filter({(str) -> Bool in
+            let curDate = getStringFromDate(strDate: dateSelected)
+            let curArr = curDate.components(separatedBy: "-")
+            let strArr = str.components(separatedBy: "-")
+            if yearMonth.index(of: curArr[1]) == yearMonth.index(of: strArr[1])
+            {
+                return true
+            }
+            return false
+        })
+        tblList.reloadData()
     }
     
     func updateLableValue()
@@ -283,21 +296,64 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 self.dictMainData = (snapshot.value as! NSDictionary).mutableCopy() as! NSMutableDictionary
                 self.serverMainData = (snapshot.value as! NSDictionary).mutableCopy() as! NSMutableDictionary
                 
+                let arrKeys = self.dictMainData.allKeys as NSArray
+                
+                for key in arrKeys
+                {
+                    if let _ = self.dictMainData.value(forKey: key as! String) as? NSMutableDictionary
+                    {
+                        if let arrInterval = (self.dictMainData.value(forKey: key as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as? NSMutableArray
+                        {
+                            let sortedInterval = (arrInterval as! [NSDictionary]).sorted(by: { (h0, h1) -> Bool in
+                                let a0 = h0.object(forKey: "StartTime") as! String
+                                let b0 = h1.object(forKey: "StartTime") as! String
+                                let a1 = a0.components(separatedBy: " ")
+                                let b1 = b0.components(separatedBy: " ")
+                                if a1[1] == b1[1]
+                                {
+                                    if (a1[0].components(separatedBy: ":"))[0] == "12" && a1[1] == "AM"
+                                    {
+                                        return true
+                                    }else{
+                                        let arrTime1 = a1[0].components(separatedBy: ":")
+                                        let arrTime2 = b1[0].components(separatedBy: ":")
+                                        if Int(arrTime2[0]) == Int(arrTime1[0])
+                                        {
+                                            return Int(arrTime1[1])! < Int(arrTime2[1])!
+                                        }else{
+                                            return Int(arrTime1[0])! < Int(arrTime2[0])!
+                                        }
+                                    }
+                                }else{
+                                    return a1[1] < b1[1]
+                                }
+                            })
+                            
+                            let sortedArr = NSMutableArray()
+                            for item in sortedInterval
+                            {
+                                sortedArr.add(item)
+                            }
+                            (self.dictMainData.value(forKey: key as! String) as! NSMutableDictionary).setValue(sortedArr, forKey: "timeIntervals")
+                            
+                        }
+                    }
+                }
                 self.sortKeys()
             } else {
                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                 return
             }
             
-//            
-//            print ("DicMainData Value")
-//            print (self.dictMainData)
+            //
+            //            print ("DicMainData Value")
+            //            print (self.dictMainData)
             
             print ("Sorted Values")
             print (self.sortedKeys)
             
             
-          
+            
             
             
             if let _ = self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as? NSMutableDictionary
@@ -401,7 +457,6 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 arrInterval.add(dictTemp)
                 
                 self.sortKeys()
-                tblList.reloadData()
             }
             else
             {
@@ -431,7 +486,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     {
         print("Save Data")
         
-       
+        
         
         let ref = FIRDatabase.database().reference()
         
@@ -567,17 +622,17 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         print("start time")
         
         
-
+        
         
         
         let btn = sender as! UIButton
         
-
-        let myArray = NSArray(array: self.sortedKeys)
+        
+        let myArray = NSArray(array: self.tableSortKeys)
         
         
         let arrInterval1 = (self.dictMainData.value(forKey: myArray.object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
-
+        
         
         
         let dictTemp1 = arrInterval1.object(at: btn.tag%100) as! NSMutableDictionary
@@ -589,7 +644,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             return;
             
         }
-
+        
         
         
         
@@ -638,7 +693,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 let strStartTime1 = (dictTemp.object(forKey: "StartTime")) as! String
                 
                 let strStart1 = "09-Aug-2017" + " " + strStartTime1
-            
+                
                 
                 
                 let strEndTime1 = (dictTemp.object(forKey: "EndTime")) as! String
@@ -669,14 +724,14 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                                 {
                                     
                                     
-                                
+                                    
                                     
                                     
                                     if self.checkOverlapTime(startDate, endTime: endDate, startTime2: tempDateTimeStart, endTime2: tempDateTimeEnd)
                                     {
                                         dictTemp.setValue("00:00", forKey: "StartTime")
                                         btn.setTitle("00:00", for: .normal)
-
+                                        
                                         Utility.alert("Rent out time overlapped", andTitle: "", andController: self)
                                         return;
                                     }
@@ -686,7 +741,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                     }
                 }
             }
-          
+            
             
             
         })
@@ -702,22 +757,22 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         startDatePickerView.datePickerMode = UIDatePickerMode.time
         
-                let arrInterval = (self.dictMainData.value(forKey: myArray.object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        let arrInterval = (self.dictMainData.value(forKey: myArray.object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
         
         
-               let date = myArray.object(at: btn.tag/100) as! String
-
-                let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
-                if let strStartTime = (dictTemp.object(forKey: "EndTime")) as? String
-                {
-                    let str = date + " " + strStartTime
-                    if let minimum = getDateFromTime(strDate: str)
-                    {
-                        startDatePickerView.maximumDate = minimum
-                    }
-                }else{
-                    startDatePickerView.maximumDate = getDateFromTime(strDate: date + " " + "11:59 PM")
+        let date = myArray.object(at: btn.tag/100) as! String
+        
+        let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
+        if let strStartTime = (dictTemp.object(forKey: "EndTime")) as? String
+        {
+            let str = date + " " + strStartTime
+            if let minimum = getDateFromTime(strDate: str)
+            {
+                startDatePickerView.maximumDate = minimum
+            }
+        }else{
+            startDatePickerView.maximumDate = getDateFromTime(strDate: date + " " + "11:59 PM")
         }
         startDatePickerView.minimumDate = getDateFromTime(strDate: date + " " + "12:00 AM")
         
@@ -735,10 +790,10 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         let btn = sender as! UIButton
         
-//        let arrInterval1 = (self.dictMainData.value(forKey: (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        //        let arrInterval1 = (self.dictMainData.value(forKey: (self.dictMainData.allKeys as NSArray).object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
         
-        let myArray = NSArray(array: self.sortedKeys)
+        let myArray = NSArray(array: self.tableSortKeys)
         
         let arrInterval1 = (self.dictMainData.value(forKey: myArray.object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
@@ -755,7 +810,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             return;
             
         }
-
+        
         
         
         self.view.endEditing(true)
@@ -818,7 +873,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                                 {
                                     if self.checkOverlapTime(startDate, endTime: endDate, startTime2: tempDateTimeStart, endTime2: tempDateTimeEnd)
                                     {
-                          
+                                        
                                         dictTemp.setValue("00:00", forKey: "EndTime")
                                         btn.setTitle("00:00", for: .normal)
                                         Utility.alert("Rent out time overlapped", andTitle: "", andController: self)
@@ -846,22 +901,22 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         endDatePickerView.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         
         endDatePickerView.datePickerMode = UIDatePickerMode.time
-                let arrInterval = (self.dictMainData.value(forKey: myArray.object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
-                let date = myArray.object(at: btn.tag/100) as! String
-                let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
-                if let strStartTime = (dictTemp.object(forKey: "StartTime")) as? String
-                {
-                     let str = date + " " + strStartTime
-                    if let minimum = getDateFromTime(strDate: str)
-                    {
-        
-                        endDatePickerView.minimumDate = minimum
-                    }
-                }else{
-                    endDatePickerView.minimumDate = getDateFromTime(strDate: date + " " + "12:00 AM")
+        let arrInterval = (self.dictMainData.value(forKey: myArray.object(at: btn.tag/100) as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        let date = myArray.object(at: btn.tag/100) as! String
+        let dictTemp = arrInterval.object(at: btn.tag%100) as! NSMutableDictionary
+        if let strStartTime = (dictTemp.object(forKey: "StartTime")) as? String
+        {
+            let str = date + " " + strStartTime
+            if let minimum = getDateFromTime(strDate: str)
+            {
+                
+                endDatePickerView.minimumDate = minimum
+            }
+        }else{
+            endDatePickerView.minimumDate = getDateFromTime(strDate: date + " " + "12:00 AM")
         }
         
-                endDatePickerView.maximumDate = getDateFromTime(strDate: date + " " + "11:59 PM")
+        endDatePickerView.maximumDate = getDateFromTime(strDate: date + " " + "11:59 PM")
         
         //sender.inputView = datePickerView
         
@@ -910,7 +965,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         
-     }
+    }
     
     
     
@@ -923,7 +978,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         let t4 = endTime2.timeIntervalSince1970
         
         if(t1==t3 && t2==t4){
-          compareCount=compareCount+1;
+            compareCount=compareCount+1;
             
             if(compareCount>1) {
                 return true
@@ -932,9 +987,9 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             }
         }
         
-       
         
-              
+        
+        
         
         if ( (t3 >= t1 && t3 < t2) || (t3 <= t1 && t4 > t1))
         {
@@ -942,10 +997,10 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         }
         else {
             
-             return false
+            return false
         }
-
-//        return false
+        
+        //        return false
         
     }
     
@@ -1035,20 +1090,20 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         
         
-        if let _ = dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as? NSMutableDictionary
-        {
-            if let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
-            {
-                if arrInterval.count > 0
-                {
-                    let indexPath = IndexPath(row: 0, section: (dictMainData.allKeys as NSArray).index(of: getStringFromDate(strDate: dateSelected)))
-                    tblList.beginUpdates()
-                    tblList.scrollToRow(at: indexPath, at: UITableViewScrollPosition.none, animated: true)
-                    tblList.endUpdates()
-                    
-                }
-            }
-        }
+//        if let _ = dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as? NSMutableDictionary
+//        {
+//            if let arrInterval = (dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
+//            {
+//                if arrInterval.count > 0
+//                {
+//                    let indexPath = IndexPath(row: 0, section: (dictMainData.allKeys as NSArray).index(of: getStringFromDate(strDate: dateSelected)))
+//                    tblList.beginUpdates()
+//                    tblList.scrollToRow(at: indexPath, at: UITableViewScrollPosition.none, animated: true)
+//                    tblList.endUpdates()
+//                    
+//                }
+//            }
+//        }
         
         UIView.transition(with: mydayview, duration: 0.3, options: UIViewAnimationOptions(rawValue: 0), animations: {
             mydayview.circleView.transform = CGAffineTransform.identity
@@ -1068,12 +1123,12 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     
     // MARK: - table view Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sortedKeys.count
+        return tableSortKeys.count
     }
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sortedKeys[section]
+        return tableSortKeys[section]
         
     }
     
@@ -1082,7 +1137,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         if (dictMainData.allKeys as NSArray).count > 0
         {
             
-            if let arrInterval = (dictMainData.value(forKey: sortedKeys[section]) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
+            if let arrInterval = (dictMainData.value(forKey: tableSortKeys[section]) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
             {
                 
                 return arrInterval.count;
@@ -1100,7 +1155,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "timeInterval") as! TimeIntervalTableViewCell;
         
         
-        let arrInterval = (dictMainData.value(forKey: sortedKeys[indexPath.section]) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
+        let arrInterval = (dictMainData.value(forKey: tableSortKeys[indexPath.section]) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
         
         cell.btnStartTime.setTitle((arrInterval.object(at: indexPath.row) as! NSMutableDictionary).value(forKey: "StartTime") as? String, for: .normal)
         
@@ -1124,8 +1179,8 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         cell.txtNote.addTarget(self, action:#selector(textFieldTextChange(sender:)), for: .editingChanged)
         
         
-        cell.lblStartDate.text = sortedKeys[indexPath.section]
-        cell.lblEndDate.text = sortedKeys[indexPath.section]
+        cell.lblStartDate.text = tableSortKeys[indexPath.section]
+        cell.lblEndDate.text = tableSortKeys[indexPath.section]
         
         
         return cell;
@@ -1134,7 +1189,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if let _ = (dictMainData.value(forKey: sortedKeys[section]) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
+        if let _ = (dictMainData.value(forKey: tableSortKeys[section]) as! NSMutableDictionary).value(forKey: "timeIntervals") as?NSMutableArray
         {
             
             return 20

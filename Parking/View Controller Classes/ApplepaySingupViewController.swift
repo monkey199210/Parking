@@ -13,7 +13,7 @@ import Firebase
 class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate {
 
     
-    
+        let Delegate = UIApplication.shared.delegate as! AppDelegate
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
     let ApplePaySwagMerchantID = "merchant.pineappleinnovation.com.applepay"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
@@ -37,6 +37,8 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
         let databaseRef = FIRDatabase.database().reference()
         databaseRef.child("Users").child(userID!).child("ApplePay").setValue("Yes")
         
+        self.Delegate.setUID(strUID: userID!)
+        self.Delegate.setLoginType(strType: "RentOutSpace")
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         

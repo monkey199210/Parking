@@ -149,11 +149,56 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
                 
             }
             
+            let arrKeys = self.dictMainData.allKeys as NSArray
+            
+            for key in arrKeys
+            {
+                if let _ = self.dictMainData.value(forKey: key as! String) as? NSMutableDictionary
+                {
+                    if let arrInterval = (self.dictMainData.value(forKey: key as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as? NSMutableArray
+                    {
+                        let sortedInterval = (arrInterval as! [NSDictionary]).sorted(by: { (h0, h1) -> Bool in
+                            let a0 = h0.object(forKey: "StartTime") as! String
+                            let b0 = h1.object(forKey: "StartTime") as! String
+                            let a1 = a0.components(separatedBy: " ")
+                            let b1 = b0.components(separatedBy: " ")
+                            if a1[1] == b1[1]
+                            {
+                                if (a1[0].components(separatedBy: ":"))[0] == "12" && a1[1] == "AM"
+                                {
+                                    return true
+                                }else{
+                                    let arrTime1 = a1[0].components(separatedBy: ":")
+                                    let arrTime2 = b1[0].components(separatedBy: ":")
+                                    if Int(arrTime2[0]) == Int(arrTime1[0])
+                                    {
+                                        return Int(arrTime1[1])! < Int(arrTime2[1])!
+                                    }else{
+                                        return Int(arrTime1[0])! < Int(arrTime2[0])!
+                                    }
+                                }
+                            }else{
+                                return a1[1] < b1[1]
+                            }
+                        })
+                        
+                        let sortedArr = NSMutableArray()
+                        for item in sortedInterval
+                        {
+                            sortedArr.add(item)
+                        }
+                        (self.dictMainData.value(forKey: key as! String) as! NSMutableDictionary).setValue(sortedArr, forKey: "timeIntervals")
+                        
+                    }
+                }
+            }
+
+            
             
             
             
             /*for child in snapshot.children {
-                
+             
                 print((child as! FIRDataSnapshot).key)
                 
               // let dataDict = NSMutableDictionary()

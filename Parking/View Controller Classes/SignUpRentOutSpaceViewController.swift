@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class SignUpRentOutSpaceViewController: UIViewController {
-
+    
     let Delegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet var scroller:TPKeyboardAvoidingScrollView!
@@ -29,27 +29,27 @@ class SignUpRentOutSpaceViewController: UIViewController {
     @IBOutlet var txtVerifyPassword:UITextField!
     
     var arrUserList:NSMutableArray!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         arrUserList = NSMutableArray()
         
         // Do any additional setup after loading the view.
-         scroller.contentSizeToFit()
+        scroller.contentSizeToFit()
         setupUI()
         
-        getAllUserListFromServer()
+        //        getAllUserListFromServer()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     // MARK: - Custom Methods
     
     func setupUI()
@@ -59,7 +59,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
         
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
     }
-
+    
     
     
     func getAllUserListFromServer()
@@ -96,7 +96,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
                 self.arrUserList.add((child as! FIRDataSnapshot).value ?? "")
                 
                 
-               
+                
                 
                 
             }
@@ -112,7 +112,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
             
         })
     }
-
+    
     
     //MARK: - IBActions
     
@@ -124,7 +124,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
         objController.conditionType = "RentOutSpace"
         self.navigationController?.pushViewController(objController, animated: true)
     }
-
+    
     
     @IBAction func textLimit(sender: AnyObject)
     {
@@ -232,7 +232,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
             Utility.alert("Please enter zip code", andTitle: appConstants.AppName, andController: self)
             return;
         }
-
+        
         
         
         
@@ -275,64 +275,85 @@ class SignUpRentOutSpaceViewController: UIViewController {
         
         self.view.endEditing(true)
         
-       var isTrue = true
-        
-        for tempDict in arrUserList
-        {
-            if ((tempDict as! NSDictionary).value(forKey: "Street") as? String == street)
-                && ((tempDict as! NSDictionary).value(forKey: "City") as? String == city)
-                && ((tempDict as! NSDictionary).value(forKey: "State") as? String == state)
-            && ((tempDict as! NSDictionary).value(forKey: "Country") as? String == country)
-            {
-                  //Utility.alert("This Address Already Exists", andTitle: "", andController: self)
-                isTrue = false
-                break
+        var isTrue = true
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        let parentRef = FIRDatabase.database().reference().child("Users")
+        parentRef.observe(.value, with: { snapshot in
+            
+            // NSLog("chil %@", snapshot.value! as! NSDictionary)
+            
+            self.arrUserList.removeAllObjects()
+            
+            /* if snapshot.value != nil
+             {
+             if !(snapshot.value  is NSNull)
+             {
+             self.arrBookingList = (snapshot.value as! NSArray).mutableCopy() as! NSMutableArray
+             }
+             }*/
+            
+            
+            parentRef.removeAllObservers()
+            
+            
+            
+            
+            
+            for child in snapshot.children {
+                self.arrUserList.add((child as! FIRDataSnapshot).value ?? "")
             }
             
             
-
-        }
-        
-        
-        
-        
-        
-        if isTrue
-        {
-            MBProgressHUD.showAdded(to: self.view, animated: true)
             
-            (FIRAuth.auth()?.createUser(withEmail: txtEmail.text!, password: txtPassword.text!, completion: {
-                
-                (user, error) in
-                
-                // NSLog("error %@", error!.localizedDescription)
-                
-                guard let user = user, error == nil else {
-                    
-                    Utility.alert(error?.localizedDescription, andTitle: "", andController: self)
-                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
-                    return
+            print(self.arrUserList)
+            
+            for tempDict in self.arrUserList
+            {
+                if ((tempDict as! NSDictionary).value(forKey: "Street") as? String == street)
+                    && ((tempDict as! NSDictionary).value(forKey: "City") as? String == city)
+                    && ((tempDict as! NSDictionary).value(forKey: "State") as? String == state)
+                    && ((tempDict as! NSDictionary).value(forKey: "Country") as? String == country)
+                {
+                    //Utility.alert("This Address Already Exists", andTitle: "", andController: self)
+                    isTrue = false
+                    break
                 }
                 
-                // Finally, save their profile
-                self.saveUserInfo(user, withUsername: self.txtName.text!)
                 
                 
+            }
+            if isTrue
+            {
                 
+                (FIRAuth.auth()?.createUser(withEmail: self.txtEmail.text!, password: self.txtPassword.text!, completion: {
+                    
+                    (user, error) in
+                    
+                    // NSLog("error %@", error!.localizedDescription)
+                    
+                    guard let user = user, error == nil else {
+                        
+                        Utility.alert(error?.localizedDescription, andTitle: "", andController: self)
+                        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                        return
+                    }
+                    
+                    // Finally, save their profile
+                    self.saveUserInfo(user, withUsername: self.txtName.text!)
+                }))!
                 
-                
-                
-            }))!
+            }
+            else
+            {
+                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                Utility.alert("This Address Already Exists", andTitle: "", andController: self)
+            }
             
-        }
-        else
-        {
-           Utility.alert("This Address Already Exists", andTitle: "", andController: self) 
-        }
-        
-        
-        
-        
+            
+            
+            
+            
+        })
         
         
     }
@@ -365,7 +386,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
             
             
             
-         
+            
             let addressString = String.init(format: "%@, %@, %@, %@, %@", self.txtStreet.text!, self.txtCity.text!, self.txtState.text!, self.txtCountry.text!, self.txtZipCode.text!)
             
             print(addressString)
@@ -375,10 +396,10 @@ class SignUpRentOutSpaceViewController: UIViewController {
             
             print(Utility.getLocationFromAddressString(addressString))
             
-
             
             
-           
+            
+            
             
             // [START basic_write]
             let post : [String: AnyObject] = ["Name" : self.txtName.text as AnyObject, "EmailAddress" : self.txtEmail.text as AnyObject, "Phone" : self.txtPhone.text as AnyObject , "Street" : self.txtStreet.text as AnyObject, "City" : self.txtCity.text as AnyObject, "State" : self.txtState.text as AnyObject, "Country" : self.txtCountry.text as AnyObject, "ZipCode" : self.txtZipCode.text as AnyObject, "Password" : self.txtPassword.text as AnyObject, "UserType" : "RentOutSpace" as AnyObject, "availCount" : "0" as AnyObject, "lat" : cordinates.latitude as AnyObject, "long" : cordinates.longitude as AnyObject , "ApplePay" : "No" as AnyObject, "Enable" : "Yes" as AnyObject]
@@ -394,7 +415,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
             
             
             ///// notification
-             databaseRef = FIRDatabase.database().reference()
+            databaseRef = FIRDatabase.database().reference()
             let  locationRef = databaseRef.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).child("deviceToken")
             var token = FIRInstanceID.instanceID().token()
             
@@ -403,14 +424,11 @@ class SignUpRentOutSpaceViewController: UIViewController {
             
             locationRef.setValue(token)
             
-              FIRMessaging.messaging().subscribe(toTopic: (FIRAuth.auth()?.currentUser?.uid)!)
+            FIRMessaging.messaging().subscribe(toTopic: (FIRAuth.auth()?.currentUser?.uid)!)
             
             
             ////////////////////////
             
-            
-            self.Delegate.setUID(strUID: user.uid)
-            self.Delegate.setLoginType(strType: "RentOutSpace")
             
             
             self.txtName.text = ""
@@ -430,8 +448,8 @@ class SignUpRentOutSpaceViewController: UIViewController {
             //Utility.alert("Succesfully Register", andTitle: appConstants.AppName, andController: self)
             
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-           // let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
-           // let objController = storyBoard.instantiateViewController(withIdentifier: "addDetails") as! AddDetailsViewController
+            // let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
+            // let objController = storyBoard.instantiateViewController(withIdentifier: "addDetails") as! AddDetailsViewController
             let objController = storyBoard.instantiateViewController(withIdentifier: "applePaySignup") as! ApplepaySingupViewController
             
             
@@ -454,6 +472,6 @@ class SignUpRentOutSpaceViewController: UIViewController {
     
     
     
-
-
+    
+    
 }
