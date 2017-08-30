@@ -41,6 +41,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     
     //    let pickerDataNumberOfSpace = ["1", "2", "3", "4"]
     let pickerDataHPrice = ["1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12","13", "14", "15", "16","17", "18", "19", "20"]
+    let yearMonth = ["Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     
     var selectedNumberOfSpace:String! = "1"
     var selectedPrice:String! = "3"
@@ -158,7 +159,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             dictTemp.setValue(createEmptyRow(), forKey: "timeIntervals")
             
             dictMainData.setValue(dictTemp, forKey: getStringFromDate(strDate: strDate))
-            self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+            self.sortKeys()
         }
         else
         {
@@ -170,14 +171,14 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 
                 if (arrTimeIntervals.object(at: 0) as! NSDictionary).value(forKey: "StartTime") as! String == "00:00" && (arrTimeIntervals.object(at: 0) as! NSDictionary).value(forKey: "EndTime") as! String == "00:00" {
                     dictMainData.removeObject(forKey: getStringFromDate(strDate: strDate))
-                    self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+                    self.sortKeys()
                 }
             }
             
             if !((serverMainData.allKeys as NSArray).contains(getStringFromDate(strDate: strDate)))
             {
                 dictMainData.removeObject(forKey: getStringFromDate(strDate: strDate))
-                self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+                self.sortKeys()
             }
         }
         
@@ -191,7 +192,24 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         tblList.reloadData()
     }
     
-    
+    func sortKeys()
+    {
+        self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: { (h0, h1) -> Bool in
+            let a1 = h0.components(separatedBy: "-")
+            let b1 = h1.components(separatedBy: "-")
+            if a1[2] == b1[2]
+            {
+                if yearMonth.index(of: a1[1]) == yearMonth.index(of: b1[1])
+                {
+                    return a1[0] < b1[0]
+                }else{
+                    return yearMonth.index(of: a1[1])! < yearMonth.index(of: b1[1])!
+                }
+            }else{
+                return a1[2] < b1[2]
+            }
+        })
+    }
     
     func updateLableValue()
     {
@@ -205,7 +223,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             
             //            lblNumberOfSpace.text = String.init(format: "Number of spaces to rent %@", dictTemp.value(forKey: "NumberOfSpace") as! String);
             lblPrice.text = String.init(format: "Price per hour per space $%@", dictTemp.value(forKey: "PricePerSpace") as! String);
-            self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+            self.sortKeys()
         }
         
         
@@ -265,7 +283,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 self.dictMainData = (snapshot.value as! NSDictionary).mutableCopy() as! NSMutableDictionary
                 self.serverMainData = (snapshot.value as! NSDictionary).mutableCopy() as! NSMutableDictionary
                 
-                self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+                self.sortKeys()
             } else {
                 MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                 return
@@ -358,7 +376,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         dataDict.setValue(txtField.text, forKey: "note")
         print(dataDict)
-        self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+        self.sortKeys()
     }
     
     
@@ -382,7 +400,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 
                 arrInterval.add(dictTemp)
                 
-                self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+                self.sortKeys()
                 tblList.reloadData()
             }
             else
@@ -398,7 +416,7 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 arrTimeIntervalList.add(dictTemp)
                 (self.dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary).setValue(arrTimeIntervalList, forKey: "timeIntervals")
                 
-                self.sortedKeys = (self.dictMainData.allKeys as! [String]).sorted(by: <)
+                self.sortKeys()
                 tblList.reloadData()
             }
         }
@@ -427,7 +445,10 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             //            print(value)
             
             
-            
+            if self.dictMainData.count == 0
+            {
+                return
+            }
             let dict = self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary
             
             

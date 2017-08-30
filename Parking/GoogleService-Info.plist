@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>174459769474-abosc7kuhjnspopjr0vks93fd31n1mmp.apps.googleusercontent.com</string>
+	<string>423573612121-n7l15eu52g9rclvc5rj6563csgqpo490.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.174459769474-abosc7kuhjnspopjr0vks93fd31n1mmp</string>
+	<string>com.googleusercontent.apps.423573612121-n7l15eu52g9rclvc5rj6563csgqpo490</string>
 	<key>API_KEY</key>
-	<string>AIzaSyATbPicpYoWx-dBQPrhqy7PlQ3tK6Q5qLs</string>
+	<string>AIzaSyASqbXNxPKipx4ZABArA2xdfZPsIemPKRM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>174459769474</string>
+	<string>423573612121</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.Parking.ios</string>
+	<string>com.Driveway.ios</string>
 	<key>PROJECT_ID</key>
-	<string>parking-11b14</string>
+	<string>driveway-31ed5</string>
 	<key>STORAGE_BUCKET</key>
-	<string>parking-11b14.appspot.com</string>
+	<string>driveway-31ed5.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:174459769474:ios:e2834a05676eac8c</string>
+	<string>1:423573612121:ios:dac2c1d2a1077e81</string>
 	<key>DATABASE_URL</key>
-	<string>https://parking-11b14.firebaseio.com</string>
+	<string>https://driveway-31ed5.firebaseio.com</string>
 </dict>
 </plist>

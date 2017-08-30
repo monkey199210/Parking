@@ -15,7 +15,7 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
     
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-    let ApplePaySwagMerchantID = "merchant.com.Parking.ios"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
+    let ApplePaySwagMerchantID = "merchant.pineappleinnovation.com.applepay"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
     override func viewDidLoad() {
         super.viewDidLoad()

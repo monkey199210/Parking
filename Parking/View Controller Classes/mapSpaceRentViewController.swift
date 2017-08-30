@@ -18,7 +18,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-    let ApplePaySwagMerchantID = "merchant.com.Parking.ios"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
+    let ApplePaySwagMerchantID = "merchant.pineappleinnovation.com.applepay"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
     
     var arrBookingList:NSMutableArray!
@@ -58,7 +58,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     var amount:Int = 0
-    var seconds = 14400
+    var seconds = 0
     
     
     //var seconds = 60
@@ -145,6 +145,14 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy"
+        
+        return dateFormatter.string(from: strDate as Date)
+    }
+    
+    func getTimeFromDate(strDate: NSDate)-> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
         
         return dateFormatter.string(from: strDate as Date)
     }
@@ -343,6 +351,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             
             
             self.BookingHours = 0
+            var bookHoursFromNow = 0
             var bookDate:NSDate?
             
             for child in snapshot.children {
@@ -368,6 +377,16 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                         
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "dd-MMM-yyyy HH:mm"
+                        
+                        let dateFormater1 = DateFormatter()
+                        dateFormater1.dateFormat = "dd-MMM-yyyy"
+                        let tempBookingDate = ((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "bookingDate") as! String
+                        let arrTempBookingDate = tempBookingDate.components(separatedBy: " ")
+                        if (dateFormater1.string(from: NSDate() as Date)) != arrTempBookingDate[0]
+                        {
+                            continue
+                        }
+                        
                         if bookDate == nil
                         {
                             bookDate = dateFormatter.date(from: ((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "bookingDate") as! String)! as NSDate
@@ -378,7 +397,6 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                                 bookDate = tempBookDate
                             }
                         }
-                        
                         
                         
                         self.BookingHours = self.BookingHours + Int((((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "bookingHours") as? String)!)!*3600
@@ -422,6 +440,9 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                 
                 let strEnd = self.currentBookingData["EndTime"] as? String
                 let endTime = timeFormatter.date(from: strEnd!)
+//                
+//                let strFirstAvail = self.currentBookingData["StartTime"] as? String
+                let firstTime = timeFormatter.date(from: self.getTimeFromDate(strDate: firstBookDate))
                 
                 //                    let strbBookStart = self.currentBookingData["StartTime"] as? String
                 //                    let startBookTime = timeFormatter.date(from: strbBookStart!)
@@ -429,6 +450,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                 let calendar = Calendar.current
                 
                 let timeDifference = calendar.dateComponents([.hour], from: startTime!, to: endTime!)
+                let totalDifference = calendar.dateComponents([.hour], from: firstTime!, to: endTime!)
                 print(timeDifference.hour ?? "")
                 
                 //                    let timePeriod = calendar.dateComponents([.hour], from: startBookTime!, to: endTime!)
@@ -450,11 +472,13 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                 if let difHours = timeDifference.hour
                 {
                     let currentInterval = Int(firstBookDate.timeIntervalSince1970) + self.BookingHours
+//                    let difSpaceTime = Int(NSDate().timeIntervalSince1970) - Int(firstBookDate.timeIntervalSince1970) - self.BookingHours
                     if Int(NSDate().timeIntervalSince1970) > currentInterval
                     {
                         self.lblHourD1.text =  "\(difHours)"
                     }else{
-                        self.lblHourD1.text =  "\(difHours - self.BookingHours/3600)"
+                            self.lblHourD1.text =  "\(Int(totalDifference.hour!) - self.BookingHours/3600)"
+                        
                     }
                     if Int(self.lblHourD1.text!)! > 0
                     {
@@ -721,7 +745,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     @IBAction func alreadyLeftAction(sender: AnyObject?)
     {
-        lblTimerD1.font = UIFont.systemFont(ofSize: 37)
+//        lblTimerD1.font = UIFont.systemFont(ofSize: 37)
         Delegate.mySeconds=0
         //        Delegate.setBookingTime(myValue: 0)
         
@@ -859,7 +883,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         {
             
             
-            amount = Int((lblPriceC1A.text?.replacingOccurrences(of: "$", with: ""))!)! *  Int(lblHourD1.text!)!
+            amount = Int((lblPriceD1.text?.replacingOccurrences(of: "$", with: ""))!)! *  Int(lblHourD1.text!)!
             
             if checkApplePayAvaliable() {
                 checkPaymentNetworksAvaliable(usingNetworks: SupportedPaymentNetworks)
@@ -891,7 +915,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                     alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
                     self.navigationController?.present(alertController, animated: true, completion: nil)
                 }
-                
+//                gotoMine()
             }
             else
             {
@@ -1015,7 +1039,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                 alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
                 self.navigationController?.present(alertController, animated: true, completion: nil)
             }
-            
+//            gotoMine()
         }
         else
         {
@@ -1241,6 +1265,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             endRentPlace()
             
         } else {
+            lblTimerD1.font = UIFont.systemFont(ofSize: 37)
             seconds -= 1     //This will decrement(count down)the seconds.
             Delegate.mySeconds+=1
             lblTimerD1.text =  timeString(time: TimeInterval(seconds))
@@ -1266,12 +1291,11 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             timer?.invalidate()
             timer = nil
         }
+        self.seconds = 0
         //Send alert to indicate "time's up!"
         
         lblTimerD1.text = "Your time has run out and you are about to be towed. Please buy more time or leave your parking space quickly."
         lblTimerD1.font = UIFont.systemFont(ofSize: 13)
-        
-        Delegate.setBookingFlag(strDate: "")
         
         if Delegate.getReportSubmitText() != ""
         {
@@ -1330,7 +1354,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     {
         
         
-        lblTimerD1.font = UIFont.systemFont(ofSize: 37)
+        
         let userID = FIRAuth.auth()?.currentUser?.uid
         
         let databaseRef = FIRDatabase.database().reference()
