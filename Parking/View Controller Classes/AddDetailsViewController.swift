@@ -939,13 +939,16 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         
         let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
         let defaultAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.cancel, handler: {(action:UIAlertAction) in
+            if !(self.dictMainData.allKeys as NSArray).contains(self.getStringFromDate(strDate: self.dateSelected))
+            {
+                return
+            }
+            let dictTemp =   self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary
+            let row = self.myPicker.selectedRow(inComponent: 0)
+            dictTemp.setObject(self.pickerDataHPrice[row], forKey: "PricePerSpace" as NSCopying)
             
+            self.updateLableValue()
             
-            /*if(self.selectedDropDown<self.pickerData.count)
-             {
-             print("selected value after done \(self.pickerData[self.selectedDropDown])")
-             self.txtDropDown.text=self.pickerData[self.selectedDropDown]
-             }*/
             
         })
         alertController.addAction(defaultAction)
@@ -1223,11 +1226,11 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //selectedDropDown=row
         
-        let dictTemp =   dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary
-        
-        dictTemp.setObject(pickerDataHPrice[row], forKey: "PricePerSpace" as NSCopying)
-        
-        updateLableValue()
+//        let dictTemp =   dictMainData.value(forKey: getStringFromDate(strDate: dateSelected)) as! NSMutableDictionary
+//        
+//        dictTemp.setObject(pickerDataHPrice[row], forKey: "PricePerSpace" as NSCopying)
+//        
+//        updateLableValue()
     }
     
     

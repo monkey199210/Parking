@@ -46,13 +46,14 @@ class ReportSpaceViewController: UIViewController {
         
 //        let msg = String.init(format: "Someone with license plate number %@ is illegally occupying your parking space on Driveway. Check that this is the case before taking further action.", txtNumPlate.text!)
         
-//        Delegate.API_SendNotfication(userID: UID, message: txtNumPlate.text!)
+        
+        
         if txtNumPlate.text! == ""
         {
             return
         }
-        
-        Delegate.setReportSubmitText(strType: txtNumPlate.text!)
+        Delegate.API_SendNotfication(userID: UID, message: txtNumPlate.text!)
+//        Delegate.setReportSubmitText(strType: txtNumPlate.text!)
         
         txtNumPlate.text = ""
         self.navigationController?.popViewController(animated: true)

@@ -18,7 +18,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-    let ApplePaySwagMerchantID = "merchant.pineappleinnovation.com.applepay"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
+    let ApplePaySwagMerchantID = "merchant.com.Driveway.ios"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
     
     var arrBookingList:NSMutableArray!
@@ -630,12 +630,22 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
         let defaultAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.cancel, handler: {(action:UIAlertAction) in
             
-            
-            /*if(self.selectedDropDown<self.pickerData.count)
-             {
-             print("selected value after done \(self.pickerData[self.selectedDropDown])")
-             self.txtDropDown.text=self.pickerData[self.selectedDropDown]
-             }*/
+            let row = self.myPicker.selectedRow(inComponent: 0)
+            if self.myPicker.tag == 20
+            {
+                self.lblHourD1.text = self.pickerDataHours[row] as? String
+                self.lblHourC1A.text = self.pickerDataHours[row] as? String
+            }
+            else
+            {
+                
+                self.lblHourC1A.text = self.pickerDataHours[row] as? String
+                self.lblHourD1.text =  "\(self.pickerDataHours.count - row - 1)"
+                
+                self.amount = Int((self.lblPriceC1A.text?.replacingOccurrences(of: "$", with: ""))!)! * Int(self.pickerDataHours[row] as! String)!
+                
+                self.btnApplePay.setTitle(NSString.init(format: "Pay $%d now with Apple Pay", self.amount) as String, for: .normal)
+            }
             
         })
         alertController.addAction(defaultAction)
@@ -927,7 +937,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
             
             
             print(currentBookingData)
-            Delegate.API_SendNotfication(userID: currentParkingOwnerUID, message: "Someone has gone overtime using your space in Driveway. Contact the driver and check that this is the case before taking further action.")
+//            Delegate.API_SendNotfication(userID: currentParkingOwnerUID, message: "Someone has gone overtime using your space in Driveway. Contact the driver and check that this is the case before taking further action.")
         }
         else
         {
@@ -1329,21 +1339,21 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //selectedDropDown=row
         
-        if pickerView.tag == 20
-        {
-            lblHourD1.text = pickerDataHours[row] as? String
-            self.lblHourC1A.text = pickerDataHours[row] as? String
-        }
-        else
-        {
-            
-            lblHourC1A.text = pickerDataHours[row] as? String
-            lblHourD1.text =  "\(pickerDataHours.count - row - 1)"
-            
-            amount = Int((lblPriceC1A.text?.replacingOccurrences(of: "$", with: ""))!)! * Int(pickerDataHours[row] as! String)!
-            
-            btnApplePay.setTitle(NSString.init(format: "Pay $%d now with Apple Pay", amount) as String, for: .normal)
-        }
+//        if pickerView.tag == 20
+//        {
+//            lblHourD1.text = pickerDataHours[row] as? String
+//            self.lblHourC1A.text = pickerDataHours[row] as? String
+//        }
+//        else
+//        {
+//            
+//            lblHourC1A.text = pickerDataHours[row] as? String
+//            lblHourD1.text =  "\(pickerDataHours.count - row - 1)"
+//            
+//            amount = Int((lblPriceC1A.text?.replacingOccurrences(of: "$", with: ""))!)! * Int(pickerDataHours[row] as! String)!
+//            
+//            btnApplePay.setTitle(NSString.init(format: "Pay $%d now with Apple Pay", amount) as String, for: .normal)
+//        }
     }
     
     

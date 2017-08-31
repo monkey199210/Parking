@@ -15,7 +15,7 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
     
         let Delegate = UIApplication.shared.delegate as! AppDelegate
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-    let ApplePaySwagMerchantID = "merchant.pineappleinnovation.com.applepay"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
+    let ApplePaySwagMerchantID = "merchant.com.Driveway.ios"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +120,22 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
             
             let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
             applePayController.delegate = self
-            self.present(applePayController, animated: true, completion: nil)
+            if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: supportedPaymentNetworks) {
+                self.present(applePayController, animated: true, completion: nil)
+            } else {
+                let alertController = UIAlertController(
+                    title: "The settlement method is not registered",
+                    message: "Would you like to register payment method now",
+                    preferredStyle: .alert
+                )
+                alertController.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.default, handler: { action in
+                    if #available(iOS 8.3, *) {
+                        PKPassLibrary().openPaymentSetup()
+                    }
+                }))
+                alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
+                self.navigationController?.present(alertController, animated: true, completion: nil)
+            }
         }
         else
         {
