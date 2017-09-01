@@ -169,11 +169,43 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             if (dictTemp.allKeys as NSArray).contains("timeIntervals")
             {
                 let arrTimeIntervals =  dictTemp.value(forKey: "timeIntervals") as! NSMutableArray
-                
-                if (arrTimeIntervals.object(at: 0) as! NSDictionary).value(forKey: "StartTime") as! String == "00:00" && (arrTimeIntervals.object(at: 0) as! NSDictionary).value(forKey: "EndTime") as! String == "00:00" {
-                    dictMainData.removeObject(forKey: getStringFromDate(strDate: strDate))
-                    self.sortKeys()
+                let arrAdded = NSMutableArray()
+                var timeFlag = false
+                for dict in arrTimeIntervals
+                {
+                    if (dict as! NSDictionary).value(forKey: "StartTime") as! String == "00:00" || (dict as! NSDictionary).value(forKey: "EndTime") as! String == "00:00" {
+                        timeFlag = true
+                    }else{
+                        arrAdded.add(dict)
+                    }
                 }
+                if !timeFlag
+                {
+                    arrAdded.add((createEmptyRow() as! [NSDictionary])[0])
+                }
+                if arrAdded.count > 0
+                {
+                    dictTemp.setValue(arrAdded, forKey: "timeIntervals")
+                }else{
+                    dictMainData.removeObject(forKey: getStringFromDate(strDate: strDate))
+                }
+                self.sortKeys()
+                
+                
+//                if (arrTimeIntervals.object(at: 0) as! NSDictionary).value(forKey: "StartTime") as! String == "00:00" && (arrTimeIntervals.object(at: 0) as! NSDictionary).value(forKey: "EndTime") as! String == "00:00" {
+//                    dictMainData.removeObject(forKey: getStringFromDate(strDate: strDate))
+//                    self.sortKeys()
+//                }else{
+//                    let arrAdded = NSMutableArray()
+//                    for dict in arrTimeIntervals
+//                    {
+//                        arrAdded.add(dict)
+//                    }
+//                    arrAdded.addObjects(from: createEmptyRow() as! [NSDictionary])
+//                   dictTemp.setValue(arrAdded, forKey: "timeIntervals")
+//                    self.sortKeys()
+//                    
+//                }
             }
             
             if !((serverMainData.allKeys as NSArray).contains(getStringFromDate(strDate: strDate)))
@@ -494,8 +526,8 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            let lat = value?["lat"] as? Double
-            let long = value?["long"] as? Double
+//            let lat = value?["lat"] as? Double
+//            let long = value?["long"] as? Double
             //let user = User.init(username: username)
             //            print(value)
             
@@ -504,12 +536,12 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
             {
                 return
             }
-            let dict = self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary
-            
-            
-            
-            dict.setValue(lat, forKey: "lat")
-            dict.setValue(long, forKey: "long")
+//            /let dict = self.dictMainData.value(forKey: self.getStringFromDate(strDate: self.dateSelected)) as! NSMutableDictionary
+//            
+//            
+//            
+//            dict.setValue(lat, forKey: "lat")
+//            dict.setValue(long, forKey: "long")
             
             
             
