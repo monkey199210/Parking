@@ -26,7 +26,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         setupUI()
         
         
@@ -47,6 +47,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         txtEmail.text = ""
         txtPassword.text = ""
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
        
     }
     
@@ -86,7 +87,13 @@ class LoginViewController: UIViewController {
         
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
     func callNavigationController()
     {
         self.performSegue(withIdentifier: "test", sender: self)
