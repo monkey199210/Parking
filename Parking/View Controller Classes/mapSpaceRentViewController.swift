@@ -277,7 +277,10 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                                 {
                                     // self.arrData.add(arrTempData.object(at: i) as! NSDictionary)
                                     
-                                    print(Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double))
+                                    if (dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat") == nil
+                                    {
+                                        continue
+                                    }
                                     
                                     let marker = GMSMarker()
                                     marker.position = CLLocationCoordinate2D(latitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "lat")as! Double), longitude: Double((dictUserInfo.value(forKey: self.getStringFromDate(strDate:today )) as! NSDictionary).value(forKey: "long")as! Double))

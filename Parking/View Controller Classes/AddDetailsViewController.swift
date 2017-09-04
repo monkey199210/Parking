@@ -526,11 +526,14 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
         ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-//            let lat = value?["lat"] as? Double
-//            let long = value?["long"] as? Double
+            let lat = value?["lat"]
+            let long = value?["long"]
             //let user = User.init(username: username)
             //            print(value)
-            
+            if lat == nil
+            {
+                return
+            }
             
             if self.dictMainData.count == 0
             {
@@ -564,7 +567,8 @@ class AddDetailsViewController: UIViewController, JTCalendarDelegate,UITableView
                 if  ((self.dictMainData.value(forKey: strkey as! String) as! NSMutableDictionary).allKeys as NSArray).contains("timeIntervals")
                 {
                     let arrInterval = (self.dictMainData.value(forKey: strkey as! String) as! NSMutableDictionary).value(forKey: "timeIntervals") as! NSMutableArray
-                    
+                    (self.dictMainData.value(forKey: strkey as! String) as! NSMutableDictionary).setValue(lat, forKey: "lat")
+                    (self.dictMainData.value(forKey: strkey as! String) as! NSMutableDictionary).setValue(long, forKey: "long")
                     
                     let duplicateArray = NSMutableArray.init(array: arrInterval)
                     

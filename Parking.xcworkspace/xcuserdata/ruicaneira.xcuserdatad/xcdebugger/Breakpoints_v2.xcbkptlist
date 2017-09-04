@@ -6,31 +6,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525782923.173778"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "createDataOnDate(strDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1208"
-            endingLineNumber = "1208"
+            startingLineNumber = "1212"
+            endingLineNumber = "1212"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "564"
+            endingLineNumber = "564"
             landmarkName = "SaveData(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1076"
-            endingLineNumber = "1076"
+            startingLineNumber = "1080"
+            endingLineNumber = "1080"
             landmarkName = "calendar(_:prepareDayView:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "851"
-            endingLineNumber = "851"
+            startingLineNumber = "855"
+            endingLineNumber = "855"
             landmarkName = "SelectEndTime(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "969"
-            endingLineNumber = "969"
+            startingLineNumber = "973"
+            endingLineNumber = "973"
             landmarkName = "SelectPrice(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "908"
-            endingLineNumber = "908"
+            startingLineNumber = "912"
+            endingLineNumber = "912"
             landmarkName = "SelectEndTime(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1177"
-            endingLineNumber = "1177"
+            startingLineNumber = "1181"
+            endingLineNumber = "1181"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
+            startingLineNumber = "801"
+            endingLineNumber = "801"
             landmarkName = "SelectStartTime(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "772"
-            endingLineNumber = "772"
+            startingLineNumber = "776"
+            endingLineNumber = "776"
             landmarkName = "SelectStartTime(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1236"
-            endingLineNumber = "1236"
+            startingLineNumber = "1240"
+            endingLineNumber = "1240"
             landmarkName = "AddDetailsViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -266,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1233"
-            endingLineNumber = "1233"
+            startingLineNumber = "1237"
+            endingLineNumber = "1237"
             landmarkName = "tableView(_:heightForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1232"
-            endingLineNumber = "1232"
+            startingLineNumber = "1236"
+            endingLineNumber = "1236"
             landmarkName = "tableView(_:heightForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -298,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1230"
-            endingLineNumber = "1230"
+            startingLineNumber = "1234"
+            endingLineNumber = "1234"
             landmarkName = "tableView(_:heightForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1221"
-            endingLineNumber = "1221"
+            startingLineNumber = "1225"
+            endingLineNumber = "1225"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1191"
-            endingLineNumber = "1191"
+            startingLineNumber = "1195"
+            endingLineNumber = "1195"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525893778.86334"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1013"
-            endingLineNumber = "1013"
+            startingLineNumber = "1017"
+            endingLineNumber = "1017"
             landmarkName = "checkPaymentNetworksAvaliable(usingNetworks:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -506,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "828"
-            endingLineNumber = "828"
+            startingLineNumber = "832"
+            endingLineNumber = "832"
             landmarkName = "SelectEndTime(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -522,23 +506,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
-            landmarkName = "SaveData(sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "577"
@@ -554,11 +522,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
+            startingLineNumber = "581"
+            endingLineNumber = "581"
+            landmarkName = "SaveData(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
+            timestampString = "526183664.802441"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "594"
+            endingLineNumber = "594"
             landmarkName = "SaveData(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -570,45 +554,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525893778.86334"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1048"
-            endingLineNumber = "1048"
+            startingLineNumber = "1052"
+            endingLineNumber = "1052"
             landmarkName = "makePayment(sender:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Parking.mapSpaceRentViewController.makePayment (sender : Swift.AnyObject) -&gt; ()"
-                  moduleName = "Parking"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ruicaneira/Documents/Development/GitHub/Parking/Parking/View%20Controller%20Classes/mapSpaceRentViewController.swift"
-                  timestampString = "525925328.194064"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1048"
-                  endingLineNumber = "1048"
-                  offsetFromSymbolStart = "1920">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Parking.mapSpaceRentViewController.(makePayment (sender : Swift.AnyObject) -&gt; ()).(closure #1)"
-                  moduleName = "Parking"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ruicaneira/Documents/Development/GitHub/Parking/Parking/View%20Controller%20Classes/mapSpaceRentViewController.swift"
-                  timestampString = "525925328.19883"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1048"
-                  endingLineNumber = "1048"
-                  offsetFromSymbolStart = "104">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -618,11 +570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525893778.86334"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "863"
-            endingLineNumber = "863"
+            startingLineNumber = "867"
+            endingLineNumber = "867"
             landmarkName = "BuyMoreTime(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -634,11 +586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1105"
-            endingLineNumber = "1105"
+            startingLineNumber = "1109"
+            endingLineNumber = "1109"
             landmarkName = "calendar(_:didTouchDayView:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -650,11 +602,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525372431.956135"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "514"
-            endingLineNumber = "514"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -666,11 +618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525893778.86334"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1410"
-            endingLineNumber = "1410"
+            startingLineNumber = "1414"
+            endingLineNumber = "1414"
             landmarkName = "gotoMine()"
             landmarkType = "7">
          </BreakpointContent>
@@ -682,11 +634,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525319110.618293"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "350"
-            endingLineNumber = "350"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -698,11 +650,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525372431.956135"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
             <Locations>
@@ -762,11 +714,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525319110.618293"
+            timestampString = "526071117.754982"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "getMapDataFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -778,11 +730,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525372431.956135"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "480"
-            endingLineNumber = "480"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -794,11 +746,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "525372431.956135"
+            timestampString = "526181812.216812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -858,11 +810,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1261"
-            endingLineNumber = "1261"
+            startingLineNumber = "1265"
+            endingLineNumber = "1265"
             landmarkName = "pickerView(_:didSelectRow:inComponent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -874,11 +826,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
-            timestampString = "525923078.457522"
+            timestampString = "526183664.802441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "978"
-            endingLineNumber = "978"
+            startingLineNumber = "982"
+            endingLineNumber = "982"
             landmarkName = "SelectPrice(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -928,6 +880,134 @@
             startingLineNumber = "528"
             endingLineNumber = "528"
             landmarkName = "SaveData(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "526181812.216812"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "getBookingListFromServer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "526181812.216812"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "mapSpaceRentViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "526181812.216812"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "getBookingListFromServer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "526181812.216812"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "getBookingListFromServer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "526181011.782704"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "getMapDataFromServer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "526181051.918791"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "getMapDataFromServer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "526181239.606696"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "getMapDataFromServer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/AddDetailsViewController.swift"
+            timestampString = "526182174.104022"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "createDataOnDate(strDate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
