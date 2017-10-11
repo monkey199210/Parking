@@ -19,7 +19,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-    let ApplePaySwagMerchantID = "merchant.com.Driveway.ios"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
+    let ApplePaySwagMerchantID = "merchant.pineapple.computer"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
     
     var arrBookingList:NSMutableArray!

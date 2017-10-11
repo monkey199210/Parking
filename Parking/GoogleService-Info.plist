@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>423573612121-n7l15eu52g9rclvc5rj6563csgqpo490.apps.googleusercontent.com</string>
+	<string>586295651642-7g8fbmgnh0fcn6eot6k1albefk9hect7.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.423573612121-n7l15eu52g9rclvc5rj6563csgqpo490</string>
+	<string>com.googleusercontent.apps.586295651642-7g8fbmgnh0fcn6eot6k1albefk9hect7</string>
 	<key>API_KEY</key>
-	<string>AIzaSyASqbXNxPKipx4ZABArA2xdfZPsIemPKRM</string>
+	<string>AIzaSyDM1Zej9Hz4aw62_snMrkgxQ6lRfMNdvG8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>423573612121</string>
+	<string>586295651642</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.Driveway.ios</string>
+	<string>com.driveway.driveway</string>
 	<key>PROJECT_ID</key>
-	<string>driveway-31ed5</string>
+	<string>driveway-e8075</string>
 	<key>STORAGE_BUCKET</key>
-	<string>driveway-31ed5.appspot.com</string>
+	<string>driveway-e8075.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:423573612121:ios:dac2c1d2a1077e81</string>
+	<string>1:586295651642:ios:4188217a047a4e01</string>
 	<key>DATABASE_URL</key>
-	<string>https://driveway-31ed5.firebaseio.com</string>
+	<string>https://driveway-e8075.firebaseio.com</string>
 </dict>
 </plist>

@@ -612,6 +612,7 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             return
         }
         var totalMoney = 0
+        var rentCount = 0
         for dict in arrBookingList
         {
             let dictBooking = dict as! NSDictionary
@@ -625,13 +626,15 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
                         if let hours = (dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "bookingHours") as? String
                         {
                             totalMoney = Int(price)! * Int(hours)! + totalMoney
+                            rentCount += 1
                         }
                     }
                 }
             }
             
         }
-        let madeMoney = Float(totalMoney) * 0.75
+        //  z=(0.971x-0.30y)0.971-0.30
+        let madeMoney = (Float(totalMoney) * 0.971 - 0.3 * Float(rentCount)) * 0.971 - 0.3
         lblMadeMoney.text = "You've made $\(String(format:"%0.2f", madeMoney)) this month"
         
     }
