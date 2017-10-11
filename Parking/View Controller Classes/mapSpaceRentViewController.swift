@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import Firebase
 import PassKit
+import Stripe
 
 class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, PKPaymentAuthorizationViewControllerDelegate, UIPickerViewDelegate, UINavigationControllerDelegate{
     
@@ -955,9 +956,27 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping ((PKPaymentAuthorizationStatus) -> Void)) {
-        completion(PKPaymentAuthorizationStatus.success)
-    
-        gotoMine()
+        STPAPIClient.shared().createToken(with: payment) { (token: STPToken?, error: Error?) in
+           
+            
+//            submitTokenToBackend(token, completion: { (error: Error?) in
+                if let _ = error {
+                    // Present error to user...
+                    print(token?.tokenId ?? "")
+                    // Notify payment authorization view controller
+                    completion(.failure)
+                }
+                else {
+                    // Save payment success
+//                    paymentSucceeded = true
+                    
+                    // Notify payment authorization view controller
+                    completion(.success)
+                    self.gotoMine()
+                }
+//            })
+        }
+        
         
     }
     

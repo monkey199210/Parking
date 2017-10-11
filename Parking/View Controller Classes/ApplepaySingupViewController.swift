@@ -9,6 +9,7 @@
 import UIKit
 import PassKit
 import Firebase
+import Stripe
 
 class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate {
 
@@ -32,23 +33,42 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping ((PKPaymentAuthorizationStatus) -> Void)) {
         completion(PKPaymentAuthorizationStatus.success)
         
-        
-        let userID = FIRAuth.auth()?.currentUser?.uid
-        let databaseRef = FIRDatabase.database().reference()
-        databaseRef.child("Users").child(userID!).child("ApplePay").setValue("Yes")
-        
-        self.Delegate.setUID(strUID: userID!)
-        self.Delegate.setLoginType(strType: "RentOutSpace")
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        
-        let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
-        
-//        objController.strFromSignupLogin = "Yes"
-        
-        
-        
-        self.navigationController?.pushViewController(objController, animated: true)
+        STPAPIClient.shared().createToken(with: payment) { (token: STPToken?, error: Error?) in
+            
+            
+            //            submitTokenToBackend(token, completion: { (error: Error?) in
+            if let _ = error {
+                // Present error to user...
+                print(token?.tokenId ?? "")
+                // Notify payment authorization view controller
+                completion(.failure)
+            }
+            else {
+                // Save payment success
+                //                    paymentSucceeded = true
+                
+                // Notify payment authorization view controller
+                completion(.success)
+                let userID = FIRAuth.auth()?.currentUser?.uid
+                let databaseRef = FIRDatabase.database().reference()
+                databaseRef.child("Users").child(userID!).child("ApplePay").setValue("Yes")
+                
+                self.Delegate.setUID(strUID: userID!)
+                self.Delegate.setLoginType(strType: "RentOutSpace")
+                
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                
+                let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
+                
+                //        objController.strFromSignupLogin = "Yes"
+                
+                
+                
+                self.navigationController?.pushViewController(objController, animated: true)
+
+            }
+            //            })
+        }
         
         
 
@@ -116,7 +136,7 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
             request.merchantCapabilities = PKMerchantCapability.capability3DS
             request.countryCode = "US";
             request.currencyCode = "USD";
-            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(3)))]
+            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: NSDecimalNumber.init(string: String(4.99)))]
             
             let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
             applePayController.delegate = self

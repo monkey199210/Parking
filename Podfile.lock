@@ -61,6 +61,7 @@ PODS:
   - IQKeyboardManagerSwift (4.0.8)
   - JTCalendar (2.1.9)
   - SpaceView (1.0.3)
+  - Stripe (9.3.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - JTCalendar (~> 2.0)
   - SpaceView
+  - Stripe
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
@@ -92,7 +94,8 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: c04bc9f68473823f825eb44d958fce98d921bead
   JTCalendar: beb2f4c1b639bf6880f680b4858227acf83a049c
   SpaceView: dc3db00dfe71eabb490aeb215ab0722a6b6bb112
+  Stripe: 0f41a33a6fa3ac76ee668d7df3e2680c28b8ab1a
 
-PODFILE CHECKSUM: 391267de61622301cfc2ffca9e8e133e8dc1c794
+PODFILE CHECKSUM: 8773cac1a5888779c536eb737cb5e9c0ef4174d0
 
 COCOAPODS: 1.2.0

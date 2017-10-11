@@ -17,5 +17,6 @@ pod 'JTCalendar', '~> 2.0'
 pod 'Firebase/Messaging'
 pod 'Alamofire'
 pod 'SpaceView'
+pod 'Stripe'
 
 end

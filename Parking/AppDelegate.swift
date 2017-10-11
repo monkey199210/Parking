@@ -13,6 +13,7 @@ import GoogleMaps
 import UserNotifications
 import FirebaseInstanceID
 import FirebaseMessaging
+import Stripe
 
 import Alamofire
 
@@ -38,7 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         GMSServices.provideAPIKey("AIzaSyCu3tVLj16hExy3XVs_iY8bHoInFD6nqoQ")
       //  GMSPlacesClient.provideAPIKey("AIzaSyCu3tVLj16hExy3XVs_iY8bHoInFD6nqoQ")
-        
+        STPPaymentConfiguration.shared().publishableKey = "pk_live_u6YnQJmecvH2dhVIw9IHNlXl"
+        STPPaymentConfiguration.shared().appleMerchantIdentifier = "merchant.com.Driveway.ios"
         
         
         
