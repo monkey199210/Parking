@@ -11,7 +11,7 @@ import Firebase
 
 
 class LoginViewController: UIViewController {
-
+    
     let Delegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet var btnRentSpace:UIButton!
@@ -33,10 +33,10 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.callNavigationController), name: Notification.Name("callNavigation"), object: nil)
         
         
-       
+        
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -48,33 +48,33 @@ class LoginViewController: UIViewController {
         txtEmail.text = ""
         txtPassword.text = ""
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-       
+        
     }
     
-
+    
     //MARK: - Custom Methods
     
     func setupUI()
     {
         self.navigationController?.navigationBar.barTintColor = Utility.color(withHexString: appConstants.navColor)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-         self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         self.view.backgroundColor = Utility.color(withHexString: appConstants.viewBackgroundColor)
         
         self.title = "Sign In"
         
         
-       // let btnSingUp = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 50))
-       
-       // btnSingUp.setTitle("Sign Up", for: .normal)
+        // let btnSingUp = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 50))
+        
+        // btnSingUp.setTitle("Sign Up", for: .normal)
         //btnSingUp.addTarget(self, action:#selector(self.buttonClicked), for: .touchUpInside)
-       //self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: btnSingUp)
-       
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: btnSingUp)
+        
         
         btnRentSpace.layer.cornerRadius = 5
         btnRentOutSpace.layer.cornerRadius = 5
         
-
+        
     }
     
     
@@ -86,7 +86,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(objController, animated: true)
         
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
@@ -98,14 +98,14 @@ class LoginViewController: UIViewController {
     {
         self.performSegue(withIdentifier: "test", sender: self)
         /*let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
-        
-        self.navigationController?.pushViewController(objController, animated: true)*/
+         let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
+         
+         self.navigationController?.pushViewController(objController, animated: true)*/
     }
     
     
     
-        
+    
     
     
     
@@ -125,8 +125,8 @@ class LoginViewController: UIViewController {
         
         if(appConstants.isValidEmailAddress(emailAddressString: email!)==false){
             
-             Utility.alert("Invalid email format", andTitle: appConstants.AppName, andController: self)
-          return;
+            Utility.alert("Invalid email format", andTitle: appConstants.AppName, andController: self)
+            return;
         }
         
         
@@ -159,7 +159,7 @@ class LoginViewController: UIViewController {
         
         
         MBProgressHUD.showAdded(to: self.view, animated: true)
-       
+        
         let usersessionIfActive = FIRAuth.auth()?.currentUser
         if usersessionIfActive != nil
         {
@@ -167,8 +167,8 @@ class LoginViewController: UIViewController {
         }
         
         
-       
-       
+        
+        
         
         
         FIRAuth.auth()?.signIn(withEmail: txtEmail.text!, password: txtPassword.text!, completion: { (user, error) in
@@ -185,8 +185,8 @@ class LoginViewController: UIViewController {
             {
                 
                 
-               
-               // self.appDelegate.setIsLoginStatus()
+                
+                // self.appDelegate.setIsLoginStatus()
                 
                 
                 
@@ -248,7 +248,7 @@ class LoginViewController: UIViewController {
                 
                 
                 
-             let ref = FIRDatabase.database().reference()
+                let ref = FIRDatabase.database().reference()
                 
                 let userID = FIRAuth.auth()?.currentUser?.uid
                 ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -258,7 +258,7 @@ class LoginViewController: UIViewController {
                     //let user = User.init(username: username)
                     print(value)
                     
-                   // Utility.alert("Successfully Login as", andTitle: appConstants.AppName, andController: self)
+                    // Utility.alert("Successfully Login as", andTitle: appConstants.AppName, andController: self)
                     
                     
                     
@@ -266,60 +266,77 @@ class LoginViewController: UIViewController {
                     
                     
                     
-                     MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                    
+                    var overDate = true
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    
+                    if let purchasedDateStr = value?["PurchasedDate"] as? String
+                    {
+                        if  let purchasedDate = dateFormatter.date(from: purchasedDateStr)
+                        {
+                            if Int(NSDate().timeIntervalSince1970 - purchasedDate.timeIntervalSince1970) < 60 * 60 * 24 * 30
+                            {
+                                overDate = false
+                            }
+                        }
+                    }
+                    
+                    
                     if value?["Enable"] as? String ?? "" == "Yes"
                     {
-                    if (userType == self.strLoginType)
-                    {
-                        if userType == "RentOutSpace" && value?["ApplePay"] as? String ?? "" != "Yes"
+                        if (userType == self.strLoginType)
                         {
-                            self.showPurchase()
-                            return;
-                        }
-                       //  navigate depends on login type
-                        
-                        
-                        self.Delegate.setUID(strUID: userID!)
-                        
-                        if(userType == "RentSpace")
-                        {
+                            if userType == "RentOutSpace" && (value?["ApplePay"] as? String ?? "" != "Yes" || overDate)
+                            {
+                                self.showPurchase()
+                                return;
+                            }
+                            //  navigate depends on login type
                             
-                            self.Delegate.setLoginType(strType: "RentSpace")
                             
-                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                            let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpace") as! mapSpaceRentViewController
-                            self.navigationController?.pushViewController(objController, animated: true)
+                            self.Delegate.setUID(strUID: userID!)
+                            
+                            if(userType == "RentSpace")
+                            {
+                                
+                                self.Delegate.setLoginType(strType: "RentSpace")
+                                
+                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                                let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpace") as! mapSpaceRentViewController
+                                self.navigationController?.pushViewController(objController, animated: true)
+                            }
+                            else
+                            {
+                                
+                                self.Delegate.setLoginType(strType: "RentOutSpace")
+                                
+                                
+                                //                           if  value?["availCount"] as? String == "0"
+                                //                           {
+                                //                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                                //                          //  let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
+                                //                            let objController = storyBoard.instantiateViewController(withIdentifier: "addDetails") as! AddDetailsViewController
+                                //                             objController.strFromSignupLogin = "Yes"
+                                //                            self.navigationController?.pushViewController(objController, animated: true)
+                                //                            }
+                                //                            else
+                                //                           {
+                                
+                                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                                //  let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
+                                let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
+                                self.navigationController?.pushViewController(objController, animated: true)
+                                
+                                //                            }
+                                
+                            }
                         }
                         else
                         {
-                            
-                            self.Delegate.setLoginType(strType: "RentOutSpace")
-                            
-                            
-//                           if  value?["availCount"] as? String == "0"
-//                           {
-//                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//                          //  let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
-//                            let objController = storyBoard.instantiateViewController(withIdentifier: "addDetails") as! AddDetailsViewController
-//                             objController.strFromSignupLogin = "Yes"
-//                            self.navigationController?.pushViewController(objController, animated: true)
-//                            }
-//                            else
-//                           {
-                            
-                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                            //  let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
-                            let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
-                            self.navigationController?.pushViewController(objController, animated: true)
-                            
-//                            }
-                            
-                        }
-                    }
-                    else
-                        {
-                       //  navigate depends on login type
-                         Utility.alert("Invalid Login", andTitle: appConstants.AppName, andController: self)
+                            //  navigate depends on login type
+                            Utility.alert("Invalid Login", andTitle: appConstants.AppName, andController: self)
                         }
                     }
                         
@@ -332,7 +349,7 @@ class LoginViewController: UIViewController {
                 }) { (error) in
                     print(error.localizedDescription)
                     
-                     MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                 }
                 
             }
@@ -431,20 +448,20 @@ class LoginViewController: UIViewController {
                 
                 
                 
-               
+                
                 let databaseRef = FIRDatabase.database().reference()
                 
                 // let  locationRef = databaseRef.child("Users").childByAutoId()
                 //locationRef.setValue(post)
                 
                 databaseRef.child("Users").child((user?.uid)!).child("Enable").setValue("No")
-                    
                 
-                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
                 
-                    
-                    Utility.alert("Your account is deactivated. Please visit our website and contact us if you would like to reactivate your account.", andTitle: appConstants.AppName, andController: self)
-               
+                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                
+                
+                Utility.alert("Your account is deactivated. Please visit our website and contact us if you would like to reactivate your account.", andTitle: appConstants.AppName, andController: self)
+                
                 
             }
             
@@ -464,16 +481,16 @@ class LoginViewController: UIViewController {
         })
         self.present(alert, animated: true)
     }
-   
-
+    
+    
     /* func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
      {
-        if segue.identifier == "test"{
-            var vc = segue.destination as! mapSpaceOutRentViewController
-            //vc.data = "Data you want to pass"
-            //Data has to be a variable name in your RandomViewController
-        }
-    }*/
+     if segue.identifier == "test"{
+     var vc = segue.destination as! mapSpaceOutRentViewController
+     //vc.data = "Data you want to pass"
+     //Data has to be a variable name in your RandomViewController
+     }
+     }*/
     
-
+    
 }

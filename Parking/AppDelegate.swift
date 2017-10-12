@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         GMSServices.provideAPIKey("AIzaSyCu3tVLj16hExy3XVs_iY8bHoInFD6nqoQ")
       //  GMSPlacesClient.provideAPIKey("AIzaSyCu3tVLj16hExy3XVs_iY8bHoInFD6nqoQ")
-        STPPaymentConfiguration.shared().publishableKey = "pk_live_u6YnQJmecvH2dhVIw9IHNlXl"
+        STPPaymentConfiguration.shared().publishableKey = "pk_test_5eHzIEFjJ7Gek9lX4RgsbQ7x"
         STPPaymentConfiguration.shared().appleMerchantIdentifier = "merchant.pineapple.computer"
         
         

@@ -51,8 +51,14 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
                 completion(.success)
                 let userID = FIRAuth.auth()?.currentUser?.uid
                 let databaseRef = FIRDatabase.database().reference()
+                
                 databaseRef.child("Users").child(userID!).child("ApplePay").setValue("Yes")
                 
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                
+                let strDate =  dateFormatter.string(from: NSDate() as Date)
+                databaseRef.child("Users").child(userID!).child("PurchasedDate").setValue(strDate)
                 self.Delegate.setUID(strUID: userID!)
                 self.Delegate.setLoginType(strType: "RentOutSpace")
                 

@@ -634,7 +634,12 @@ class DetailsViewController: UIViewController,JTCalendarDelegate,UITableViewData
             
         }
         //  z=(0.971x-0.30y)0.971-0.30
-        let madeMoney = (Float(totalMoney) * 0.971 - 0.3 * Float(rentCount)) * 0.971 - 0.3
+        
+        var madeMoney = (Float(totalMoney) * 0.971 - 0.3 * Float(rentCount)) * 0.971 - 0.3
+        if madeMoney < 0
+        {
+            madeMoney = 0
+        }
         lblMadeMoney.text = "You've made $\(String(format:"%0.2f", madeMoney)) this month"
         
     }
