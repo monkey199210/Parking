@@ -971,6 +971,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
 //                    paymentSucceeded = true
                     
                     // Notify payment authorization view controller
+                    self.updateRentOutUserPayout()
                     completion(.success)
                     self.gotoMine()
                 }
@@ -1036,7 +1037,128 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
         }
     }
     
+    func updateRentOutUserPayout()
+    {
+            let ref = FIRDatabase.database().reference()
+            //        MBProgressHUD.showAdded(to: self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+            ref.child("Users").child(self.currentParkingOwnerUID).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                //            let userType = value?["UserType"] as? String ?? ""
+                //            //let user = User.init(username: username)
+                //            print(value)
+                
+                // Utility.alert("Successfully Login as", andTitle: appConstants.AppName, andController: self)
+                
+                
+                let name = value?["Name"] as? String ?? ""
+                let email = value?["EmailAddress"] as? String ?? ""
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM"
+                
+                let strDate =  dateFormatter.string(from: NSDate() as Date)
+                
+                let parentRef = FIRDatabase.database().reference().child("Payout")
+                parentRef.observe(.value, with: { snapshot in
+                    
+                    // NSLog("chil %@", snapshot.value! as! NSDictionary)
+                    
+                    
+                    /* if snapshot.value != nil
+                     {
+                     if !(snapshot.value  is NSNull)
+                     {
+                     self.arrBookingList = (snapshot.value as! NSArray).mutableCopy() as! NSMutableArray
+                     }
+                     }*/
+                    parentRef.removeAllObservers()
+                    
+                    var findChild = false
+                    for child in snapshot.children {
+                        if ((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "EmailAddress") as? String == email
+                        {
+                            findChild = true
+                            let payoutUID = (((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "UID") as? String)!
+                            let databaseRef = FIRDatabase.database().reference()
+                            let money = self.getMadeMoneyByMonth(date: NSDate())
+                            databaseRef.child("Payout").child(payoutUID).child(strDate).setValue("\(String(money))$")
+                            break;
+                        }
+                    }
+                    if !findChild
+                    {
+                       var payDict:NSMutableDictionary = [:]
+                        let money = self.getMadeMoneyByMonth(date: NSDate())
+                        
+                        payDict = ["Name":name, "EmailAddress": email, strDate: money]
+                        let databaseRef = FIRDatabase.database().reference()
+                        let  locationRef = databaseRef.child("Payout").childByAutoId()
+                        locationRef.setValue(payDict)
+                    }
+                })
+
+                
+                
+                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                
+                
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+                
+                            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+            }
+    }
     
+    func getMadeMoneyByMonth(date: NSDate) -> Float
+    {
+        if arrBookingList == nil
+        {
+            return 0
+        }
+        var totalMoney = 0
+        var rentCount = 0
+        for dict in arrBookingList
+        {
+            let dictBooking = dict as! NSDictionary
+            
+            if (dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "UID") as? String == self.currentParkingOwnerUID
+            {
+                if (((dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "bookingDate") as? String)?.contains(getMonthFromDate(strDate: date)))!
+                {
+                    if let price = (dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "PricePerSpace") as? String
+                    {
+                        if let hours = (dictBooking.value(forKey: "Value") as! NSDictionary).value(forKey: "bookingHours") as? String
+                        {
+                            totalMoney = Int(price)! * Int(hours)! + totalMoney
+                            rentCount += 1
+                        }
+                    }
+                }
+            }
+            
+        }
+        //  z=(0.971x-0.30y)0.971-0.30
+        
+        var madeMoney = (Float(totalMoney) * 0.771 - 0.3 * Float(rentCount)) * 0.971 - 0.3
+        if madeMoney < 0
+        {
+            madeMoney = 0
+        }
+        return madeMoney
+//        lblMadeMoney.text = "You've made $\(String(format:"%0.2f", madeMoney)) this month"
+        
+    }
+
+    func getMonthFromDate(strDate: NSDate)-> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM-yyyy"
+        
+        return dateFormatter.string(from: strDate as Date)
+    }
     
     @IBAction func makePayment(sender: AnyObject)
     {
