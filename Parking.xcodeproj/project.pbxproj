@@ -72,6 +72,8 @@
 		E4CD26171F0E3F73003264B0 /* AddDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CD26161F0E3F73003264B0 /* AddDetailsViewController.swift */; };
 		E4CD263B1F0E60FA003264B0 /* TimeIntervalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CD26391F0E60FA003264B0 /* TimeIntervalTableViewCell.swift */; };
 		E4F0F2911F10BCCC008DF08A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4F0F2901F10BCCC008DF08A /* CoreLocation.framework */; };
+		F84762B61F926956006080DA /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84762B51F926956006080DA /* WebAPI.swift */; };
+		F87EB9221F967BDA00C8529A /* code.png in Resources */ = {isa = PBXBuildFile; fileRef = F87EB9211F967BDA00C8529A /* code.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +173,8 @@
 		E4CD26391F0E60FA003264B0 /* TimeIntervalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalTableViewCell.swift; sourceTree = "<group>"; };
 		E4F0F2901F10BCCC008DF08A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E4FF875D1F1BEBFC009090EF /* Parking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Parking.entitlements; sourceTree = "<group>"; };
+		F84762B51F926956006080DA /* WebAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebAPI.swift; path = WebAPI/WebAPI.swift; sourceTree = "<group>"; };
+		F87EB9211F967BDA00C8529A /* code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = code.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +232,7 @@
 		E45E6C0A1F03976700DCD3A5 /* Parking */ = {
 			isa = PBXGroup;
 			children = (
+				F84762B41F926915006080DA /* WebAPI */,
 				E4FF875D1F1BEBFC009090EF /* Parking.entitlements */,
 				E4CD26381F0E60D9003264B0 /* Table View Cell Classes */,
 				E41B415F1F04CE8B0032B629 /* GoogleService-Info.plist */,
@@ -390,6 +395,7 @@
 				E45E6C921F03D5E000DCD3A5 /* Checked.png */,
 				E45E6C931F03D5E000DCD3A5 /* Checked@2x.png */,
 				E45E6C941F03D5E000DCD3A5 /* Checked@3x.png */,
+				F87EB9211F967BDA00C8529A /* code.png */,
 				E45E6C951F03D5E000DCD3A5 /* uncheck.png */,
 				E45E6C961F03D5E000DCD3A5 /* uncheck@2x.png */,
 				E45E6C971F03D5E000DCD3A5 /* uncheck@3x.png */,
@@ -415,6 +421,14 @@
 				E43C91691F26D10100F0B5FB /* DetailTableViewCell.swift */,
 			);
 			path = "Table View Cell Classes";
+			sourceTree = "<group>";
+		};
+		F84762B41F926915006080DA /* WebAPI */ = {
+			isa = PBXGroup;
+			children = (
+				F84762B51F926956006080DA /* WebAPI.swift */,
+			);
+			name = WebAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,6 +472,9 @@
 							com.apple.ApplePay = {
 								enabled = 1;
 							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -492,6 +509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45E6C791F03B3AD00DCD3A5 /* city.png in Resources */,
+				F87EB9221F967BDA00C8529A /* code.png in Resources */,
 				E45E6C851F03B5A100DCD3A5 /* emailAddress.png in Resources */,
 				E45E6C991F03D5E000DCD3A5 /* Checked@2x.png in Resources */,
 				E45E6C9C1F03D5E000DCD3A5 /* uncheck@2x.png in Resources */,
@@ -525,13 +543,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Parking-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6BCC05160DDA8B5A86A64405 /* [CP] Copy Pods Resources */ = {
@@ -540,9 +561,13 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Parking/Pods-Parking-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -555,9 +580,24 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Parking/Pods-Parking-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JTCalendar/JTCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/SpaceView/SpaceView.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SpaceView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -591,6 +631,7 @@
 				E44E733E1F17476A00B1868D /* mapSpaceRentViewController.swift in Sources */,
 				E43C916A1F26D10100F0B5FB /* DetailTableViewCell.swift in Sources */,
 				E45E6C6D1F039C6600DCD3A5 /* UIView+WebCacheOperation.m in Sources */,
+				F84762B61F926956006080DA /* WebAPI.swift in Sources */,
 				E45E6C5E1F039C6600DCD3A5 /* MKAnnotationView+WebCache.m in Sources */,
 				E4CD263B1F0E60FA003264B0 /* TimeIntervalTableViewCell.swift in Sources */,
 				E45E6C6A1F039C6600DCD3A5 /* UIImage+WebP.m in Sources */,
@@ -737,15 +778,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Parking/Parking.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Kit  App (V6Z43EA4Z9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 3F8FMEVEBB;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					STRIPE_ENABLE_APPLEPAY,
+				);
 				INFOPLIST_FILE = Parking/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.driveway.driveway;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5e22a6a2-346e-429b-9766-616192ce7155";
-				PROVISIONING_PROFILE_SPECIFIER = DevDrivewayDri;
+				PROVISIONING_PROFILE = "3eef9bef-4aa0-485c-8ded-482088d07e84";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: com.driveway.driveway";
 				SWIFT_OBJC_BRIDGING_HEADER = Bridge.h;
 				SWIFT_VERSION = 3.0;
 			};
@@ -761,12 +807,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Kit  App (V6Z43EA4Z9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 3F8FMEVEBB;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					STRIPE_ENABLE_APPLEPAY,
+				);
 				INFOPLIST_FILE = Parking/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.driveway.driveway;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cf47245b-4a98-48ef-bdce-49404e2dcd47";
+				PROVISIONING_PROFILE = "26e629c5-49dd-47ac-bfb2-fedd8ba41bba";
 				PROVISIONING_PROFILE_SPECIFIER = DistDrivewayDri;
 				SWIFT_OBJC_BRIDGING_HEADER = Bridge.h;
 				SWIFT_VERSION = 3.0;

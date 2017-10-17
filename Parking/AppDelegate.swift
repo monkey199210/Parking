@@ -20,15 +20,16 @@ import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate, FIRMessagingDelegate {
-
+    
     var window: UIWindow?
     var elapsedTime=0
     var appFlag=2
     var mySeconds=0
     
     var myValue=0
-
-
+    
+    let merchandId = "merchant.com.driveway.driveway"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -38,9 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         
         GMSServices.provideAPIKey("AIzaSyCu3tVLj16hExy3XVs_iY8bHoInFD6nqoQ")
-      //  GMSPlacesClient.provideAPIKey("AIzaSyCu3tVLj16hExy3XVs_iY8bHoInFD6nqoQ")
+        //  GMSPlacesClient.provideAPIKey("AIzaSyCu3tVLj16hExy3XVs_iY8bHoInFD6nqoQ")
         STPPaymentConfiguration.shared().publishableKey = "pk_test_5eHzIEFjJ7Gek9lX4RgsbQ7x"
-        STPPaymentConfiguration.shared().appleMerchantIdentifier = "merchant.pineapple.computer"
+        STPPaymentConfiguration.shared().appleMerchantIdentifier = self.merchandId
         
         
         
@@ -48,27 +49,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         {
             if getLoginType().characters.count > 0
             {
-               if(getLoginType() == "RentSpace")
-               {
-               
-                
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpace") as! mapSpaceRentViewController
-                let navController = UINavigationController.init(rootViewController: objController)
-                self.window?.rootViewController = navController
-                
+                if(getLoginType() == "RentSpace")
+                {
+                    
+                    var validLogin = true
+                    if getPurchaseDate() == ""
+                    {
+                        validLogin = false
+                    }else{
+                        let strDate = getPurchaseDate()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        if  let purchasedDate = dateFormatter.date(from: strDate)
+                        {
+                            if Int(NSDate().timeIntervalSince1970 - purchasedDate.timeIntervalSince1970) < 60 * 60 * 24 * 30
+                            {
+                                validLogin = false
+                            }
+                        }
+                        
+                    }
+                    if validLogin
+                    {
+                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                        let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpace") as! mapSpaceRentViewController
+                        let navController = UINavigationController.init(rootViewController: objController)
+                        self.window?.rootViewController = navController
+                    }
+                    
                 }
                 else
-               {
-                
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-               // let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
-                
-                
-                let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
-                let navController = UINavigationController.init(rootViewController: objController)
-                self.window?.rootViewController = navController
-                
+                {
+                    
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                    // let objController = storyBoard.instantiateViewController(withIdentifier: "mapSpaceOut") as! mapSpaceOutRentViewController
+                    
+                    
+                    let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
+                    let navController = UINavigationController.init(rootViewController: objController)
+                    self.window?.rootViewController = navController
+                    
                 }
             }
         }
@@ -99,16 +119,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         FIRApp.configure()
         
         
-       
+        
         
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -116,30 +136,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         FIRMessaging.messaging().disconnect()
         print("Disconnected from FCM.")
         
-//        let date = Date()
-//        let calendar = Calendar.current
-//        let hour = calendar.component(.hour, from: date)
-//        let minutes = calendar.component(.minute, from: date)
-//        let seconds=calendar.component(.second, from: date)
-    
-//        elapsedTime=(hour*3600)+(minutes*60)+seconds
+        //        let date = Date()
+        //        let calendar = Calendar.current
+        //        let hour = calendar.component(.hour, from: date)
+        //        let minutes = calendar.component(.minute, from: date)
+        //        let seconds=calendar.component(.second, from: date)
+        
+        //        elapsedTime=(hour*3600)+(minutes*60)+seconds
         elapsedTime = Int(Date().timeIntervalSince1970)
-
+        
         appFlag=1
-
+        
         
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         
         
-//        let date = Date()
-//        let calendar = Calendar.current
-//        let hour = calendar.component(.hour, from: date)
-//        let minutes = calendar.component(.minute, from: date)
-//        let seconds=calendar.component(.second, from: date)
-//        elapsedTime=((hour*3600)+(minutes*60)+seconds)-elapsedTime
+        //        let date = Date()
+        //        let calendar = Calendar.current
+        //        let hour = calendar.component(.hour, from: date)
+        //        let minutes = calendar.component(.minute, from: date)
+        //        let seconds=calendar.component(.second, from: date)
+        //        elapsedTime=((hour*3600)+(minutes*60)+seconds)-elapsedTime
         
         
         elapsedTime=Int(Date().timeIntervalSince1970)-elapsedTime
@@ -150,23 +170,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
         
         print ("App is closing now")
     }
-
+    
     
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         
         
-       
+        
         
         
     }
@@ -205,7 +225,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         {
             return UserDefaults.standard.value(forKey: "BookingTime") as! Int!
         }
-
+        
     }
     
     
@@ -238,7 +258,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         defaults.setValue(strDate, forKey: "BookingFlag")
         defaults.synchronize()
     }
-
+    
     
     
     func setLoginType(strType:String)
@@ -258,6 +278,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         else
         {
             return UserDefaults.standard.value(forKey: "LoginType") as! String!
+        }
+    }
+    
+    func setPurchaseDate(strType:String)
+    {
+        let defaults=UserDefaults.standard
+        defaults.setValue(strType, forKey: "PuchaseDate")
+        defaults.synchronize()
+    }
+    
+    func getPurchaseDate() -> String
+    {
+        
+        if UserDefaults.standard.value(forKey: "PuchaseDate") == nil
+        {
+            return ""
+        }
+        else
+        {
+            return UserDefaults.standard.value(forKey: "PuchaseDate") as! String!
         }
     }
     
@@ -288,8 +328,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
     }
     
+    func removePurchaseDate()
+    {
+        if UserDefaults.standard.value(forKey: "PuchaseDate") != nil
+        {
+            UserDefaults.standard.removeObject(forKey: "PuchaseDate")
+        }
+    }
     
-
+    
+    
     func moveToLogin()
     {
         
@@ -297,9 +345,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let objController = storyBoard.instantiateViewController(withIdentifier: "login") as! LoginViewController
-         let navController = UINavigationController.init(rootViewController: objController)
+        let navController = UINavigationController.init(rootViewController: objController)
         window?.rootViewController = navController
         removeReportSubmitText()
+        removePurchaseDate()
         
     }
     
@@ -326,7 +375,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
          self.window?.rootViewController?.present(importAlert, animated: true, completion: nil)*/
         
     }
-
+    
     
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
@@ -343,7 +392,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         print("\(response.notification.request.content.userInfo.description)")
         
         
-       
+        
         
         
     }
@@ -489,7 +538,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     
     
     func API_SendNotfication(userID: String, message: String)
-    
+        
     {
         
         
@@ -501,7 +550,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             "body" : message,
             
             "sound" : "default",
-        ]
+            ]
         
         let parameters: Parameters = [
             
@@ -510,7 +559,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             "sound" : "chime.aiff",
             "notification": notification,
             
-        ]
+            ]
         
         let headers: HTTPHeaders = [
             "Authorization": "Key=AAAAYp70Zlk:APA91bGxi6kXuia_qnjDbkAks5nCS4ALGM61olPi9bflclF3OLaOlrK0BSgZ6xXneHuqR6y02UT59gKWi1ubgr5o472EiSzLunViok84yWMl961LUhbWETfcWoufAbA6fdgosKht6L4Q",
@@ -519,34 +568,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         
         
-       
+        
         
         Alamofire.request(strURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
             debugPrint(response)
             
             
             
-           /* if let JSON = response.result.value
-            {
-                print("JSON: \(JSON)")
-                
-                let jsonDict = JSON as? NSDictionary
-                if(jsonDict?["status"]! as! String == "ok")
-                {
-                    print("Success")
-                    self.appDelegate.setUserInfo(dictInfo: (jsonDict?["contact"]! as! NSDictionary?)!)
-                    self.appDelegate.setUserName(userName: self.txtUserName.text!)
-                    self.appDelegate.setPassword(password: self.txtPassword.text!)
-                    
-                    self.appDelegate.ShowMainController(index: 0)
-                }
-                else
-                {
-                    print("failure")
-                    self.Alert(Message: jsonDict?["msg"]! as! String, Title: "")
-                }
-                
-            }*/
+            /* if let JSON = response.result.value
+             {
+             print("JSON: \(JSON)")
+             
+             let jsonDict = JSON as? NSDictionary
+             if(jsonDict?["status"]! as! String == "ok")
+             {
+             print("Success")
+             self.appDelegate.setUserInfo(dictInfo: (jsonDict?["contact"]! as! NSDictionary?)!)
+             self.appDelegate.setUserName(userName: self.txtUserName.text!)
+             self.appDelegate.setPassword(password: self.txtPassword.text!)
+             
+             self.appDelegate.ShowMainController(index: 0)
+             }
+             else
+             {
+             print("failure")
+             self.Alert(Message: jsonDict?["msg"]! as! String, Title: "")
+             }
+             
+             }*/
             
         }
         
@@ -562,18 +611,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             
             let content = UNMutableNotificationContent()
             
-           // content.title = "MultiTimer"
+            // content.title = "MultiTimer"
             content.body = strMessage
-          //  content.userInfo = userData
+            //  content.userInfo = userData
             
             let interval = time
             
             content.sound = UNNotificationSound.default()
             
-        
-                
-                
-         
+            
+            
+            
+            
             
             
             
@@ -599,22 +648,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             
             let localNotification = UILocalNotification()
             
-           
-                localNotification.soundName = UILocalNotificationDefaultSoundName
-           
+            
+            localNotification.soundName = UILocalNotificationDefaultSoundName
+            
             
             
             localNotification.alertBody = strMessage
             localNotification.timeZone = NSTimeZone.system
             localNotification.fireDate = time
-          //  localNotification.alertTitle = "MultiTimer"
+            //  localNotification.alertTitle = "MultiTimer"
             //localNotification.userInfo = userData
             
             UIApplication.shared.scheduleLocalNotification(localNotification)
         }
     }
-
-
+    
+    
     
     
     
@@ -640,7 +689,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         defaults.setValue(pValue, forKey: "Price")
         defaults.synchronize()
     }
-
+    
     
     func getHour()->String
     {
@@ -662,7 +711,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         defaults.setValue(pHour, forKey: "Hour")
         defaults.synchronize()
     }
-
+    
     
     
     

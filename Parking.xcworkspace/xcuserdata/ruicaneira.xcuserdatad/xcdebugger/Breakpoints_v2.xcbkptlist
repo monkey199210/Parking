@@ -362,13 +362,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "526334195.473304"
+            timestampString = "529747738.472154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1029"
-            endingLineNumber = "1029"
-            landmarkName = "checkPaymentNetworksAvaliable(usingNetworks:)"
-            landmarkType = "7">
+            startingLineNumber = "1030"
+            endingLineNumber = "1030"
+            landmarkName = "supportedPaymentNetworks"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -534,38 +534,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "529585066.790717"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1065"
-            endingLineNumber = "1065"
-            landmarkName = "updateRentOutUserPayout()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "526330904.726734"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "868"
-            endingLineNumber = "868"
-            landmarkName = "BuyMoreTime(sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -586,11 +554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "526330904.726734"
+            timestampString = "529747738.472154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "513"
-            endingLineNumber = "513"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,13 +570,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "529585066.790717"
+            timestampString = "529959349.587822"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1439"
-            endingLineNumber = "1439"
-            landmarkName = "mapSpaceRentViewController"
-            landmarkType = "3">
+            startingLineNumber = "1442"
+            endingLineNumber = "1442"
+            landmarkName = "updateTimer()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -618,11 +586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "526330904.726734"
+            timestampString = "529747738.472154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
             <Locations>
@@ -682,11 +650,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "526330904.726734"
+            timestampString = "529747738.472154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "getMapDataFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -698,11 +666,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "526330904.726734"
+            timestampString = "529747738.472154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "getBookingListFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -736,22 +704,6 @@
             startingLineNumber = "527"
             endingLineNumber = "527"
             landmarkName = "SaveData(sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Parking/View Controller Classes/ApplepaySingupViewController.swift"
-            timestampString = "529515217.826223"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "makePayment(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -858,28 +810,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
-            timestampString = "527165319.957811"
+            timestampString = "529747738.472154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "963"
-            endingLineNumber = "963"
+            startingLineNumber = "964"
+            endingLineNumber = "964"
             landmarkName = "paymentAuthorizationViewController(_:didAuthorizePayment:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Parking/View Controller Classes/SignUpRentOutSpaceViewController.swift"
-            timestampString = "529376424.781972"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
-            landmarkName = "SubmitSignUpRentOutSpace(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -906,7 +842,7 @@
                   moduleName = "Parking"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ruicaneira/Documents/Development/GitHub/Parking/Parking/View%20Controller%20Classes/SignUpRentSpaceViewController.swift"
-                  timestampString = "529586544.865187"
+                  timestampString = "529959352.507133"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "209"
@@ -921,7 +857,7 @@
                   moduleName = "Parking"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ruicaneira/Documents/Development/GitHub/Parking/Parking/View%20Controller%20Classes/SignUpRentSpaceViewController.swift"
-                  timestampString = "529586544.869212"
+                  timestampString = "529959352.512583"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "209"
@@ -937,12 +873,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Parking/View Controller Classes/ApplepaySingupViewController.swift"
-            timestampString = "529467509.237298"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "529747738.472154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "975"
+            endingLineNumber = "975"
+            landmarkName = "paymentAuthorizationViewController(_:didAuthorizePayment:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/mapSpaceRentViewController.swift"
+            timestampString = "529959349.587822"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1081"
+            endingLineNumber = "1081"
+            landmarkName = "updateRentOutUserPayout()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/ApplepaySingupViewController.swift"
+            timestampString = "529959349.587822"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "paymentAuthorizationViewController(_:didAuthorizePayment:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -954,45 +922,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Parking/View Controller Classes/ApplepaySingupViewController.swift"
-            timestampString = "529467243.754501"
+            timestampString = "529747738.472154"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "paymentAuthorizationViewController(_:didAuthorizePayment:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Parking/View Controller Classes/ApplepaySingupViewController.swift"
+            timestampString = "529873667.301705"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "36"
             endingLineNumber = "36"
             landmarkName = "paymentAuthorizationViewController(_:didAuthorizePayment:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Parking.ApplepaySingupViewController.paymentAuthorizationViewController (__ObjC.PKPaymentAuthorizationViewController, didAuthorizePayment : __ObjC.PKPayment, completion : (__C.PKPaymentAuthorizationStatus) -&gt; ()) -&gt; ()"
-                  moduleName = "Parking"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ruicaneira/Documents/Development/GitHub/Parking/Parking/View%20Controller%20Classes/ApplepaySingupViewController.swift"
-                  timestampString = "529586544.923146"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "73">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Parking.ApplepaySingupViewController.(paymentAuthorizationViewController (__ObjC.PKPaymentAuthorizationViewController, didAuthorizePayment : __ObjC.PKPayment, completion : (__C.PKPaymentAuthorizationStatus) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "Parking"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ruicaneira/Documents/Development/GitHub/Parking/Parking/View%20Controller%20Classes/ApplepaySingupViewController.swift"
-                  timestampString = "529586544.930354"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
-                  offsetFromSymbolStart = "43">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

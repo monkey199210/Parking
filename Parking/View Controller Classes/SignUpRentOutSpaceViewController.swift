@@ -27,6 +27,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
     @IBOutlet var txtZipCode:UITextField!
     @IBOutlet var txtPassword:UITextField!
     @IBOutlet var txtVerifyPassword:UITextField!
+    @IBOutlet weak var txtSignupCode: UITextField!
     
     var arrUserList:NSMutableArray!
     
@@ -234,7 +235,12 @@ class SignUpRentOutSpaceViewController: UIViewController {
         }
         
         
-        
+        let signupCode=txtSignupCode.text;
+        if(signupCode?.trimmingCharacters(in: .whitespaces).isEmpty)!
+        {
+            Utility.alert("Please enter Signup code", andTitle: appConstants.AppName, andController: self)
+            return;
+        }
         
         let password=txtPassword.text;
         if(password?.trimmingCharacters(in: .whitespaces).isEmpty)!
@@ -277,51 +283,51 @@ class SignUpRentOutSpaceViewController: UIViewController {
         
         var isTrue = true
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        let parentRef = FIRDatabase.database().reference().child("Users")
-        parentRef.observe(.value, with: { snapshot in
-            
-            // NSLog("chil %@", snapshot.value! as! NSDictionary)
-            
-            self.arrUserList.removeAllObjects()
-            
-            /* if snapshot.value != nil
-             {
-             if !(snapshot.value  is NSNull)
-             {
-             self.arrBookingList = (snapshot.value as! NSArray).mutableCopy() as! NSMutableArray
-             }
-             }*/
-            
-            
-            parentRef.removeAllObservers()
-            
-            
-            
-            
-            
-            for child in snapshot.children {
-                self.arrUserList.add((child as! FIRDataSnapshot).value ?? "")
-            }
-            
-            
-            
-            print(self.arrUserList)
-            
-            for tempDict in self.arrUserList
-            {
-                if ((tempDict as! NSDictionary).value(forKey: "Street") as? String == street)
-                    && ((tempDict as! NSDictionary).value(forKey: "City") as? String == city)
-                    && ((tempDict as! NSDictionary).value(forKey: "State") as? String == state)
-                    && ((tempDict as! NSDictionary).value(forKey: "Country") as? String == country)
-                {
-                    //Utility.alert("This Address Already Exists", andTitle: "", andController: self)
-                    isTrue = false
-                    break
-                }
-                
-                
-                
-            }
+//        let parentRef = FIRDatabase.database().reference().child("Users")
+//        parentRef.observe(.value, with: { snapshot in
+//            
+//            // NSLog("chil %@", snapshot.value! as! NSDictionary)
+//            
+//            self.arrUserList.removeAllObjects()
+//            
+//            /* if snapshot.value != nil
+//             {
+//             if !(snapshot.value  is NSNull)
+//             {
+//             self.arrBookingList = (snapshot.value as! NSArray).mutableCopy() as! NSMutableArray
+//             }
+//             }*/
+//            
+//            
+//            parentRef.removeAllObservers()
+//            
+//            
+//            
+//            
+//            
+//            for child in snapshot.children {
+//                self.arrUserList.add((child as! FIRDataSnapshot).value ?? "")
+//            }
+//            
+//            
+//            
+//            print(self.arrUserList)
+//            
+//            for tempDict in self.arrUserList
+//            {
+//                if ((tempDict as! NSDictionary).value(forKey: "Street") as? String == street)
+//                    && ((tempDict as! NSDictionary).value(forKey: "City") as? String == city)
+//                    && ((tempDict as! NSDictionary).value(forKey: "State") as? String == state)
+//                    && ((tempDict as! NSDictionary).value(forKey: "Country") as? String == country)
+//                {
+//                    //Utility.alert("This Address Already Exists", andTitle: "", andController: self)
+//                    isTrue = false
+//                    break
+//                }
+//                
+//                
+//                
+//            }
             if isTrue
             {
                 
@@ -334,7 +340,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
                     guard let user = user, error == nil else {
                         
                         Utility.alert(error?.localizedDescription, andTitle: "", andController: self)
-                        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                        MBProgressHUD.hide(for: self.view, animated: true)
                         return
                     }
                     
@@ -345,16 +351,16 @@ class SignUpRentOutSpaceViewController: UIViewController {
             }
             else
             {
-                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
-                Utility.alert("This Address Already Exists", andTitle: "", andController: self)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+//                Utility.alert("This Address Already Exists", andTitle: "", andController: self)
             }
             
             
             
-            
-            
-        })
-        
+//            
+//            
+//        })
+//        
         
     }
     
@@ -380,7 +386,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
             if let error = error {
                 // self.showMessagePrompt(error.localizedDescription)
                 Utility.alert(error.localizedDescription, andTitle: "", andController: self)
-                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
                 return
             }
             
@@ -402,7 +408,7 @@ class SignUpRentOutSpaceViewController: UIViewController {
             
             
             // [START basic_write]
-            let post : [String: AnyObject] = ["Name" : self.txtName.text as AnyObject, "EmailAddress" : self.txtEmail.text as AnyObject, "Phone" : self.txtPhone.text as AnyObject , "Street" : self.txtStreet.text as AnyObject, "City" : self.txtCity.text as AnyObject, "State" : self.txtState.text as AnyObject, "Country" : self.txtCountry.text as AnyObject, "ZipCode" : self.txtZipCode.text as AnyObject, "Password" : self.txtPassword.text as AnyObject, "UserType" : "RentOutSpace" as AnyObject, "availCount" : "0" as AnyObject, "lat" : cordinates.latitude as AnyObject, "long" : cordinates.longitude as AnyObject , "ApplePay" : "No" as AnyObject, "Enable" : "Yes" as AnyObject]
+            let post : [String: AnyObject] = ["Name" : self.txtName.text as AnyObject, "EmailAddress" : self.txtEmail.text as AnyObject, "Phone" : self.txtPhone.text as AnyObject , "Street" : self.txtStreet.text as AnyObject, "City" : self.txtCity.text as AnyObject, "State" : self.txtState.text as AnyObject, "Country" : self.txtCountry.text as AnyObject, "ZipCode" : self.txtZipCode.text as AnyObject, "SignupCode" : self.txtSignupCode.text as AnyObject, "Password" : self.txtPassword.text as AnyObject, "UserType" : "RentOutSpace" as AnyObject, "availCount" : "0" as AnyObject, "lat" : cordinates.latitude as AnyObject, "long" : cordinates.longitude as AnyObject , "ApplePay" : "No" as AnyObject, "Enable" : "Yes" as AnyObject]
             
             var databaseRef = FIRDatabase.database().reference()
             
@@ -441,9 +447,10 @@ class SignUpRentOutSpaceViewController: UIViewController {
             self.txtCity.text = ""
             self.txtCountry.text = ""
             self.txtZipCode.text = ""
+            self.txtSignupCode.text = ""
             // [END basic_write]
             
-            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
             
             //Utility.alert("Succesfully Register", andTitle: appConstants.AppName, andController: self)
             

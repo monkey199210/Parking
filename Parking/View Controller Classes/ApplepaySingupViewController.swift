@@ -16,11 +16,12 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
     
         let Delegate = UIApplication.shared.delegate as! AppDelegate
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-    let ApplePaySwagMerchantID = "merchant.pineapple.computer"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
+    var ApplePaySwagMerchantID = ""//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        ApplePaySwagMerchantID = Delegate.merchandId
         // Do any additional setup after loading the view.
     }
 
@@ -32,7 +33,7 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
 
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping ((PKPaymentAuthorizationStatus) -> Void)) {
         completion(PKPaymentAuthorizationStatus.success)
-        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         STPAPIClient.shared().createToken(with: payment) { (token: STPToken?, error: Error?) in
             
             
@@ -41,6 +42,7 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
                 // Present error to user...
                 print(token?.tokenId ?? "")
                 // Notify payment authorization view controller
+                MBProgressHUD.hide(for: self.view, animated: true)
                 completion(.failure)
             }
             else {
@@ -49,28 +51,39 @@ class ApplepaySingupViewController: UIViewController, PKPaymentAuthorizationView
                 
                 // Notify payment authorization view controller
                 completion(.success)
-                let userID = FIRAuth.auth()?.currentUser?.uid
-                let databaseRef = FIRDatabase.database().reference()
+                WebAPI.SendToken((token?.tokenId)!, amount: "4.99", description: "pay for month", { (result:Any) in
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    let userID = FIRAuth.auth()?.currentUser?.uid
+                    let databaseRef = FIRDatabase.database().reference()
+                    
+                    databaseRef.child("Users").child(userID!).child("ApplePay").setValue("Yes")
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    
+                    let strDate =  dateFormatter.string(from: NSDate() as Date)
+                    databaseRef.child("Users").child(userID!).child("PurchasedDate").setValue(strDate)
+                    self.Delegate.setUID(strUID: userID!)
+                    self.Delegate.setLoginType(strType: "RentOutSpace")
+                    self.Delegate.setPurchaseDate(strType: strDate)
+                    
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                    
+                    let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
+                    
+                    //        objController.strFromSignupLogin = "Yes"
+                    
+                    
+                    
+                    self.navigationController?.pushViewController(objController, animated: true)
+                    
+                }) { (error:Error) in
+                    
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    Utility.alert(error.localizedDescription, andTitle: "Driveway", andController: self)
+                }
+
                 
-                databaseRef.child("Users").child(userID!).child("ApplePay").setValue("Yes")
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                
-                let strDate =  dateFormatter.string(from: NSDate() as Date)
-                databaseRef.child("Users").child(userID!).child("PurchasedDate").setValue(strDate)
-                self.Delegate.setUID(strUID: userID!)
-                self.Delegate.setLoginType(strType: "RentOutSpace")
-                
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                
-                let objController = storyBoard.instantiateViewController(withIdentifier: "detailsView") as! DetailsViewController
-                
-                //        objController.strFromSignupLogin = "Yes"
-                
-                
-                
-                self.navigationController?.pushViewController(objController, animated: true)
 
             }
             //            })

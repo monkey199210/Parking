@@ -1716,7 +1716,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ExL-8e-OiZ">
-                                        <rect key="frame" x="0.0" y="20" width="375" height="504"/>
+                                        <rect key="frame" x="0.0" y="20" width="375" height="553"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qe3-ps-d6i">
@@ -1858,35 +1858,51 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.89365547899999997" green="0.8943349719" blue="0.89376074080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </imageView>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Signup Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fcz-aa-dSA">
+                                                <rect key="frame" x="42" y="413" width="316" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0OE-fT-sLq">
+                                                <rect key="frame" x="0.0" y="452" width="375" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.89365547899999997" green="0.8943349719" blue="0.89376074080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="code.png" translatesAutoresizingMaskIntoConstraints="NO" id="AGS-cN-DAB">
+                                                <rect key="frame" x="9" y="416" width="25" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Lock_Gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="xm0-Su-5gf">
-                                                <rect key="frame" x="11" y="415" width="25" height="25"/>
+                                                <rect key="frame" x="11" y="466" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wHf-Ml-IDf">
-                                                <rect key="frame" x="44" y="413" width="316" height="30"/>
+                                                <rect key="frame" x="44" y="463" width="316" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KZE-cU-jOq">
-                                                <rect key="frame" x="1" y="451" width="375" height="1"/>
+                                                <rect key="frame" x="1" y="502" width="375" height="1"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.89365547899999997" green="0.8943349719" blue="0.89376074080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Lock_Gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="Br5-x6-dmf">
-                                                <rect key="frame" x="11" y="466" width="25" height="25"/>
+                                                <rect key="frame" x="11" y="517" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Verify Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-SO-V40">
-                                                <rect key="frame" x="44" y="464" width="316" height="30"/>
+                                                <rect key="frame" x="44" y="514" width="316" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jql-d1-hcU">
-                                                <rect key="frame" x="1" y="502" width="375" height="1"/>
+                                                <rect key="frame" x="1" y="553" width="375" height="1"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.89365547899999997" green="0.8943349719" blue="0.89376074080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </imageView>
@@ -1894,7 +1910,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w12-fg-Z9I">
-                                        <rect key="frame" x="13" y="530" width="103" height="25"/>
+                                        <rect key="frame" x="13" y="581" width="103" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-14" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1907,7 +1923,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oC9-e6-pTy">
-                                        <rect key="frame" x="103" y="530" width="155" height="25"/>
+                                        <rect key="frame" x="103" y="581" width="155" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Terms and Conditions"/>
                                         <connections>
@@ -1915,14 +1931,14 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your name and phone number will be shared with the person renting your space." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdA-1z-wno">
-                                        <rect key="frame" x="20" y="570" width="335" height="59"/>
+                                        <rect key="frame" x="20" y="621" width="335" height="59"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4T-aH-tBj">
-                                        <rect key="frame" x="20" y="637" width="335" height="50"/>
+                                        <rect key="frame" x="20" y="688" width="335" height="50"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.91763430830000003" green="0.32267010210000002" blue="0.14727324250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -1956,6 +1972,7 @@
                         <outlet property="txtName" destination="WPE-xL-evH" id="by7-5C-Y42"/>
                         <outlet property="txtPassword" destination="wHf-Ml-IDf" id="wXz-m7-5Jo"/>
                         <outlet property="txtPhone" destination="Zyp-iw-kBs" id="SHx-Jp-wVb"/>
+                        <outlet property="txtSignupCode" destination="fcz-aa-dSA" id="pNG-UA-deo"/>
                         <outlet property="txtState" destination="AjY-aa-6ol" id="6w6-Wb-ohA"/>
                         <outlet property="txtStreet" destination="lek-pf-Yce" id="cff-kY-6nR"/>
                         <outlet property="txtVerifyPassword" destination="Ohk-SO-V40" id="qrj-Cb-ulQ"/>
@@ -2000,6 +2017,7 @@
         <image name="Lock_Gray.png" width="64" height="64"/>
         <image name="State.png" width="100" height="100"/>
         <image name="city.png" width="100" height="100"/>
+        <image name="code.png" width="100" height="100"/>
         <image name="country.png" width="100" height="100"/>
         <image name="logout.png" width="50" height="50"/>
         <image name="mail_Gray.png" width="64" height="51"/>

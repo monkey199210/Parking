@@ -209,7 +209,7 @@ class SignUpRentSpaceViewController: UIViewController {
                 guard let user = user, error == nil else {
                     
                     Utility.alert(error?.localizedDescription, andTitle: "", andController: self)
-                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                    MBProgressHUD.hide(for: self.view, animated: true)
                     return
                 }
                 
@@ -244,7 +244,7 @@ class SignUpRentSpaceViewController: UIViewController {
             if let error = error {
                 // self.showMessagePrompt(error.localizedDescription)
                 Utility.alert(error.localizedDescription, andTitle: "", andController: self)
-                MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
                 return
             }
             
@@ -290,7 +290,7 @@ class SignUpRentSpaceViewController: UIViewController {
             self.txtLicenseNumber.text = ""
             // [END basic_write]
             
-            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
             
             //Utility.alert("Succesfully Register", andTitle: appConstants.AppName, andController: self)
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)

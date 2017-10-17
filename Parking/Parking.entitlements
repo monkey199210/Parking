@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
-		<string>merchant.pineapple.computer</string>
+		<string>merchant.com.driveway.driveway</string>
 	</array>
 	<key>com.apple.developer.pass-type-identifiers</key>
 	<array>

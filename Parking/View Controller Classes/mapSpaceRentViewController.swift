@@ -19,7 +19,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     let SupportedPaymentNetworks = [PKPaymentNetwork.visa, PKPaymentNetwork.masterCard, PKPaymentNetwork.amex]
-    let ApplePaySwagMerchantID = "merchant.pineapple.computer"//"<TODO - Your merchant ID>" // This should be <your> merchant ID
+    var ApplePaySwagMerchantID = ""//"<TODO - Your merchant ID>" // This should be <your> merchant ID
     
     
     var arrBookingList:NSMutableArray!
@@ -76,6 +76,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     override func viewDidLoad()
     {
+        ApplePaySwagMerchantID = Delegate.merchandId
         
         arrData=NSMutableArray()
         arrBookingList=NSMutableArray()
@@ -956,6 +957,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
     
     
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping ((PKPaymentAuthorizationStatus) -> Void)) {
+        
         STPAPIClient.shared().createToken(with: payment) { (token: STPToken?, error: Error?) in
            
             
@@ -973,7 +975,17 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                     // Notify payment authorization view controller
                     self.updateRentOutUserPayout()
                     completion(.success)
-                    self.gotoMine()
+                    WebAPI.SendToken((token?.tokenId)!, amount: String(self.amount), description: "rent space", { (result:Any) in
+//                        MBProgressHUD.hide(for: self.view, animated: true)
+                        self.gotoMine()
+                        
+                    }) { (error:Error) in
+                        
+//                        MBProgressHUD.hide(for: self.view, animated: true)
+                        Utility.alert(error.localizedDescription, andTitle: "Driveway", andController: self)
+                    }
+
+                    
                 }
 //            })
         }
@@ -1054,6 +1066,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                 
                 let name = value?["Name"] as? String ?? ""
                 let email = value?["EmailAddress"] as? String ?? ""
+                let signupCode = value?["SignupCode"] as? String ?? ""
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM"
@@ -1080,7 +1093,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                         if ((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "EmailAddress") as? String == email
                         {
                             findChild = true
-                            let payoutUID = (((child as! FIRDataSnapshot).value as! NSDictionary).value(forKey: "UID") as? String)!
+                            let payoutUID = (child as! FIRDataSnapshot).key
                             let databaseRef = FIRDatabase.database().reference()
                             let money = self.getMadeMoneyByMonth(date: NSDate())
                             databaseRef.child("Payout").child(payoutUID).child(strDate).setValue("\(String(money))$")
@@ -1092,7 +1105,7 @@ class mapSpaceRentViewController: UIViewController, CLLocationManagerDelegate, G
                        var payDict:NSMutableDictionary = [:]
                         let money = self.getMadeMoneyByMonth(date: NSDate())
                         
-                        payDict = ["Name":name, "EmailAddress": email, strDate: money]
+                        payDict = ["Name":name, "EmailAddress": email, "SignupCode": signupCode, strDate: money]
                         let databaseRef = FIRDatabase.database().reference()
                         let  locationRef = databaseRef.child("Payout").childByAutoId()
                         locationRef.setValue(payDict)

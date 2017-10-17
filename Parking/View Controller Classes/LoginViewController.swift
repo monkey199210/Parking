@@ -312,7 +312,10 @@ class LoginViewController: UIViewController {
                                 
                                 self.Delegate.setLoginType(strType: "RentOutSpace")
                                 
-                                
+                                if let dateStr = value?["PurchasedDate"] as? String
+                                {
+                                    self.Delegate.setPurchaseDate(strType: dateStr)
+                                }
                                 //                           if  value?["availCount"] as? String == "0"
                                 //                           {
                                 //                            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
